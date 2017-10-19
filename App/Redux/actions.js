@@ -1,0 +1,1 @@
+export const SETTINGS_PAGE = 'SETTINGS_PAGE';
