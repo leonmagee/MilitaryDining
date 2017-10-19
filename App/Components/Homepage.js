@@ -90,8 +90,7 @@ class Homepage extends Component {
 
     if (this.props.currentPage === 'settings') {
       var currentActivePage = (<Settings/>)
-    }
-    else if(this.props.currentPage === 'mess_halls') {
+    } else if (this.props.currentPage === 'mess_halls') {
       var currentActivePage = (<MessHalls/>)
     } else {
       var currentActivePage = (
@@ -135,6 +134,6 @@ mapActionsToProps = (dispatch) => ({
   }
 })
 
-module.exports = Homepage
+//module.exports = Homepage
 
 module.exports = connect(mapStateToProps, mapActionsToProps)(Homepage)

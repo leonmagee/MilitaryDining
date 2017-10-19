@@ -1,11 +1,8 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
-import {View, Text, TouchableHighlight, StyleSheet} from 'react-native'
+import {View, Text, StyleSheet} from 'react-native'
 
-import MenuInfo from '../Data/Data.js'
-
-console.log(MenuInfo);
 
 const styles = StyleSheet.create({
   mainWrap: {
@@ -30,7 +27,7 @@ const styles = StyleSheet.create({
   }
 })
 
-class MessHalls extends Component {
+class MenuPage extends Component {
 
   render() {
 
@@ -56,22 +53,7 @@ class MessHalls extends Component {
 }
 
 
-mapStateToProps = (state) => ({currentPage: state.currentPage})
-
-mapActionsToProps = (dispatch) => ({
-  goToSettingsPage() {
-    dispatch({type: 'SETTINGS_PAGE'})
-  },
-  goToMessHallsPage() {
-    dispatch({type: 'MESS_HALLS_PAGE'})
-  },
-  goToMenuPage(data) {
-    dispatch({type: 'MESS_HALL_MENU', payload: data})
-  }
-})
+mapStateToProps = (state) => ({currentMenu: state.currentMenu})
 
 
-module.exports = connect(mapStateToProps, mapActionsToProps)(MessHalls)
-
-
-//module.exports = MessHalls
+module.exports = connect(mapStateToProps)(MenuPage)
