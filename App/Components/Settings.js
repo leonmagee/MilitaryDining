@@ -1,10 +1,6 @@
 import React, {Component} from 'react'
 
-import {
-  View,
-  Text,
-  StyleSheet
-} from 'react-native'
+import {View, Text, StyleSheet} from 'react-native'
 
 const styles = StyleSheet.create({
   mainWrap: {
@@ -15,7 +11,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   settingsText: {
-    fontSize: 22,
+    fontSize: 22
   }
 })
 
@@ -27,7 +23,7 @@ class Settings extends Component {
 
   render() {
 
-    return(
+    return (
       <View style={styles.mainWrap}>
         <Text style={styles.settingsText}>Settings Page</Text>
       </View>
