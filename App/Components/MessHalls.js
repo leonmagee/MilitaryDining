@@ -34,9 +34,9 @@ class MessHalls extends Component {
 
   render() {
 
-    const MessHallMenus = MenuInfo.map((data) => {
+    const MessHallMenus = MenuInfo.map((data, key) => {
       return (
-        <View key={data.id}>
+        <View key={key}>
           <TouchableHighlight onPress={() => this.props.goToMenuPage(data)} underlayColor="transparent">
             <Text style={styles.messHallTitle}>{data.name}</Text>
           </TouchableHighlight>
@@ -67,6 +67,7 @@ mapActionsToProps = (dispatch) => ({
   },
   goToMenuPage(data) {
     dispatch({type: 'MESS_HALL_MENU', payload: data})
+    console.log('datazzz', data)
   }
 })
 

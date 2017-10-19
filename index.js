@@ -10,7 +10,7 @@ export default class MilitaryDining extends Component {
   render() {
     return (
       <Provider store={store}>
-          <MessHalls />
+          <Homepage />
       </Provider>
     )
   }

@@ -5,6 +5,7 @@ import SampleData from '../Data/Data'
 import LinkButton from './LinkButton'
 import Settings from './Settings'
 import MessHalls from './MessHalls'
+import MenuPage from './MenuPage'
 import LinearGradient from 'react-native-linear-gradient'
 import variables from '../Styles/Variables'
 
@@ -92,6 +93,8 @@ class Homepage extends Component {
       var currentActivePage = (<Settings/>)
     } else if (this.props.currentPage === 'mess_halls') {
       var currentActivePage = (<MessHalls/>)
+    } else if (this.props.currentPage === 'menu_page') {
+      var currentActivePage = (<MenuPage/>)
     } else {
       var currentActivePage = (
         <View style={styles.homeWrapOuter}>

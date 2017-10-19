@@ -1,7 +1,6 @@
 const SampleData = [
   {
     name: 'McMillan Mess Hall',
-    id: 1,
     menus: {
       monday: {
         breakfast: 'eggs',
@@ -17,7 +16,6 @@ const SampleData = [
   },
   {
     name: 'Stevens Mess Hall',
-    id: 2,
     menus: {
       monday: {
         breakfast: 'toast',

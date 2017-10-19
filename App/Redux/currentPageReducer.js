@@ -1,6 +1,6 @@
-import React from 'react';
+import React from 'react'
 
-import {SETTINGS_PAGE, MESS_HALLS_PAGE} from './actions';
+import {SETTINGS_PAGE, MESS_HALLS_PAGE, MESS_HALL_MENU} from './actions'
 
 /**
  * currentPageReducer
@@ -13,6 +13,9 @@ export const currentPageReducer = (state = 'home', action) => {
       break;
     case MESS_HALLS_PAGE:
       return 'mess_halls';
+      break;
+    case MESS_HALL_MENU:
+      return 'menu_page';
       break;
     default:
       return 'home';

@@ -1,2 +1,3 @@
 export const SETTINGS_PAGE = 'SETTINGS_PAGE'
 export const MESS_HALLS_PAGE = 'MESS_HALLS_PAGE'
+export const MESS_HALL_MENU = 'MESS_HALL_MENU'
