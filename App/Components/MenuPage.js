@@ -9,20 +9,54 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    flex: 1
-  },
-  mainText: {
-    fontSize: 22,
-    color: '#555',
-    fontWeight: 'bold'
+    flex: 1,
   },
   messHallWrap: {
-    marginTop: 20
+    marginTop: 20,
+    flex: 1,
+    alignSelf: 'stretch',
   },
-  messHallTitle: {
-    fontSize: 18,
+  messHallNameWrap: {
+    paddingTop: 40,
+    paddingBottom: 5,
+  },
+  messHallName: {
+    fontSize: 22,
+    color: '#111',
+    fontFamily: 'Black Ops One',
+  },
+  dayWrap: {
+    backgroundColor: '#111',
+    paddingVertical: 10,
+    alignItems: 'center',
+  },
+  dayText: {
+    fontFamily: 'Black Ops One',
+    fontSize: 17,
+    color: '#FFF',
+  },
+  mealNameWrap: {
+    paddingVertical: 7,
+    paddingHorizontal: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: '#DDD',
+  },
+  mealNameText: {
+    fontFamily: 'Black Ops One',
+    fontSize: 20,
+    color: '#333',
+  },
+  menuFoodItemWrap: {
+    //backgroundColor: '#FFF',
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: '#DDD',
+  },
+  menuFoodItem: {
+    color: '#666',
     fontWeight: 'bold',
-    color: '#FFF'
+    fontSize: 12,
   }
 })
 
@@ -45,38 +79,56 @@ class MenuPage extends Component {
 
       let breakfast = menu.breakfast.map((item, key) => {
         return (
-          <Text key={key}>{item}</Text>
+          <View style={styles.menuFoodItemWrap} key={key}>
+            <Text style={styles.menuFoodItem}>{item}</Text>
+          </View>
         )
       })
 
       let lunch = menu.lunch.map((item, key) => {
         return (
-          <Text key={key}>{item}</Text>
+          <View style={styles.menuFoodItemWrap} key={key}>
+            <Text style={styles.menuFoodItem}>{item}</Text>
+          </View>
         )
       })
 
       let dinner = menu.dinner.map((item, key) => {
         return (
-          <Text key={key}>{item}</Text>
+          <View style={styles.menuFoodItemWrap} key={key}>
+            <Text style={styles.menuFoodItem}>{item}</Text>
+          </View>
         )
       })
 
       let pastry_bar = menu.pastry_bar.map((item, key) => {
         return (
-          <Text key={key}>{item}</Text>
+          <View style={styles.menuFoodItemWrap} key={key}>
+            <Text style={styles.menuFoodItem}>{item}</Text>
+          </View>
         )
       })
 
       return (
         <View key={key}>
-          <Text>Day {menu.day}</Text>
-          <Text>Breakfast</Text>
+          <View style={styles.dayWrap}>
+            <Text style={styles.dayText}>Day {menu.day}</Text>
+          </View>
+          <View style={styles.mealNameWrap}>
+            <Text style={styles.mealNameText}>Breakfast</Text>
+          </View>
           {breakfast}
-          <Text>Lunch</Text>
+          <View style={styles.mealNameWrap}>
+            <Text style={styles.mealNameText}>Lunch</Text>
+          </View>
           {lunch}
-          <Text>Dinner</Text>
+          <View style={styles.mealNameWrap}>
+            <Text style={styles.mealNameText}>Dinner</Text>
+          </View>
           {dinner}
-          <Text>Pastry Bar</Text>
+          <View style={styles.mealNameWrap}>
+            <Text style={styles.mealNameText}>Pastry Bar</Text>
+          </View>
           {pastry_bar}
         </View>
       )
@@ -85,7 +137,9 @@ class MenuPage extends Component {
     return (
       <ScrollView>
         <View style={styles.mainWrap}>
-          <Text style={styles.mainText}>{menuz.name}</Text>
+          <View style={styles.messHallNameWrap}>
+            <Text style={styles.messHallName}>{menuz.name}</Text>
+          </View>
           <View style={styles.messHallWrap}>
             {menu_days}
           </View>
