@@ -32,8 +32,6 @@ class MenuBar extends Component {
 
   render() {
 
-    console.log('propzzz', this.props.menuLinks)
-
     if (this.props.menuLinks.settings) {
       var settingsLink = <LinkButton buttonText="Settings" handleClick={() => this.props.goToSettingsPage()}/>
     } else {
