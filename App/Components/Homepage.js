@@ -2,10 +2,11 @@ import React, {Component} from 'react'
 import {vw, vh} from '../Utils/helper'
 import {connect} from 'react-redux'
 import SampleData from '../Data/Data'
-import LinkButton from './LinkButton'
+//import LinkButton from './LinkButton'
 import Settings from './Settings'
 import MessHalls from './MessHalls'
 import MenuPage from './MenuPage'
+import MenuBar from './MenuBar'
 import LinearGradient from 'react-native-linear-gradient'
 import variables from '../Styles/Variables'
 
@@ -44,11 +45,11 @@ const styles = StyleSheet.create({
     fontSize: 18 * vw,
     shadowColor: '#000',
     shadowOpacity: 0.5,
+    fontFamily: 'Black Ops One',
     shadowOffset: {
       width: 1,
       height: 1
-    },
-    fontFamily: 'Black Ops One'
+    }
   },
   menuText: {
     fontSize: 27,
@@ -56,29 +57,24 @@ const styles = StyleSheet.create({
     color: '#FFF',
     backgroundColor: 'transparent'
   },
-  menuBar: {
-    position: 'absolute',
-    height: 50,
-    paddingTop: 10,
-    paddingBottom: 5,
-    backgroundColor: 'rgba(0,0,0,0.6)',
-    //backgroundColor: 'red',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    flexDirection: 'row',
-    bottom: 0,
-    width: width
-  }
+  // menuBar: {
+  //   position: 'absolute',
+  //   height: 50,
+  //   paddingTop: 10,
+  //   paddingBottom: 5,
+  //   backgroundColor: 'rgba(0,0,0,0.6)',
+  //   justifyContent: 'space-around',
+  //   alignItems: 'center',
+  //   flexDirection: 'row',
+  //   bottom: 0,
+  //   width: width
+  // }
 });
 
 class Homepage extends Component {
 
   constructor(props) {
     super(props);
-
-    // this.state = {
-    //     started: false,
-    // }
   }
 
   // componentWillMount() {
@@ -109,10 +105,12 @@ class Homepage extends Component {
               <Text style={styles.homeText}>MILITARY</Text>
               <Text style={styles.homeText}>DINING</Text>
             </View>
-            <View style={styles.menuBar}>
-              <LinkButton buttonText="Settings" handleClick={() => this.props.goToSettingsPage()}/>
-              <LinkButton buttonText="Mess Halls" handleClick={() => this.props.goToMessHallsPage()}/>
-            </View>
+            <MenuBar menuLinks={{
+              home: false,
+              settings: true,
+              mess_halls: true,
+            }}
+            backgroundStyle='rgba(0,0,0,0.6)'/>
           </View>
         </View>
       )
@@ -128,15 +126,16 @@ class Homepage extends Component {
 
 mapStateToProps = (state) => ({currentPage: state.currentPage})
 
-mapActionsToProps = (dispatch) => ({
-  goToSettingsPage() {
-    dispatch({type: 'SETTINGS_PAGE'})
-  },
-  goToMessHallsPage() {
-    dispatch({type: 'MESS_HALLS_PAGE'})
-  }
-})
+// mapActionsToProps = (dispatch) => ({
+//   goToSettingsPage() {
+//     dispatch({type: 'SETTINGS_PAGE'})
+//   },
+//   goToMessHallsPage() {
+//     dispatch({type: 'MESS_HALLS_PAGE'})
+//   }
+// })
 
 //module.exports = Homepage
 
-module.exports = connect(mapStateToProps, mapActionsToProps)(Homepage)
+//module.exports = connect(mapStateToProps, mapActionsToProps)(Homepage)
+module.exports = connect(mapStateToProps)(Homepage)

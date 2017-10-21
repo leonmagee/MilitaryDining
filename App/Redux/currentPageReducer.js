@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {SETTINGS_PAGE, MESS_HALLS_PAGE, MESS_HALL_MENU} from './actions'
+import {HOME_PAGE, SETTINGS_PAGE, MESS_HALLS_PAGE, MESS_HALL_MENU} from './actions'
 
 /**
  * currentPageReducer
@@ -8,6 +8,9 @@ import {SETTINGS_PAGE, MESS_HALLS_PAGE, MESS_HALL_MENU} from './actions'
  */
 export const currentPageReducer = (state = 'home', action) => {
   switch (action.type) {
+    case HOME_PAGE:
+      return 'home';
+      break;
     case SETTINGS_PAGE:
       return 'settings';
       break;

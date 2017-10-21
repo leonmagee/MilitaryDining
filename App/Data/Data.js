@@ -1,6 +1,7 @@
 const SampleData = [
   {
     name: 'H 3120 Male Recruit',
+    address: '790 Camino de la Reina San Diego CA 92108',
     menus: [
       {
         day: '1',
@@ -72,6 +73,7 @@ const SampleData = [
     ]
   }, {
     name: 'H 3150 Male Recruit',
+    address: '925 Camino de la Reina San Diego CA 92108',
     menus: [
       {
         day: '1',

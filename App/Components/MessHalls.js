@@ -1,32 +1,42 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import MenuBar from './MenuBar'
 
 import {View, Text, TouchableHighlight, StyleSheet} from 'react-native'
 
 import MenuInfo from '../Data/Data.js'
 
-console.log(MenuInfo);
-
 const styles = StyleSheet.create({
   mainWrap: {
-    backgroundColor: 'blue',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
     flex: 1
   },
-  mainText: {
+  pageTitleWrap: {
+    paddingTop: 35,
+    paddingBottom: 20,
+    backgroundColor: '#555',
+    alignSelf: 'stretch',
+    alignItems: 'center'
+  },
+  pageTitle: {
     fontSize: 22,
     color: '#FFF',
-    fontWeight: 'bold'
+    fontFamily: 'Black Ops One'
   },
   messHallWrap: {
-    marginTop: 20
+    alignSelf: 'stretch'
+  },
+  messHallTitleWrap: {
+    alignItems: 'center',
+    borderBottomWidth: 1,
+    paddingVertical: 13,
+    borderBottomColor: '#DDD'
   },
   messHallTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#FFF'
+    fontSize: 20,
+    color: '#222',
+    fontFamily: 'Black Ops One'
   }
 })
 
@@ -36,7 +46,7 @@ class MessHalls extends Component {
 
     const MessHallMenus = MenuInfo.map((data, key) => {
       return (
-        <View key={key}>
+        <View key={key} style={styles.messHallTitleWrap}>
           <TouchableHighlight onPress={() => this.props.goToMenuPage(data)} underlayColor="transparent">
             <Text style={styles.messHallTitle}>{data.name}</Text>
           </TouchableHighlight>
@@ -46,15 +56,21 @@ class MessHalls extends Component {
 
     return (
       <View style={styles.mainWrap}>
-        <Text style={styles.mainText}>Mess Halls!</Text>
+        <View style={styles.pageTitleWrap}>
+          <Text style={styles.pageTitle}>Choose Mess Hall</Text>
+        </View>
         <View style={styles.messHallWrap}>
           {MessHallMenus}
         </View>
+        <MenuBar menuLinks={{
+          home: true,
+          settings: true,
+          mess_halls: false
+        }} backgroundStyle='#555'/>
       </View>
     )
   }
 }
-
 
 mapStateToProps = (state) => ({currentPage: state.currentPage})
 
@@ -67,12 +83,9 @@ mapActionsToProps = (dispatch) => ({
   },
   goToMenuPage(data) {
     dispatch({type: 'MESS_HALL_MENU', payload: data})
-    console.log('datazzz', data)
   }
 })
 
-
 module.exports = connect(mapStateToProps, mapActionsToProps)(MessHalls)
-
 
 //module.exports = MessHalls

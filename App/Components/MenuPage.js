@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import LinearGradient from 'react-native-linear-gradient'
+import MenuBar from './MenuBar'
 
 import {
   View,
@@ -12,6 +13,12 @@ import {
 } from 'react-native'
 
 const styles = StyleSheet.create({
+  mainOuterWrap: {
+    flex: 1
+  },
+  scrollViewWrap: {
+    marginBottom: 45
+  },
   mainWrap: {
     display: 'flex',
     alignItems: 'center',
@@ -263,16 +270,23 @@ class MenuPage extends Component {
     })
 
     return (
-      <ScrollView>
-        <View style={styles.mainWrap}>
-          <View style={styles.messHallNameWrap}>
-            <Text style={styles.messHallName}>{menuz.name}</Text>
+      <View style={styles.mainOuterWrap}>
+        <ScrollView style={styles.scrollViewWrap}>
+          <View style={styles.mainWrap}>
+            <View style={styles.messHallNameWrap}>
+              <Text style={styles.messHallName}>{menuz.name}</Text>
+            </View>
+            <View style={styles.messHallWrap}>
+              {menu_days}
+            </View>
           </View>
-          <View style={styles.messHallWrap}>
-            {menu_days}
-          </View>
-        </View>
-      </ScrollView>
+        </ScrollView>
+        <MenuBar menuLinks={{
+          home: true,
+          settings: true,
+          mess_halls: true
+        }} backgroundStyle='#222'/>
+      </View>
     )
   }
 }

@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import MenuBar from './MenuBar'
 
 import {View, Text, StyleSheet} from 'react-native'
 
@@ -26,6 +27,12 @@ class Settings extends Component {
     return (
       <View style={styles.mainWrap}>
         <Text style={styles.settingsText}>Settings Page</Text>
+        <MenuBar menuLinks={{
+          home: true,
+          settings: false,
+          mess_halls: true,
+        }}
+        backgroundStyle='#333'/>
       </View>
     )
   }
