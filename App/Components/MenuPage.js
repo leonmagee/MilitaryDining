@@ -1,11 +1,18 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import LinearGradient from 'react-native-linear-gradient'
 
-import {View, ScrollView, Text, TouchableHighlight, StyleSheet} from 'react-native'
+import {
+  View,
+  ScrollView,
+  Text,
+  TouchableHighlight,
+  Animated,
+  StyleSheet
+} from 'react-native'
 
 const styles = StyleSheet.create({
   mainWrap: {
-    //backgroundColor: 'blue',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -33,7 +40,8 @@ const styles = StyleSheet.create({
   dayText: {
     fontFamily: 'Black Ops One',
     fontSize: 17,
-    color: '#FFF'
+    color: '#FFF',
+    backgroundColor: 'transparent'
   },
   mealNameWrap: {
     paddingVertical: 7,
@@ -49,14 +57,13 @@ const styles = StyleSheet.create({
     color: '#333'
   },
   menuFoodItemWrap: {
-    //backgroundColor: '#FFF',
     paddingVertical: 10,
     paddingHorizontal: 15,
     borderBottomWidth: 1,
     borderBottomColor: '#DDD'
   },
   menuFoodItem: {
-    color: '#666',
+    color: '#444',
     fontWeight: 'bold',
     fontSize: 12
   }
@@ -68,7 +75,8 @@ class MenuPage extends Component {
     super(props)
 
     this.state = {
-      menuToggle: []
+      menuToggle: [],
+      //animatedOpacity: new Animated.Value(0)
     }
 
     const menuz = this.props.currentMenu;
@@ -76,12 +84,27 @@ class MenuPage extends Component {
     menuz.menus.map((menu, key) => {
 
       this.state.menuToggle[key] = {
-        'breakfast': '+',
-        'lunch': '+',
-        'dinner': '+',
-        'pastry_bar': '+'
+        'breakfast': {
+          'icon': '+',
+          'visible': false,
+          'opacity': new Animated.Value(0)
+        },
+        'lunch': {
+          'icon': '+',
+          'visible': false,
+          'opacity': new Animated.Value(0)
+        },
+        'dinner': {
+          'icon': '+',
+          'visible': false,
+          'opacity': new Animated.Value(0)
+        },
+        'pastry_bar': {
+          'icon': '+',
+          'visible': false,
+          'opacity': new Animated.Value(0)
+        }
       }
-
     })
   }
 
@@ -89,17 +112,23 @@ class MenuPage extends Component {
 * Array syntax working here for accesing object property!
 **/
   toggleMenu(key, item) {
-    //if (item === 1) {
     const newMenuToggle = this.state.menuToggle;
-    if (newMenuToggle[key][item] === '+') {
-      newMenuToggle[key][item] = '-'
+    if (newMenuToggle[key][item].icon === '+') {
+      newMenuToggle[key][item].icon = '-'
+      newMenuToggle[key][item].visible = true
       this.setState({menuToggle: newMenuToggle})
+      this.setState(() => {
+        Animated.timing(this.state.menuToggle[key][item].opacity, {
+          toValue: 1,
+          duration: 300, // use timing for animation
+        }).start()
+      })
     } else {
-      newMenuToggle[key][item] = '+'
+      newMenuToggle[key][item].icon = '+'
+      newMenuToggle[key][item].visible = false
+      newMenuToggle[key][item].opacity = new Animated.Value(0)
       this.setState({menuToggle: newMenuToggle})
     }
-    //}
-
   }
 
   render() {
@@ -140,39 +169,95 @@ class MenuPage extends Component {
         )
       })
 
+      if (this.state.menuToggle[key].breakfast.visible) {
+        var breakastContent = (
+          <Animated.View style={{
+            'opacity': this.state.menuToggle[key].breakfast.opacity
+          }}>
+            {breakfast}
+          </Animated.View>
+        )
+      } else {
+        var breakastContent = (
+          <View></View>
+        )
+      }
+
+      if (this.state.menuToggle[key].lunch.visible) {
+        var lunchContent = (
+          <Animated.View style={{
+            'opacity': this.state.menuToggle[key].lunch.opacity
+          }}>
+            {lunch}
+          </Animated.View>
+        )
+      } else {
+        var lunchContent = (
+          <View></View>
+        )
+      }
+
+      if (this.state.menuToggle[key].dinner.visible) {
+        var dinnerContent = (
+          <Animated.View style={{
+            'opacity': this.state.menuToggle[key].dinner.opacity
+          }}>
+            {dinner}
+          </Animated.View>
+        )
+      } else {
+        var dinnerContent = (
+          <View></View>
+        )
+      }
+
+      if (this.state.menuToggle[key].pastry_bar.visible) {
+        var pastrybarContent = (
+          <Animated.View style={{
+            'opacity': this.state.menuToggle[key].pastry_bar.opacity
+          }}>
+            {pastry_bar}
+          </Animated.View>
+        )
+      } else {
+        var pastrybarContent = (
+          <View></View>
+        )
+      }
+
       return (
         <View key={key}>
-          <View style={styles.dayWrap}>
+          <LinearGradient colors={['#333', '#222', '#333']} style={styles.dayWrap}>
             <Text style={styles.dayText}>Day {menu.day}</Text>
-          </View>
+          </LinearGradient>
           <TouchableHighlight onPress={() => this.toggleMenu(key, 'breakfast')} underlayColor="transparent">
             <View style={styles.mealNameWrap}>
               <Text style={styles.mealNameText}>Breakfast</Text>
-              <Text style={styles.mealNameText}>{this.state.menuToggle[key].breakfast}</Text>
+              <Text style={styles.mealNameText}>{this.state.menuToggle[key].breakfast.icon}</Text>
             </View>
           </TouchableHighlight>
-          {breakfast}
+          {breakastContent}
           <TouchableHighlight onPress={() => this.toggleMenu(key, 'lunch')} underlayColor="transparent">
             <View style={styles.mealNameWrap}>
               <Text style={styles.mealNameText}>Lunch</Text>
-              <Text style={styles.mealNameText}>{this.state.menuToggle[key].lunch}</Text>
+              <Text style={styles.mealNameText}>{this.state.menuToggle[key].lunch.icon}</Text>
             </View>
           </TouchableHighlight>
-          {lunch}
+          {lunchContent}
           <TouchableHighlight onPress={() => this.toggleMenu(key, 'dinner')} underlayColor="transparent">
             <View style={styles.mealNameWrap}>
               <Text style={styles.mealNameText}>Dinner</Text>
-              <Text style={styles.mealNameText}>{this.state.menuToggle[key].dinner}</Text>
+              <Text style={styles.mealNameText}>{this.state.menuToggle[key].dinner.icon}</Text>
             </View>
           </TouchableHighlight>
-          {dinner}
+          {dinnerContent}
           <TouchableHighlight onPress={() => this.toggleMenu(key, 'pastry_bar')} underlayColor="transparent">
             <View style={styles.mealNameWrap}>
               <Text style={styles.mealNameText}>Pastry Bar</Text>
-              <Text style={styles.mealNameText}>{this.state.menuToggle[key].pastry_bar}</Text>
+              <Text style={styles.mealNameText}>{this.state.menuToggle[key].pastry_bar.icon}</Text>
             </View>
           </TouchableHighlight>
-          {pastry_bar}
+          {pastrybarContent}
         </View>
       )
     })
