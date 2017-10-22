@@ -1,11 +1,10 @@
 import React, {Component} from 'react'
 import MenuBar from './MenuBar'
+import {Dropdown} from 'react-native-material-dropdown';
 
 import {
-  View,
-  Text,
-  TextInput,
-  Picker,
+  View, Text, TextInput,
+  //Picker,
   StyleSheet,
   TouchableHighlight
 } from 'react-native'
@@ -14,7 +13,7 @@ const styles = StyleSheet.create({
   mainWrap: {
     backgroundColor: '#EEE',
     display: 'flex',
-    alignItems: 'center',
+    //alignItems: 'center',
     flex: 1,
     paddingVertical: 40
   },
@@ -40,6 +39,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     marginBottom: 15
   },
+  dropdownWrap: {
+    //flexDirection: 'row',
+    //justifyContent: 'space-between',
+    //alignItems: 'center',
+    backgroundColor: 'blue',
+    alignSelf: 'stretch',
+    paddingHorizontal: 30,
+    marginBottom: 15
+  },
   inputLabel: {
     color: '#333',
     fontFamily: 'Black Ops One',
@@ -54,20 +62,28 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     paddingVertical: 7
   },
+  dropdownInput: {
+    backgroundColor: 'red',
+    borderWidth: 1,
+    borderColor: '#DDD',
+    height: 40,
+    width: 200, // change this to be a percentage of screen width
+    paddingHorizontal: 15,
+    paddingVertical: 7,
+    //flex: 1,
+  },
   updateButton: {
     backgroundColor: '#3E5B3D',
     paddingVertical: 8,
     paddingHorizontal: 15,
     alignItems: 'center',
-    borderRadius: 8
+    borderRadius: 8,
+    marginHorizontal: 80,
   },
   updateButtonText: {
     fontFamily: 'Black Ops One',
     color: '#FFF',
     fontSize: 20
-  },
-  pickerInput: {
-
   },
 })
 
@@ -79,11 +95,19 @@ class Settings extends Component {
     this.state = {
       name: 'test name',
       weight: 'test weight',
-      gender: 'test gender',
+      gender: 'test gender'
     }
   }
 
   render() {
+
+    let gender = [
+      {
+        value: 'Male'
+      }, {
+        value: 'Female'
+      },
+    ];
 
     return (
       <View style={styles.mainWrap}>
@@ -103,12 +127,9 @@ class Settings extends Component {
           <Text style={styles.inputLabel}>Weight:</Text>
           <TextInput style={styles.textInput} onChangeText={(weight) => this.setState({weight})}/>
         </View>
-        <View style={styles.inputWrap}>
+        <View style={styles.dropdownWrap}>
           <Text style={styles.inputLabel}>Gender:</Text>
-          <Picker style={styles.pickerInput} selectedValue='Male' onValueChange={(itemValue, itemIndex) => this.setState({gender: itemValue})}>
-            <Picker.Item label="Male" value="male"/>
-            <Picker.Item label="Female" value="female"/>
-          </Picker>
+          <Dropdown style={styles.dropdownInput} label='Gender' data={gender}/>
         </View>
         <TouchableHighlight style={styles.updateButton} underlayColor="transparent">
           <Text style={styles.updateButtonText}>UPDATE</Text>
