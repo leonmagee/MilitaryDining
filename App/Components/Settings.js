@@ -1,7 +1,14 @@
 import React, {Component} from 'react'
 import MenuBar from './MenuBar'
 
-import {View, Text, TextInput, StyleSheet, TouchableHighlight} from 'react-native'
+import {
+  View,
+  Text,
+  TextInput,
+  Picker,
+  StyleSheet,
+  TouchableHighlight
+} from 'react-native'
 
 const styles = StyleSheet.create({
   mainWrap: {
@@ -52,12 +59,15 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 15,
     alignItems: 'center',
-    borderRadius: 8,
+    borderRadius: 8
   },
   updateButtonText: {
     fontFamily: 'Black Ops One',
     color: '#FFF',
-    fontSize: 20,
+    fontSize: 20
+  },
+  pickerInput: {
+
   },
 })
 
@@ -65,6 +75,12 @@ class Settings extends Component {
 
   constructor(props) {
     super(props)
+
+    this.state = {
+      name: 'test name',
+      weight: 'test weight',
+      gender: 'test gender',
+    }
   }
 
   render() {
@@ -74,13 +90,25 @@ class Settings extends Component {
         <View style={styles.settingsTitleWrap}>
           <Text style={styles.settingsTitle}>Your Info</Text>
         </View>
+        <View style={styles.currentInfoBox}>
+          <Text>name: {this.state.name}</Text>
+          <Text>weight: {this.state.weight}</Text>
+          <Text>gender: {this.state.gender}</Text>
+        </View>
         <View style={styles.inputWrap}>
           <Text style={styles.inputLabel}>Name:</Text>
-          <TextInput style={styles.textInput}/>
+          <TextInput style={styles.textInput} onChangeText={(name) => this.setState({name})}/>
         </View>
         <View style={styles.inputWrap}>
           <Text style={styles.inputLabel}>Weight:</Text>
-          <TextInput style={styles.textInput}/>
+          <TextInput style={styles.textInput} onChangeText={(weight) => this.setState({weight})}/>
+        </View>
+        <View style={styles.inputWrap}>
+          <Text style={styles.inputLabel}>Gender:</Text>
+          <Picker style={styles.pickerInput} selectedValue='Male' onValueChange={(itemValue, itemIndex) => this.setState({gender: itemValue})}>
+            <Picker.Item label="Male" value="male"/>
+            <Picker.Item label="Female" value="female"/>
+          </Picker>
         </View>
         <TouchableHighlight style={styles.updateButton} underlayColor="transparent">
           <Text style={styles.updateButtonText}>UPDATE</Text>
