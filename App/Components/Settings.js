@@ -9,8 +9,9 @@ import {CalorieCounter} from './Math/Calculator'
 const myCals = CalorieCounter(42, 6, 1, 197, 'male', "3")
 
 import {
-  View, Text, TextInput,
-  //Picker,
+  View,
+  Text,
+  TextInput,
   StyleSheet,
   TouchableHighlight,
   AsyncStorage
@@ -18,9 +19,8 @@ import {
 
 const styles = StyleSheet.create({
   mainWrap: {
-    backgroundColor: '#EEE',
+    backgroundColor: '#F4F4F4',
     display: 'flex',
-    //alignItems: 'center',
     flex: 1,
     paddingVertical: 40
   },
@@ -38,54 +38,34 @@ const styles = StyleSheet.create({
     color: '#111',
     fontFamily: 'Black Ops One'
   },
+  multipleInputWrap: {
+    flexDirection: 'row',
+    paddingHorizontal: 22,
+  },
   inputWrap: {
-    //flexDirection: 'row',
-    //justifyContent: 'space-between',
-    //alignItems: 'center',
-    //alignSelf: 'stretch',
     paddingHorizontal: 30,
-    marginTop: 15
+    marginBottom: 20
+  },
+  inputWrapMultipleItem: {
+    flex: 1,
+    paddingHorizontal: 4,
   },
   dropdownWrap: {
-    //flexDirection: 'row',
-    //justifyContent: 'space-between',
-    //alignItems: 'center',
-    //backgroundColor: 'blue',
-    //alignSelf: 'stretch',
     paddingHorizontal: 30,
     marginBottom: 15
   },
   inputLabel: {
-    //color: '#333',
-    //color: 'rgba(0, 0, 0, .87)',
     color: 'rgba(0, 0, 0, .38)',
-    //fontFamily: 'Black Ops One',
-    //fontSize: 19,
     fontSize: 12
   },
   textInput: {
-    //backgroundColor: '#FFF',
     borderBottomWidth: 0.5,
     fontSize: 16,
-    //borderBottomColor: '#DDD',
     borderBottomColor: 'rgba(0, 0, 0, .38)',
-    //height: 40,
-    //width: 200, // change this to be a percentage of screen width
-    //paddingHorizontal: 15,
     paddingVertical: 7
   },
   dropdownInput: {
-    //backgroundColor: 'red',
-    //borderWidth: 1,
-    //borderColor: '#DDD',
-    //backgroundColor: '#FFF',
-    //height: 40,
-    fontSize: 16,
-    //margin: 0,
-    //width: 200, // change this to be a percentage of screen width
-    //paddingHorizontal: 15,
-    //paddingVertical: 10,
-    //flex: 1,
+    fontSize: 16
   },
   updateButton: {
     backgroundColor: '#3E5B3D',
@@ -112,7 +92,10 @@ class Settings extends Component {
     this.state = {
       name: '',
       weight: '',
-      gender: ''
+      gender: '',
+      height_feet: '',
+      height_inches: '',
+      age: ''
     }
 
     this.getUserName()
@@ -155,7 +138,7 @@ class Settings extends Component {
         value: 'female',
         label: 'Female'
       }
-    ];
+    ]
 
     let activity = [
       {
@@ -174,7 +157,7 @@ class Settings extends Component {
         value: '5',
         label: 'Extra Active'
       }
-    ];
+    ]
 
     return (
       <View style={styles.mainWrap}>
@@ -188,20 +171,34 @@ class Settings extends Component {
           <Text>gender: {this.state.gender}</Text>
         </View>
         <View style={styles.inputWrap}>
-          <Text style={styles.inputLabel}>Name:</Text>
+          <Text style={styles.inputLabel}>Name</Text>
           <TextInput style={styles.textInput} onChangeText={(name) => this.setState({name})}/>
         </View>
         <View style={styles.inputWrap}>
-          <Text style={styles.inputLabel}>Weight (lbs):</Text>
+          <Text style={styles.inputLabel}>Weight (lbs)</Text>
           <TextInput style={styles.textInput} onChangeText={(weight) => this.setState({weight})}/>
         </View>
-        <View style={styles.dropdownWrap}>
-          <Dropdown style={styles.dropdownInput} label='Gender' data={gender}/>
+        <View style={styles.multipleInputWrap}>
+          <View style={[styles.inputWrap, styles.inputWrapMultipleItem]}>
+            <Text style={styles.inputLabel}>Height (feet)</Text>
+            <TextInput keyboardType='numeric' style={styles.textInput} onChangeText={(height_feet) => this.setState({height_feet})}/>
+          </View>
+          <View style={[styles.inputWrap, styles.inputWrapMultipleItem]}>
+            <Text style={styles.inputLabel}>Height (inches)</Text>
+            <TextInput keyboardType='numeric' style={styles.textInput} onChangeText={(height_inches) => this.setState({height_inches})}/>
+          </View>
+          <View style={[styles.inputWrap, styles.inputWrapMultipleItem]}>
+            <Text style={styles.inputLabel}>Age (years)</Text>
+            <TextInput keyboardType='numeric' style={styles.textInput} onChangeText={(age) => this.setState({age})}/>
+          </View>
         </View>
         <View style={styles.dropdownWrap}>
-          <Dropdown style={styles.dropdownInput} label='Activity' data={activity}/>
+          <Dropdown labelHeight={16} style={styles.dropdownInput} label='Gender' value='male' data={gender}/>
         </View>
-        <TouchableHighlight style={styles.updateButton} underlayColor="transparent" onPress={() => this.processUpdate()}>
+        <View style={styles.dropdownWrap}>
+          <Dropdown labelHeight={16} style={styles.dropdownInput} label='Activity' value='3' itemCount={5} data={activity}/>
+        </View>
+        <TouchableHighlight style={styles.updateButton} underlayColor="#3E5B3D" onPress={() => this.processUpdate()}>
           <Text style={styles.updateButtonText}>UPDATE</Text>
         </TouchableHighlight>
         <MenuBar menuLinks={{
