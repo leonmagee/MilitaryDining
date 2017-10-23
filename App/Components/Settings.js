@@ -1,12 +1,19 @@
 import React, {Component} from 'react'
 import MenuBar from './MenuBar'
-import {Dropdown} from 'react-native-material-dropdown';
+import {Dropdown} from 'react-native-material-dropdown'
+import {CalorieCounter} from './Math/Calculator'
+
+/**
+* Returning Daily Carlories here!
+**/
+const myCals = CalorieCounter(42, 6, 1, 197, 'male', "3")
 
 import {
   View, Text, TextInput,
   //Picker,
   StyleSheet,
-  TouchableHighlight
+  TouchableHighlight,
+  AsyncStorage
 } from 'react-native'
 
 const styles = StyleSheet.create({
@@ -43,7 +50,7 @@ const styles = StyleSheet.create({
     //flexDirection: 'row',
     //justifyContent: 'space-between',
     //alignItems: 'center',
-    backgroundColor: 'blue',
+    //backgroundColor: 'blue',
     alignSelf: 'stretch',
     paddingHorizontal: 30,
     marginBottom: 15
@@ -63,9 +70,10 @@ const styles = StyleSheet.create({
     paddingVertical: 7
   },
   dropdownInput: {
-    backgroundColor: 'red',
-    borderWidth: 1,
-    borderColor: '#DDD',
+    //backgroundColor: 'red',
+    //borderWidth: 1,
+    //borderColor: '#DDD',
+    //backgroundColor: '#FFF',
     height: 40,
     width: 200, // change this to be a percentage of screen width
     paddingHorizontal: 15,
@@ -78,13 +86,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     alignItems: 'center',
     borderRadius: 8,
-    marginHorizontal: 80,
+    marginHorizontal: 80
   },
   updateButtonText: {
     fontFamily: 'Black Ops One',
     color: '#FFF',
     fontSize: 20
-  },
+  }
 })
 
 class Settings extends Component {
@@ -92,12 +100,43 @@ class Settings extends Component {
   constructor(props) {
     super(props)
 
+    //const userName = this.getUserName
+
     this.state = {
-      name: 'test name',
-      weight: 'test weight',
-      gender: 'test gender'
+      name: '',
+      weight: '',
+      gender: ''
     }
+
+    this.getUserName()
   }
+
+  processUpdate() {
+    //console.log('process update')
+    this.saveUserName(this.state.name)
+  }
+
+  saveUserName(name) {
+    AsyncStorage.setItem('@UserName', name)
+  }
+
+  getUserName() {
+    AsyncStorage.getItem('@UserName').then((value) => {
+      if (value) {
+        this.setState({name: value})
+      }
+    }).done()
+  }
+
+  //   AsyncStorage.getItem('@QuestionAnswers:' + storageKey).then((value) => {
+  //       if (value) {
+  //           const valueNew = Number(value) + 1
+  //           const valueNewString = valueNew.toString()
+  //           AsyncStorage.setItem('@QuestionAnswers:' + storageKey, valueNewString)
+  //       } else {
+  //           AsyncStorage.setItem('@QuestionAnswers:' + storageKey, "1")
+  //       }
+  //   }).done()
 
   render() {
 
@@ -106,7 +145,7 @@ class Settings extends Component {
         value: 'Male'
       }, {
         value: 'Female'
-      },
+      }
     ];
 
     return (
@@ -128,10 +167,9 @@ class Settings extends Component {
           <TextInput style={styles.textInput} onChangeText={(weight) => this.setState({weight})}/>
         </View>
         <View style={styles.dropdownWrap}>
-          <Text style={styles.inputLabel}>Gender:</Text>
           <Dropdown style={styles.dropdownInput} label='Gender' data={gender}/>
         </View>
-        <TouchableHighlight style={styles.updateButton} underlayColor="transparent">
+        <TouchableHighlight style={styles.updateButton} underlayColor="transparent" onPress={() => this.processUpdate()}>
           <Text style={styles.updateButtonText}>UPDATE</Text>
         </TouchableHighlight>
         <MenuBar menuLinks={{
