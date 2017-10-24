@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import MenuBar from './MenuBar'
-
+import {variables} from '../Styles/Variables'
 import {View, Text, TouchableHighlight, StyleSheet} from 'react-native'
 
 import MenuInfo from '../Data/Data.js'
@@ -15,7 +15,8 @@ const styles = StyleSheet.create({
   pageTitleWrap: {
     paddingTop: 35,
     paddingBottom: 20,
-    backgroundColor: '#555',
+    //backgroundColor: '#555',
+    backgroundColor: variables.brandFifth,
     alignSelf: 'stretch',
     alignItems: 'center'
   },

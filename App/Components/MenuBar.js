@@ -5,15 +5,13 @@ import {View, Text, TouchableHighlight, StyleSheet, Dimensions} from 'react-nati
 import {variables} from '../Styles/Variables'
 let {width} = Dimensions.get('window')
 
-console.log( variables.brandThird);
-
 const styles = StyleSheet.create({
   menuBarWrap: {
     position: 'absolute',
     height: 45,
     paddingTop: 10,
     paddingBottom: 5,
-    backgroundColor: variables.brandThird,
+    backgroundColor: 'rgba(0,0,0,0.6)',
     bottom: 0,
     width: width
   },
@@ -61,15 +59,17 @@ class MenuBar extends Component {
       </View>
     )
 
-    if (this.props.backgroundStyle) {
-      backgroundStyleObj = {
-        backgroundColor: this.props.backgroundStyle
-      }
+    if (!this.props.backgroundStyle) {
+      var backgroundStyleColor = variables.brandFifth
+    } else {
+      var backgroundStyleColor = this.props.backgroundStyle
     }
 
     return (
       <View style={[
-        styles.menuBarWrap
+        styles.menuBarWrap, {
+          backgroundColor: backgroundStyleColor
+        }
       ]}>
         {allButtons}
       </View>

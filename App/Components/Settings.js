@@ -105,14 +105,24 @@ class Settings extends Component {
 
     //const userName = this.getUserName
 
+    // this.state = {
+    //   name: '',
+    //   weight: '',
+    //   height_feet: 5,
+    //   height_inches: 0,
+    //   gender: 'male',
+    //   age: '',
+    //   activity: '3'
+    // }
+
     this.state = {
       name: '',
       weight: '',
-      height_feet: '',
-      height_inches: '',
-      gender: '',
+      height_feet: '5',
+      height_inches: '0',
+      gender: 'male',
       age: '',
-      activity: ''
+      activity: '3'
     }
 
     this.getUserName()
@@ -123,18 +133,6 @@ class Settings extends Component {
     this.getUserAge()
     this.getUserActivity()
   }
-
-  // componentDidMount() {
-  //   console.log('mountage?')
-  //   console.log('yo')
-  //   console.log('gender?', this.state.gender)
-  //
-  //   if ( this.state.weight && this.state.height_feet && this.state.gender ) {
-  //     console.log('conditional working');
-  //   //const myCals = CalorieCounter(42, 6, 1, 197, 'male', "3")
-  //   const myCals = CalorieCounter(42, 6, 1, 197, 'male', "3")
-  //   }
-  // }
 
   /**
   * Process Data when 'Update' link is clicked
@@ -221,24 +219,10 @@ class Settings extends Component {
     }).done()
   }
 
-  //   AsyncStorage.getItem('@QuestionAnswers:' + storageKey).then((value) => {
-  //       if (value) {
-  //           const valueNew = Number(value) + 1
-  //           const valueNewString = valueNew.toString()
-  //           AsyncStorage.setItem('@QuestionAnswers:' + storageKey, valueNewString)
-  //       } else {
-  //           AsyncStorage.setItem('@QuestionAnswers:' + storageKey, "1")
-  //       }
-  //   }).done()
-
   render() {
 
-    //console.log('renderage')
-    //console.log('gender?', this.state.gender)
     var dailyCalories = '?'
     if (this.state.weight && this.state.height_feet && this.state.height_inches && this.state.gender && this.state.age && this.state.activity) {
-
-      //this.setState({daily_calories: 444})
 
       // console.log('age', this.state.age);
       // console.log('feet', this.state.height_feet);
