@@ -66,7 +66,7 @@ class MessHalls extends Component {
           home: true,
           settings: true,
           mess_halls: false
-        }} backgroundStyle='#555'/>
+        }} />
       </View>
     )
   }

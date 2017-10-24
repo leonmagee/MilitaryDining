@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import MenuBar from './MenuBar'
 import {Dropdown} from 'react-native-material-dropdown'
-import {CalorieCounter} from './Math/Calculator'
+import {CalorieCounter} from '../Math/Calculator'
 import {variables} from '../Styles/Variables'
 
 /**

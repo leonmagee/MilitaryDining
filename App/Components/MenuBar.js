@@ -2,7 +2,10 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import LinkButton from './LinkButton'
 import {View, Text, TouchableHighlight, StyleSheet, Dimensions} from 'react-native'
+import {variables} from '../Styles/Variables'
 let {width} = Dimensions.get('window')
+
+console.log( variables.brandThird);
 
 const styles = StyleSheet.create({
   menuBarWrap: {
@@ -10,7 +13,7 @@ const styles = StyleSheet.create({
     height: 45,
     paddingTop: 10,
     paddingBottom: 5,
-    //backgroundColor: 'rgba(0,0,0,0.6)',
+    backgroundColor: variables.brandThird,
     bottom: 0,
     width: width
   },
@@ -58,11 +61,15 @@ class MenuBar extends Component {
       </View>
     )
 
+    if (this.props.backgroundStyle) {
+      backgroundStyleObj = {
+        backgroundColor: this.props.backgroundStyle
+      }
+    }
+
     return (
       <View style={[
-        styles.menuBarWrap, {
-          backgroundColor: this.props.backgroundStyle
-        }
+        styles.menuBarWrap
       ]}>
         {allButtons}
       </View>
