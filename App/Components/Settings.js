@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   },
   multipleInputWrap: {
     flexDirection: 'row',
-    paddingHorizontal: 22
+    paddingHorizontal: 26
   },
   caloriesWrap: {
     paddingHorizontal: 30,
@@ -221,7 +221,7 @@ class Settings extends Component {
 
   render() {
 
-    var dailyCalories = '?'
+    var dailyCalories = '. . .'
     if (this.state.weight && this.state.height_feet && this.state.height_inches && this.state.gender && this.state.age && this.state.activity) {
 
       // console.log('age', this.state.age);

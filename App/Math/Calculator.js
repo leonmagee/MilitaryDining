@@ -15,7 +15,7 @@ export const CalorieCounter = (age, foot, inch, weight, gender, activeness) => {
 
   const cm = feet_to_centemeters(foot, inch);
 
-  //console.log(cm);
+  console.log('centemeters:',cm);
   if (age != '' && cm != '' && weight != '') {
     weight = parseInt(weight);
     weight = Math.round(weight / 2.2046);
