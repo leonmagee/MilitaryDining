@@ -7,15 +7,10 @@ const feet_to_centemeters = (feet, inches = 0) => {
   return (new_feet * 30.48);
 }
 
-export const CalorieCounterNew = (age, foot, inch, weight, gender, activeness) => {
-  return 'test is working'
-}
-
 export const CalorieCounter = (age, foot, inch, weight, gender, activeness) => {
 
   const cm = feet_to_centemeters(foot, inch);
 
-  console.log('centemeters:',cm);
   if (age != '' && cm != '' && weight != '') {
     weight = parseInt(weight);
     weight = Math.round(weight / 2.2046);
@@ -42,12 +37,9 @@ export const CalorieCounter = (age, foot, inch, weight, gender, activeness) => {
         cneed = fd * 1.9;
         break;
     }
-    //cneed = Math.floor(cneed);
     const finalCaloriesNeeded = Math.floor(cneed);
 
     return finalCaloriesNeeded;
-    //console.log('final calories?', cneed);
   }
 }
-
 //var new_test = count_calaries(42, 6, 1, 197, 'male', "3");

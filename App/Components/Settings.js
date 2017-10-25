@@ -4,10 +4,6 @@ import {Dropdown} from 'react-native-material-dropdown'
 import {CalorieCounter} from '../Math/Calculator'
 import {variables} from '../Styles/Variables'
 
-/**
-* Returning Daily Carlories here!
-**/
-
 import {
   View,
   Text,
@@ -224,13 +220,6 @@ class Settings extends Component {
     var dailyCalories = '. . .'
     if (this.state.weight && this.state.height_feet && this.state.height_inches && this.state.gender && this.state.age && this.state.activity) {
 
-      // console.log('age', this.state.age);
-      // console.log('feet', this.state.height_feet);
-      // console.log('inches', this.state.height_inches);
-      // console.log('weight', this.state.weight);
-      // console.log('gender', this.state.gender);
-      // console.log('activity', this.state.activity);
-
       const currentAge = parseInt(this.state.age)
       const currentHeightFeet = parseInt(this.state.height_feet)
       const currentHeightInches = parseInt(this.state.height_inches)
@@ -238,17 +227,7 @@ class Settings extends Component {
       const currentGender = this.state.gender
       const currentActivity = this.state.activity
 
-      // console.log('age', currentAge);
-      // console.log('feet', currentHeightFeet);
-      // console.log('inches', currentHeightInches);
-      // console.log('weight', currentWeight);
-      // console.log('gender', currentGender);
-      // console.log('activity', currentActivity);
-
-      //var dailyCalories = CalorieCounter(42, 6, 1, 197, 'male', '3')
       var dailyCalories = CalorieCounter(currentAge, currentHeightFeet, currentHeightInches, currentWeight, currentGender, currentActivity)
-      console.log('daily', dailyCalories)
-
     }
 
     let height_feet = [
