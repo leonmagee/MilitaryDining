@@ -1,4 +1,5 @@
 export const HOME_PAGE = 'HOME_PAGE'
+export const MAP_PAGE = 'MAP_PAGE'
 export const SETTINGS_PAGE = 'SETTINGS_PAGE'
 export const MESS_HALLS_PAGE = 'MESS_HALLS_PAGE'
 export const MESS_HALL_MENU = 'MESS_HALL_MENU'

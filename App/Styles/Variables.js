@@ -5,5 +5,6 @@ export const variables = {
   brandThird: '#250902', //brown
   brandFourth: '#B9BAA3', //beigh
   brandFifth: '#0A100D', //dark
+  brandSixth: '#22AAA1', //aqua blue
   //gradient: ['#56CCF2','#2F80ED'],
 }

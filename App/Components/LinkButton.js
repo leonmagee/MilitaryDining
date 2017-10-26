@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     button: {
         color: '#FFF',
         fontWeight: 'bold',
-        fontSize: 19,
+        fontSize: 17,
         fontFamily: 'Black Ops One',
         backgroundColor: 'transparent',
     },

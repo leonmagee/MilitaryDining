@@ -6,13 +6,14 @@ import Homepage from './App/Components/Homepage'
 //import MessHalls from './App/Components/MessHalls'
 import GeolocationExample from './App/Components/GeolocationTest'
 import MapSearch from './App/Components/MapDemo'
+//import TestPage from './App/Components/TestPage'
 
 export default class MilitaryDining extends Component {
 
   render() {
     return (
       <Provider store={store}>
-          <MapSearch />
+          <Homepage />
       </Provider>
     )
   }

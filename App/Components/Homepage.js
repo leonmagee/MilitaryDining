@@ -6,6 +6,7 @@ import SampleData from '../Data/Data'
 import Settings from './Settings'
 import MessHalls from './MessHalls'
 import MenuPage from './MenuPage'
+import MapPage from './MapDemo'
 import MenuBar from './MenuBar'
 import LinearGradient from 'react-native-linear-gradient'
 import variables from '../Styles/Variables'
@@ -89,6 +90,8 @@ class Homepage extends Component {
       var currentActivePage = (<Settings/>)
     } else if (this.props.currentPage === 'mess_halls') {
       var currentActivePage = (<MessHalls/>)
+    } else if (this.props.currentPage === 'map') {
+      var currentActivePage = (<MapPage/>)
     } else if (this.props.currentPage === 'menu_page') {
       var currentActivePage = (<MenuPage/>)
     } else {
@@ -109,6 +112,7 @@ class Homepage extends Component {
               home: false,
               settings: true,
               mess_halls: true,
+              map: true,
             }}
             backgroundStyle='rgba(0,0,0,0.6)'/>
           </View>

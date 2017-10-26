@@ -51,11 +51,18 @@ class MenuBar extends Component {
       var homeLink = <View style={styles.hideThis}></View>
     }
 
+    if (this.props.menuLinks.map) {
+      var mapLink = <LinkButton buttonText="Map" handleClick={() => this.props.goToMapPage()}/>
+    } else {
+      var mapLink = <View style={styles.hideThis}></View>
+    }
+
     const allButtons = (
       <View style={styles.menuBarInner}>
         {homeLink}
         {settingsLink}
         {messHallsLink}
+        {mapLink}
       </View>
     )
 
@@ -88,6 +95,9 @@ mapActionsToProps = (dispatch) => ({
   },
   goToHomePage() {
     dispatch({type: 'HOME_PAGE'})
+  },
+  goToMapPage() {
+    dispatch({type: 'MAP_PAGE'})
   }
 })
 

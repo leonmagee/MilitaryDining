@@ -2,6 +2,11 @@ const SampleData = [
   {
     name: 'H 3120 Male Recruit',
     address: '790 Camino de la Reina San Diego CA 92108',
+    business_name: 'Lestat\'s Coffee',
+    coordinates: {
+      latitude: 32.759143,
+      longitude: -117.146394,
+    },
     menus: [
       {
         day: '1',
@@ -74,6 +79,11 @@ const SampleData = [
   }, {
     name: 'H 3150 Male Recruit',
     address: '925 Camino de la Reina San Diego CA 92108',
+    business_name: 'Twiggs Coffee',
+    coordinates: {
+      latitude: 32.760791,
+      longitude: -117.146478,
+    },
     menus: [
       {
         day: '1',
