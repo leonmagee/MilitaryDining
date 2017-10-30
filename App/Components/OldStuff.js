@@ -15,3 +15,11 @@
   <Text>age: {this.state.age}</Text>
   <Text>activity: {this.state.activity}</Text>
 </View>
+
+
+
+<MapView.Marker coordinate={this.state.markerPosition}>
+  <View style={styles.radius}>
+    <View style={styles.marker}></View>
+  </View>
+</MapView.Marker>
