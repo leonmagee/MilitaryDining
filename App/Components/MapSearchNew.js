@@ -1,3 +1,11 @@
+/**
+* @todo remove activity indicator?
+* @todo initial background color of map?
+* @todo add map marker of known locationl (just one to start?)
+* @todo how to make zooming happen smoothly?
+* @todo does tracking work now?
+* @todo instal geofence package
+**/
 import React, {Component} from 'react'
 import {
   View, Text,
@@ -7,12 +15,13 @@ import {
   ActivityIndicator
 } from 'react-native'
 import MapView from 'react-native-maps'
-//import SvgElement from './SvgElement'
+import SvgElement from './SvgElement'
 //import {ForkIcon, CurrentMarker} from '../SVG/SvgIcons'
+import {ForkIcon} from '../SVG/SvgIcons'
 import {variables} from '../Styles/Variables'
-//import SampleData from '../Data/Data'
+import SampleData from '../Data/Data'
 
-//const messHallCoordinates = []
+// const messHallCoordinates = []
 // SampleData.map((item) => {
 //   item.coordinates.svg_key = ForkIcon
 //   messHallCoordinates.push(item.coordinates)
@@ -21,67 +30,50 @@ import {variables} from '../Styles/Variables'
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'red'
+    backgroundColor: variables.brandPrimary
   },
-  // container: {
-  //   position: 'absolute',
-  //   top: 0,
-  //   left: 0,
-  //   right: 0,
-  //   bottom: 0,
-  //   justifyContent: 'flex-end',
-  //   alignItems: 'center'
-  // },
   map: {
     position: 'absolute',
     top: 0,
     left: 0,
     right: 0,
-    bottom: 0
+    bottom: 0,
+    backgroundColor: variables.brandPrimary
   },
   radius: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: 'rgba(34,170,161,0.3)',
+    borderWidth: 1,
+    borderColor: 'rgba(34,170,161,0.4)',
+    backgroundColor: 'rgba(34,170,161,0.2)',
     alignItems: 'center',
     justifyContent: 'center',
+    overflow: 'hidden'
   },
   marker: {
-    width: 14,
-    height: 14,
-    borderRadius: 7,
+    width: 15,
+    height: 15,
+    borderRadius: 7.5,
     backgroundColor: variables.brandSixth,
     borderWidth: 1,
-    borderColor: '#FFF'
+    borderColor: '#FFF',
+    overflow: 'hidden'
+  },
+  indicatorWrap: {
+    flex: 1,
+    backgroundColor: variables.brandPrimary,
+    alignSelf: 'stretch',
+    justifyContent: 'center'
   }
-  // indicatorWrap: {
-  //   flex: 1,
-  //   backgroundColor: variables.brandPrimary,
-  //   alignSelf: 'stretch',
-  //   justifyContent: 'center'
-  // },
-  // sampleTextWrap: {
-  //   zIndex: 1000000,
-  //   backgroundColor: '#F7F7F7',
-  //   alignSelf: 'stretch',
-  //   alignItems: 'center',
-  //   padding: 5,
-  //   borderTopColor: '#ccc',
-  //   borderTopWidth: 1
-  // },
-  // sampleText: {
-  //   color: '#333',
-  //   fontWeight: 'bold'
-  // }
 });
 
 const {width, height} = Dimensions.get('window')
 
-const SCREEN_WIDTH = width
-const SCREEN_HEIGHT = height
+//const SCREEN_WIDTH = width
+//const SCREEN_HEIGHT = height
 const ASPECT_RATIO = width / height
 
 const LATITUDE_DELTA = 0.0922
@@ -103,61 +95,107 @@ class MapSearch extends Component {
         latitude: 0,
         longitude: 0
       },
+      isLoading: true
     }
   }
 
   componentDidMount() {
     navigator.geolocation.getCurrentPosition((position) => {
-      var lat = parseFloat(position.coords.latitude)
-      var long = parseFloat(position.coords.longitude)
+      let lat = parseFloat(position.coords.latitude)
+      let long = parseFloat(position.coords.longitude)
 
-      var initialRegion = {
+      let initialRegion = {
         latitude: lat,
         longitude: long,
         latitudeDelta: LATITUDE_DELTA,
         longitudeDelta: LONGITUDE_DELTA
       }
-      this.setState({initalPosition: initialRegion})
-      this.setState({markerPosition: initialRegion})
+      this.setState({
+        initalPosition: initialRegion,
+        markerPosition: {
+          latitude: lat,
+          longitude: long
+        },
+        isLoading: false
+      })
+
+      // this.setState({initalPosition: initialRegion})
+      // this.setState({markerPosition: initialRegion})
+      // this.setState({isLoading: false})
     }, (error) => alert(JSON.stringify(error)), {
       enableHighAccuracy: true,
-      timeout: 2000,
-      maximumAge: 1000
+      timeout: 20000,
+      maximumAge: 1000,
+      accuracy: 1
     })
 
     this.watchID = navigator.geolocation.watchPosition((position) => {
-      var lat = parseFloat(position.coords.latitude)
-      var long = parseFloat(position.coords.longitude)
+      let lat = parseFloat(position.coords.latitude)
+      let long = parseFloat(position.coords.longitude)
 
-      var lastRegion = {
-        latitude: lat,
-        longitude: long,
-        latitudeDelta: LATITUDE_DELTA,
-        longitudeDelta: LONGITUDE_DELTA
-      }
+      // let lastRegion = {
+      //   latitude: lat,
+      //   longitude: long,
+      //   latitudeDelta: LATITUDE_DELTA,
+      //   longitudeDelta: LONGITUDE_DELTA
+      // }
 
-      this.setState({initalPosition: lastRegion})
-      this.setState({markerPosition: lastRegion})
+      this.setState({
+        markerPosition: {
+          latitude: lat,
+          longitude: long
+        }
+      })
+
+      //this.setState({initalPosition: lastRegion})
+      //this.setState({markerPosition: lastRegion})
+    }, (error) => alert(JSON.stringify(error)), {
+      enableHighAccuracy: true,
+      timeout: 20000,
+      maximumAge: 1000,
+      accuracy: 1
     })
   }
 
-
   componentWillUnmount() {
-    navigator.geolocation.clearWatch(this.watchID);
+    navigator.geolocation.clearWatch(this.watchID)
   }
 
   render() {
-    return (
-      <View style={styles.container}>
-        <MapView style={styles.map} region={this.state.initalPosition}>
-          <MapView.Marker coordinate={this.state.markerPosition}>
-            <View style={styles.radius}>
-              <View style={styles.marker}></View>
-            </View>
+
+
+    let mess_hall_markers = SampleData.map((item, index) => (
+          <MapView.Marker key={index} coordinate={{
+            latitude: item.coordinates.latitude,
+            longitude: item.coordinates.longitude
+          }} title={item.name} description={item.address}>
+            <SvgElement svg_data={ForkIcon}/>
           </MapView.Marker>
-        </MapView>
-      </View>
-    )
+        ))
+
+
+    if (this.state.initalPosition.latitude > 0) {
+      return (
+        <View style={styles.container}>
+          <MapView style={styles.map} initialRegion={this.state.initalPosition}>
+            <MapView.Marker coordinate={this.state.markerPosition}>
+              <View style={styles.radius}>
+                <View style={styles.marker}></View>
+              </View>
+            </MapView.Marker>
+            {mess_hall_markers}
+          </MapView>
+        </View>
+      )
+    } else {
+      return (
+        <View style={styles.container}>
+          <View style={styles.indicatorWrap}>
+            <ActivityIndicator animating={this.state.isLoading} color="#FFF" size="large"></ActivityIndicator>
+          </View>
+        </View>
+      )
+    }
   }
 }
 

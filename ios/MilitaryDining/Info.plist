@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>UIStatusBarHidden</key>
-	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -41,16 +39,29 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>CHANGEME: Location Always And When In Use Usage Description</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>CHANGEME: Location Always Usage Description</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string/>
+	<key>NSMotionUsageDescription</key>
+	<string>CHANGEME: Motion updates increase battery efficiency by intelligently toggling location-services when device is detected to be moving</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>BlackOpsOne-Regular.ttf</string>
+	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>location</string>
 	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
 	</array>
+	<key>UIStatusBarHidden</key>
+	<true/>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
