@@ -3,6 +3,10 @@ import React, {Component} from 'react';
 import BackgroundGeolocation from "react-native-background-geolocation";
 
 export default class Foo extends Component {
+  // constructor(props) {
+  //   super(props)
+  //   console.log('rnbg constuctor')
+  // }
   componentWillMount() {
     // 1.  Wire up event-listeners
 

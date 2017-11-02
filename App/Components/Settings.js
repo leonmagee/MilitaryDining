@@ -355,7 +355,7 @@ class Settings extends Component {
           </View>
           <View style={[styles.inputWrap, styles.inputWrapMultipleItem]}>
             <Text style={styles.inputLabel}>Age (years)</Text>
-            <TextInput value={this.state.age} keyboardType='numeric' style={styles.textInput} onChangeText={(age) => this.setState({age})}/>
+            <TextInput value={this.state.age} style={styles.textInput} onChangeText={(age) => this.setState({age})}/>
           </View>
         </View>
         <View style={styles.dropdownWrap}>

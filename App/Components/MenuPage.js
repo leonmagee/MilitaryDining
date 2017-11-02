@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import LinearGradient from 'react-native-linear-gradient'
 import MenuBar from './MenuBar'
+import MenuDetails from './MenuDetails'
 
 import {
   View,
@@ -69,6 +70,15 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#DDD'
   },
+  menuFoodItemWrapInner: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  menuFoodItemIcon: {
+    color: '#777',
+    fontSize: 9
+  },
   menuFoodItem: {
     color: '#444',
     fontWeight: 'bold',
@@ -87,29 +97,44 @@ class MenuPage extends Component {
     }
 
     const menuz = this.props.currentMenu;
+    console.log('menu?', menuz)
 
+    /**
+    * @todo I probably need to have a separate state for each item, which will be easier..
+    * if each item is it's own component I should be able to do this without a detached array to manage
+    * the state...
+    **/
     menuz.menus.map((menu, key) => {
 
+      const breakfast_details = menu.breakfast.map((item, key) => ({icon: '(more info)', visible: false, opacity: new Animated.Value(0)}))
+      const lunch_details = menu.lunch.map((item, key) => ({icon: '(more info)', visible: false, opacity: new Animated.Value(0)}))
+      const dinner_details = menu.dinner.map((item, key) => ({icon: '(more info)', visible: false, opacity: new Animated.Value(0)}))
+      const pastry_bar_details = menu.pastry_bar.map((item, key) => ({icon: '(more info)', visible: false, opacity: new Animated.Value(0)}))
+
       this.state.menuToggle[key] = {
-        'breakfast': {
-          'icon': '+',
-          'visible': false,
-          'opacity': new Animated.Value(0)
+        breakfast: {
+          icon: '+',
+          visible: false,
+          opacity: new Animated.Value(0),
+          details: breakfast_details
         },
-        'lunch': {
-          'icon': '+',
-          'visible': false,
-          'opacity': new Animated.Value(0)
+        lunch: {
+          icon: '+',
+          visible: false,
+          opacity: new Animated.Value(0),
+          details: lunch_details
         },
-        'dinner': {
-          'icon': '+',
-          'visible': false,
-          'opacity': new Animated.Value(0)
+        dinner: {
+          icon: '+',
+          visible: false,
+          opacity: new Animated.Value(0),
+          details: dinner_details
         },
-        'pastry_bar': {
-          'icon': '+',
-          'visible': false,
-          'opacity': new Animated.Value(0)
+        pastry_bar: {
+          icon: '+',
+          visible: false,
+          opacity: new Animated.Value(0),
+          details: pastry_bar_details
         }
       }
     })
@@ -138,41 +163,113 @@ class MenuPage extends Component {
     }
   }
 
+  toggleMenuDetails(key, item_key, item) {
+    const newMenuToggle = this.state.menuToggle;
+    if (newMenuToggle[key][item].details[item_key].icon === '(more info)') {
+      newMenuToggle[key][item].details[item_key].icon = '(less info)'
+      newMenuToggle[key][item].details[item_key].visible = true
+      this.setState({menuToggle: newMenuToggle})
+      this.setState(() => {
+        Animated.timing(this.state.menuToggle[key][item].details[item_key].opacity, {
+          toValue: 1,
+          duration: 300, // use timing for animation
+        }).start()
+      })
+    } else {
+      newMenuToggle[key][item].details[item_key].icon = '(more info)'
+      newMenuToggle[key][item].details[item_key].visible = false
+      newMenuToggle[key][item].details[item_key].opacity = new Animated.Value(0)
+      this.setState({menuToggle: newMenuToggle})
+    }
+  }
+
   render() {
 
     const menuz = this.props.currentMenu;
 
     const menu_days = menuz.menus.map((menu, key) => {
 
-      let breakfast = menu.breakfast.map((item, key) => {
+      let breakfast = menu.breakfast.map((item, item_key) => {
+        if (this.state.menuToggle[key].breakfast.details[item_key].visible) {
+          var menu_details_item = (<MenuDetails portion={item.portion} cal={item.cal} fat={item.fat} pro={item.pro} carb={item.carb}/>)
+        } else {
+          var menu_details_item = (
+            <View></View>
+          )
+        }
         return (
-          <View style={styles.menuFoodItemWrap} key={key}>
-            <Text style={styles.menuFoodItem}>{item}</Text>
-          </View>
+          <TouchableHighlight onPress={() => this.toggleMenuDetails(key, item_key, 'breakfast')} style={styles.menuFoodItemWrap} key={item_key} underlayColor="transparent">
+            <View>
+              <View style={styles.menuFoodItemWrapInner}>
+                <Text style={styles.menuFoodItem}>{item.name}</Text>
+                <Text style={styles.menuFoodItemIcon}>{this.state.menuToggle[key].breakfast.details[item_key].icon}</Text>
+              </View>
+              {menu_details_item}
+            </View>
+          </TouchableHighlight>
         )
       })
 
-      let lunch = menu.lunch.map((item, key) => {
+      let lunch = menu.lunch.map((item, item_key) => {
+        if (this.state.menuToggle[key].lunch.details[item_key].visible) {
+          var menu_details_item = (<MenuDetails portion={item.portion} cal={item.cal} fat={item.fat} pro={item.pro} carb={item.carb}/>)
+        } else {
+          var menu_details_item = (
+            <View></View>
+          )
+        }
         return (
-          <View style={styles.menuFoodItemWrap} key={key}>
-            <Text style={styles.menuFoodItem}>{item}</Text>
-          </View>
+          <TouchableHighlight onPress={() => this.toggleMenuDetails(key, item_key, 'lunch')} style={styles.menuFoodItemWrap} key={item_key} underlayColor="transparent">
+            <View>
+              <View style={styles.menuFoodItemWrapInner}>
+                <Text style={styles.menuFoodItem}>{item.name}</Text>
+                <Text style={styles.menuFoodItemIcon}>{this.state.menuToggle[key].lunch.details[item_key].icon}</Text>
+              </View>
+              {menu_details_item}
+            </View>
+          </TouchableHighlight>
         )
       })
 
-      let dinner = menu.dinner.map((item, key) => {
+      let dinner = menu.dinner.map((item, item_key) => {
+        if (this.state.menuToggle[key].dinner.details[item_key].visible) {
+          var menu_details_item = (<MenuDetails portion={item.portion} cal={item.cal} fat={item.fat} pro={item.pro} carb={item.carb}/>)
+        } else {
+          var menu_details_item = (
+            <View></View>
+          )
+        }
         return (
-          <View style={styles.menuFoodItemWrap} key={key}>
-            <Text style={styles.menuFoodItem}>{item}</Text>
-          </View>
+          <TouchableHighlight onPress={() => this.toggleMenuDetails(key, item_key, 'dinner')} style={styles.menuFoodItemWrap} key={item_key} underlayColor="transparent">
+            <View>
+              <View style={styles.menuFoodItemWrapInner}>
+                <Text style={styles.menuFoodItem}>{item.name}</Text>
+                <Text style={styles.menuFoodItemIcon}>{this.state.menuToggle[key].dinner.details[item_key].icon}</Text>
+              </View>
+              {menu_details_item}
+            </View>
+          </TouchableHighlight>
         )
       })
 
-      let pastry_bar = menu.pastry_bar.map((item, key) => {
+      let pastry_bar = menu.pastry_bar.map((item, item_key) => {
+        if (this.state.menuToggle[key].pastry_bar.details[item_key].visible) {
+          var menu_details_item = (<MenuDetails portion={item.portion} cal={item.cal} fat={item.fat} pro={item.pro} carb={item.carb}/>)
+        } else {
+          var menu_details_item = (
+            <View></View>
+          )
+        }
         return (
-          <View style={styles.menuFoodItemWrap} key={key}>
-            <Text style={styles.menuFoodItem}>{item}</Text>
-          </View>
+          <TouchableHighlight onPress={() => this.toggleMenuDetails(key, item_key, 'pastry_bar')} style={styles.menuFoodItemWrap} key={item_key} underlayColor="transparent">
+            <View>
+              <View style={styles.menuFoodItemWrapInner}>
+                <Text style={styles.menuFoodItem}>{item.name}</Text>
+                <Text style={styles.menuFoodItemIcon}>{this.state.menuToggle[key].pastry_bar.details[item_key].icon}</Text>
+              </View>
+              {menu_details_item}
+            </View>
+          </TouchableHighlight>
         )
       })
 
