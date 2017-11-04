@@ -105,7 +105,7 @@ class MenuPage extends Component {
     }
 
     const menuz = this.props.currentMenu;
-    console.log('menu?', menuz)
+    //console.log('menu?', menuz)
 
     /**
     * @todo I probably need to have a separate state for each item, which will be easier..
@@ -114,10 +114,26 @@ class MenuPage extends Component {
     **/
     menuz.menus.map((menu, key) => {
 
-      const breakfast_details = menu.breakfast.map((item, key) => ({icon: '(more info)', visible: false, opacity: new Animated.Value(0)}))
-      const lunch_details = menu.lunch.map((item, key) => ({icon: '(more info)', visible: false, opacity: new Animated.Value(0)}))
-      const dinner_details = menu.dinner.map((item, key) => ({icon: '(more info)', visible: false, opacity: new Animated.Value(0)}))
-      const pastry_bar_details = menu.pastry_bar.map((item, key) => ({icon: '(more info)', visible: false, opacity: new Animated.Value(0)}))
+      if (menu.breakfast) {
+        var breakfast_details = menu.breakfast.map((item, key) => ({icon: '(more info)', visible: false, opacity: new Animated.Value(0)}))
+      } else {
+        var breakfast_details = null;
+      }
+      if (menu.lunch) {
+        var lunch_details = menu.lunch.map((item, key) => ({icon: '(more info)', visible: false, opacity: new Animated.Value(0)}))
+      } else {
+        var lunch_details = null;
+      }
+      if (menu.dinner) {
+        var dinner_details = menu.dinner.map((item, key) => ({icon: '(more info)', visible: false, opacity: new Animated.Value(0)}))
+      } else {
+        var dinner_details = null;
+      }
+      if (menu.pastry_bar) {
+        var pastry_bar_details = menu.pastry_bar.map((item, key) => ({icon: '(more info)', visible: false, opacity: new Animated.Value(0)}))
+      } else {
+        var pastry_bar_details = null;
+      }
 
       this.state.menuToggle[key] = {
         breakfast: {
@@ -391,7 +407,7 @@ class MenuPage extends Component {
           home: true,
           settings: true,
           mess_halls: true
-        }} />
+        }}/>
       </View>
     )
   }

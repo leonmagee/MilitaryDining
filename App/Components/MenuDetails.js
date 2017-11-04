@@ -7,8 +7,9 @@ const styles = StyleSheet.create({
     //paddingVertical: 20,
     borderWidth: 1,
     borderColor: '#EAEAEA',
-    marginVertical: 15,
-    marginHorizontal: 10,
+    marginTop: 13,
+    marginBottom: 8,
+    //marginHorizontal: 10,
   },
   menuDetailsItemWrap: {
     flexDirection: 'row',
