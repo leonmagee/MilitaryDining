@@ -7,6 +7,7 @@
 * @todo instal geofence package
 **/
 import React, {Component} from 'react'
+import {connect} from 'react-redux'
 import {
   View, Text,
   //Animated,
@@ -19,7 +20,7 @@ import SvgElement from './SvgElement'
 //import {ForkIcon, CurrentMarker} from '../SVG/SvgIcons'
 import {ForkIcon} from '../SVG/SvgIcons'
 import {variables} from '../Styles/Variables'
-import SampleData from '../Data/Data'
+//import SampleData from '../Data/Data'
 
 // const messHallCoordinates = []
 // SampleData.map((item) => {
@@ -163,16 +164,19 @@ class MapSearch extends Component {
 
   render() {
 
+    if (this.props.restData) {
 
-    let mess_hall_markers = SampleData.map((item, index) => (
-          <MapView.Marker key={index} coordinate={{
-            latitude: item.coordinates.latitude,
-            longitude: item.coordinates.longitude
-          }} title={item.name} description={item.address}>
-            <SvgElement svg_data={ForkIcon}/>
-          </MapView.Marker>
-        ))
-
+      var mess_hall_markers = this.props.restData.map((item, index) => (
+        <MapView.Marker key={index} coordinate={{
+          latitude: item.coordinates.latitude,
+          longitude: item.coordinates.longitude
+        }} title={item.name} description={item.address}>
+          <SvgElement svg_data={ForkIcon}/>
+        </MapView.Marker>
+      ))
+    } else {
+      var mess_hall_markers = <View></View>
+    }
 
     if (this.state.initalPosition.latitude > 0) {
       return (
@@ -199,4 +203,6 @@ class MapSearch extends Component {
   }
 }
 
-module.exports = MapSearch;
+mapStateToProps = (state) => ({restData: state.restData})
+
+module.exports = connect(mapStateToProps)(MapSearch)

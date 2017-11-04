@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import LinearGradient from 'react-native-linear-gradient'
 import MenuBar from './MenuBar'
 import MenuDetails from './MenuDetails'
+import {variables} from '../Styles/Variables'
 
 import {
   View,
@@ -27,23 +28,30 @@ const styles = StyleSheet.create({
     flex: 1
   },
   messHallWrap: {
-    marginTop: 20,
+    //marginTop: 20,
     flex: 1,
     alignSelf: 'stretch'
   },
   messHallNameWrap: {
-    paddingTop: 40,
-    paddingBottom: 5
+    // paddingTop: 40,
+    // paddingBottom: 5,
+    paddingVertical: 20,
+    backgroundColor: variables.brandPrimary,
+    alignSelf: 'stretch',
+    alignItems: 'center'
   },
   messHallName: {
-    fontSize: 22,
-    color: '#111',
+    fontSize: 24,
+    color: '#FFF',
     fontFamily: 'Black Ops One'
   },
   dayWrap: {
     backgroundColor: '#111',
     paddingVertical: 10,
-    alignItems: 'center'
+    paddingHorizontal: 15,
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
   dayText: {
     fontFamily: 'Black Ops One',
@@ -333,6 +341,7 @@ class MenuPage extends Component {
         <View key={key}>
           <LinearGradient colors={['#333', '#222', '#333']} style={styles.dayWrap}>
             <Text style={styles.dayText}>Day {menu.day}</Text>
+            <Text style={styles.dayText}>{menu.date}</Text>
           </LinearGradient>
           <TouchableHighlight onPress={() => this.toggleMenu(key, 'breakfast')} underlayColor="transparent">
             <View style={styles.mealNameWrap}>
@@ -382,7 +391,7 @@ class MenuPage extends Component {
           home: true,
           settings: true,
           mess_halls: true
-        }} backgroundStyle='#222'/>
+        }} />
       </View>
     )
   }

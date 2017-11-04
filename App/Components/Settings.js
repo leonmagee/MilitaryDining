@@ -368,7 +368,7 @@ class Settings extends Component {
           home: true,
           settings: false,
           mess_halls: true
-        }} backgroundStyle='#333'/>
+        }} />
       </View>
     )
   }

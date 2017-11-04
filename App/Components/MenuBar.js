@@ -8,10 +8,12 @@ let {width} = Dimensions.get('window')
 const styles = StyleSheet.create({
   menuBarWrap: {
     position: 'absolute',
-    height: 45,
-    paddingTop: 10,
-    paddingBottom: 5,
-    backgroundColor: 'rgba(0,0,0,0.6)',
+    //height: 45,
+    //paddingTop: 10,
+    //paddingBottom: 5,
+    paddingVertical: 10,
+    //backgroundColor: 'rgba(0,0,0,0.6)',
+    //backgroundColor: 'red',
     bottom: 0,
     width: width
   },
@@ -67,7 +69,8 @@ class MenuBar extends Component {
     )
 
     if (!this.props.backgroundStyle) {
-      var backgroundStyleColor = variables.brandFifth
+      var backgroundStyleColor = variables.brandPrimary
+      //var backgroundStyleColor = 'red'
     } else {
       var backgroundStyleColor = this.props.backgroundStyle
     }

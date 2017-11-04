@@ -2,9 +2,12 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import MenuBar from './MenuBar'
 import {variables} from '../Styles/Variables'
-import {View, Text, TouchableHighlight, StyleSheet} from 'react-native'
+import {View, ScrollView, Text, TouchableHighlight, StyleSheet} from 'react-native'
+//import api from '../Utils/api'
 
-import MenuInfo from '../Data/Data.js'
+//import MenuInfo from '../Data/Data.js'
+
+
 
 const styles = StyleSheet.create({
   mainWrap: {
@@ -13,15 +16,13 @@ const styles = StyleSheet.create({
     flex: 1
   },
   pageTitleWrap: {
-    paddingTop: 35,
-    paddingBottom: 20,
-    //backgroundColor: '#555',
-    backgroundColor: variables.brandFifth,
+    paddingVertical: 20,
+    backgroundColor: variables.brandPrimary,
     alignSelf: 'stretch',
     alignItems: 'center'
   },
   pageTitle: {
-    fontSize: 22,
+    fontSize: 24,
     color: '#FFF',
     fontFamily: 'Black Ops One'
   },
@@ -43,37 +44,72 @@ const styles = StyleSheet.create({
 
 class MessHalls extends Component {
 
+  constructor(props) {
+    super(props)
+
+    // this.state = {
+    //   data_ready: false,
+    //   menu_data: null
+    // }
+
+    // api.getMenus().then((res)=> {
+    //   //console.log('real data', res)
+    //   //this.props.getRestData(res)
+    //   //return res
+    //   console.log('here is the response data?', res)
+    //   this.setState({menu_data: res})
+    //   this.setState({data_ready: true})
+    //   //this.setState({menu_data: res})
+    // })
+
+  }
+
   render() {
 
-    const MessHallMenus = MenuInfo.map((data, key) => {
+    //console.log('prizopz', this.props)
+
+    //import MenuInfo from '../Data/Data.js'
+    //const MenuInfo = this.props.restData
+    //console.log('this.state.data_ready', this.state.data_ready)
+
+    //if (this.state.data_ready) {
+      if (this.props.restData) {
+
+      const MessHallMenus = this.props.restData.map((data, key) => {
+        return (
+          <View key={key} style={styles.messHallTitleWrap}>
+            <TouchableHighlight onPress={() => this.props.goToMenuPage(data)} underlayColor="transparent">
+              <Text style={styles.messHallTitle}>{data.name}</Text>
+            </TouchableHighlight>
+          </View>
+        )
+      })
+
       return (
-        <View key={key} style={styles.messHallTitleWrap}>
-          <TouchableHighlight onPress={() => this.props.goToMenuPage(data)} underlayColor="transparent">
-            <Text style={styles.messHallTitle}>{data.name}</Text>
-          </TouchableHighlight>
+        <View style={styles.mainWrap}>
+          <View style={styles.pageTitleWrap}>
+            <Text style={styles.pageTitle}>Choose Mess Hall</Text>
+          </View>
+          <ScrollView style={styles.messHallWrap}>
+            {MessHallMenus}
+          </ScrollView>
+          <MenuBar menuLinks={{
+            home: true,
+            settings: true,
+            mess_halls: false
+          }}/>
         </View>
       )
-    })
-
-    return (
-      <View style={styles.mainWrap}>
-        <View style={styles.pageTitleWrap}>
-          <Text style={styles.pageTitle}>Choose Mess Hall</Text>
-        </View>
-        <View style={styles.messHallWrap}>
-          {MessHallMenus}
-        </View>
-        <MenuBar menuLinks={{
-          home: true,
-          settings: true,
-          mess_halls: false
-        }} />
-      </View>
-    )
+    } else {
+      //console.log('returning blank view')
+      return (
+        <View></View>
+      )
+    }
   }
 }
 
-mapStateToProps = (state) => ({currentPage: state.currentPage})
+mapStateToProps = (state) => ({currentPage: state.currentPage, restData: state.restData})
 
 mapActionsToProps = (dispatch) => ({
   goToSettingsPage() {

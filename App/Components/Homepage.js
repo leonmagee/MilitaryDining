@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {vw, vh} from '../Utils/helper'
 import {connect} from 'react-redux'
-import SampleData from '../Data/Data'
+//import SampleData from '../Data/Data'
 //import LinkButton from './LinkButton'
 import Settings from './Settings'
 import MessHalls from './MessHalls'
@@ -10,6 +10,16 @@ import MapSearch from './MapSearchNew'
 import MenuBar from './MenuBar'
 import LinearGradient from 'react-native-linear-gradient'
 import variables from '../Styles/Variables'
+import api from '../Utils/api'
+//import Data from '../Data/Data'
+
+// console.log('testing data', Data)
+//
+// api.getMenus().then((res)=> {
+//   console.log('real data', res)
+// })
+
+
 
 import {StyleSheet, Text, View, Dimensions, Image} from 'react-native';
 
@@ -75,14 +85,20 @@ const styles = StyleSheet.create({
 class Homepage extends Component {
 
   constructor(props) {
-    super(props);
+    super(props)
+    console.log('CONSTRUCTORZZZ')
   }
 
   // componentWillMount() {
   // }
   //
-  // componentDidMount() {
-  // }
+  componentDidMount() {
+    api.getMenus().then((res)=> {
+      //console.log('real data', res)
+      this.props.getRestData(res)
+    })
+    console.log('COMPONENTZZZZ')
+  }
 
   render() {
 
@@ -114,7 +130,7 @@ class Homepage extends Component {
               mess_halls: true,
               map: true,
             }}
-            backgroundStyle='rgba(0,0,0,0.6)'/>
+            />
           </View>
         </View>
       )
@@ -130,16 +146,13 @@ class Homepage extends Component {
 
 mapStateToProps = (state) => ({currentPage: state.currentPage})
 
-// mapActionsToProps = (dispatch) => ({
-//   goToSettingsPage() {
-//     dispatch({type: 'SETTINGS_PAGE'})
-//   },
-//   goToMessHallsPage() {
-//     dispatch({type: 'MESS_HALLS_PAGE'})
-//   }
-// })
+mapActionsToProps = (dispatch) => ({
+  getRestData(results) {
+    dispatch({type: 'SET_DATA_VALUE', payload: results})
+  },
+  // goToMessHallsPage() {
+  //   dispatch({type: 'MESS_HALLS_PAGE'})
+  // }
+})
 
-//module.exports = Homepage
-
-//module.exports = connect(mapStateToProps, mapActionsToProps)(Homepage)
-module.exports = connect(mapStateToProps)(Homepage)
+module.exports = connect(mapStateToProps, mapActionsToProps)(Homepage)

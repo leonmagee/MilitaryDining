@@ -6,6 +6,7 @@ import {combineReducers} from 'redux'
  */
 import {currentPageReducer} from './currentPageReducer'
 import {currentMenuReducer} from './currentMenuReducer'
+import {restDataReducer} from './restDataReducer'
 
 /**
  * Combine Reducers
@@ -13,4 +14,5 @@ import {currentMenuReducer} from './currentMenuReducer'
 export const reducer = combineReducers({
     currentPage: currentPageReducer,
     currentMenu: currentMenuReducer,
+    restData: restDataReducer,
 })
