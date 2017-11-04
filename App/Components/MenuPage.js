@@ -213,89 +213,105 @@ class MenuPage extends Component {
 
     const menu_days = menuz.menus.map((menu, key) => {
 
-      let breakfast = menu.breakfast.map((item, item_key) => {
-        if (this.state.menuToggle[key].breakfast.details[item_key].visible) {
-          var menu_details_item = (<MenuDetails portion={item.portion} cal={item.cal} fat={item.fat} pro={item.pro} carb={item.carb}/>)
-        } else {
-          var menu_details_item = (
-            <View></View>
-          )
-        }
-        return (
-          <TouchableHighlight onPress={() => this.toggleMenuDetails(key, item_key, 'breakfast')} style={styles.menuFoodItemWrap} key={item_key} underlayColor="transparent">
-            <View>
-              <View style={styles.menuFoodItemWrapInner}>
-                <Text style={styles.menuFoodItem}>{item.name}</Text>
-                <Text style={styles.menuFoodItemIcon}>{this.state.menuToggle[key].breakfast.details[item_key].icon}</Text>
+      if (menu.breakfast) {
+        var breakfast = menu.breakfast.map((item, item_key) => {
+          if (this.state.menuToggle[key].breakfast.details[item_key].visible) {
+            var menu_details_item = (<MenuDetails portion={item.portion} cal={item.cal} fat={item.fat} pro={item.pro} carb={item.carb}/>)
+          } else {
+            var menu_details_item = (
+              <View></View>
+            )
+          }
+          return (
+            <TouchableHighlight onPress={() => this.toggleMenuDetails(key, item_key, 'breakfast')} style={styles.menuFoodItemWrap} key={item_key} underlayColor="transparent">
+              <View>
+                <View style={styles.menuFoodItemWrapInner}>
+                  <Text style={styles.menuFoodItem}>{item.name}</Text>
+                  <Text style={styles.menuFoodItemIcon}>{this.state.menuToggle[key].breakfast.details[item_key].icon}</Text>
+                </View>
+                {menu_details_item}
               </View>
-              {menu_details_item}
-            </View>
-          </TouchableHighlight>
-        )
-      })
+            </TouchableHighlight>
+          )
+        })
+      } else {
+        var breakfast = <View></View>
+      }
 
-      let lunch = menu.lunch.map((item, item_key) => {
-        if (this.state.menuToggle[key].lunch.details[item_key].visible) {
-          var menu_details_item = (<MenuDetails portion={item.portion} cal={item.cal} fat={item.fat} pro={item.pro} carb={item.carb}/>)
-        } else {
-          var menu_details_item = (
-            <View></View>
-          )
-        }
-        return (
-          <TouchableHighlight onPress={() => this.toggleMenuDetails(key, item_key, 'lunch')} style={styles.menuFoodItemWrap} key={item_key} underlayColor="transparent">
-            <View>
-              <View style={styles.menuFoodItemWrapInner}>
-                <Text style={styles.menuFoodItem}>{item.name}</Text>
-                <Text style={styles.menuFoodItemIcon}>{this.state.menuToggle[key].lunch.details[item_key].icon}</Text>
+      if (menu.lunch) {
+        var lunch = menu.lunch.map((item, item_key) => {
+          if (this.state.menuToggle[key].lunch.details[item_key].visible) {
+            var menu_details_item = (<MenuDetails portion={item.portion} cal={item.cal} fat={item.fat} pro={item.pro} carb={item.carb}/>)
+          } else {
+            var menu_details_item = (
+              <View></View>
+            )
+          }
+          return (
+            <TouchableHighlight onPress={() => this.toggleMenuDetails(key, item_key, 'lunch')} style={styles.menuFoodItemWrap} key={item_key} underlayColor="transparent">
+              <View>
+                <View style={styles.menuFoodItemWrapInner}>
+                  <Text style={styles.menuFoodItem}>{item.name}</Text>
+                  <Text style={styles.menuFoodItemIcon}>{this.state.menuToggle[key].lunch.details[item_key].icon}</Text>
+                </View>
+                {menu_details_item}
               </View>
-              {menu_details_item}
-            </View>
-          </TouchableHighlight>
-        )
-      })
+            </TouchableHighlight>
+          )
+        })
+      } else {
+        var lunch = <View></View>
+      }
 
-      let dinner = menu.dinner.map((item, item_key) => {
-        if (this.state.menuToggle[key].dinner.details[item_key].visible) {
-          var menu_details_item = (<MenuDetails portion={item.portion} cal={item.cal} fat={item.fat} pro={item.pro} carb={item.carb}/>)
-        } else {
-          var menu_details_item = (
-            <View></View>
-          )
-        }
-        return (
-          <TouchableHighlight onPress={() => this.toggleMenuDetails(key, item_key, 'dinner')} style={styles.menuFoodItemWrap} key={item_key} underlayColor="transparent">
-            <View>
-              <View style={styles.menuFoodItemWrapInner}>
-                <Text style={styles.menuFoodItem}>{item.name}</Text>
-                <Text style={styles.menuFoodItemIcon}>{this.state.menuToggle[key].dinner.details[item_key].icon}</Text>
+      if (menu.dinner) {
+        var dinner = menu.dinner.map((item, item_key) => {
+          if (this.state.menuToggle[key].dinner.details[item_key].visible) {
+            var menu_details_item = (<MenuDetails portion={item.portion} cal={item.cal} fat={item.fat} pro={item.pro} carb={item.carb}/>)
+          } else {
+            var menu_details_item = (
+              <View></View>
+            )
+          }
+          return (
+            <TouchableHighlight onPress={() => this.toggleMenuDetails(key, item_key, 'dinner')} style={styles.menuFoodItemWrap} key={item_key} underlayColor="transparent">
+              <View>
+                <View style={styles.menuFoodItemWrapInner}>
+                  <Text style={styles.menuFoodItem}>{item.name}</Text>
+                  <Text style={styles.menuFoodItemIcon}>{this.state.menuToggle[key].dinner.details[item_key].icon}</Text>
+                </View>
+                {menu_details_item}
               </View>
-              {menu_details_item}
-            </View>
-          </TouchableHighlight>
-        )
-      })
+            </TouchableHighlight>
+          )
+        })
+      } else {
+        var dinner = <View></View>
+      }
 
-      let pastry_bar = menu.pastry_bar.map((item, item_key) => {
-        if (this.state.menuToggle[key].pastry_bar.details[item_key].visible) {
-          var menu_details_item = (<MenuDetails portion={item.portion} cal={item.cal} fat={item.fat} pro={item.pro} carb={item.carb}/>)
-        } else {
-          var menu_details_item = (
-            <View></View>
-          )
-        }
-        return (
-          <TouchableHighlight onPress={() => this.toggleMenuDetails(key, item_key, 'pastry_bar')} style={styles.menuFoodItemWrap} key={item_key} underlayColor="transparent">
-            <View>
-              <View style={styles.menuFoodItemWrapInner}>
-                <Text style={styles.menuFoodItem}>{item.name}</Text>
-                <Text style={styles.menuFoodItemIcon}>{this.state.menuToggle[key].pastry_bar.details[item_key].icon}</Text>
+      if (menu.pastry_bar) {
+        var pastry_bar = menu.pastry_bar.map((item, item_key) => {
+          if (this.state.menuToggle[key].pastry_bar.details[item_key].visible) {
+            var menu_details_item = (<MenuDetails portion={item.portion} cal={item.cal} fat={item.fat} pro={item.pro} carb={item.carb}/>)
+          } else {
+            var menu_details_item = (
+              <View></View>
+            )
+          }
+          return (
+            <TouchableHighlight onPress={() => this.toggleMenuDetails(key, item_key, 'pastry_bar')} style={styles.menuFoodItemWrap} key={item_key} underlayColor="transparent">
+              <View>
+                <View style={styles.menuFoodItemWrapInner}>
+                  <Text style={styles.menuFoodItem}>{item.name}</Text>
+                  <Text style={styles.menuFoodItemIcon}>{this.state.menuToggle[key].pastry_bar.details[item_key].icon}</Text>
+                </View>
+                {menu_details_item}
               </View>
-              {menu_details_item}
-            </View>
-          </TouchableHighlight>
-        )
-      })
+            </TouchableHighlight>
+          )
+        })
+      } else {
+        var pastry_bar = <View></View>
+      }
 
       if (this.state.menuToggle[key].breakfast.visible) {
         var breakastContent = (
