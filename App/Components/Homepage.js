@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   },
   homeText: {
     color: 'rgba(255,255,255,1)',
-    fontSize: 18 * vw,
+    fontSize: 17 * vw,
     shadowColor: '#000',
     shadowOpacity: 0.5,
     fontFamily: 'Black Ops One',

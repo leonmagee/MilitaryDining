@@ -168,8 +168,8 @@ class MapSearch extends Component {
 
       var mess_hall_markers = this.props.restData.map((item, index) => (
         <MapView.Marker key={index} coordinate={{
-          latitude: item.coordinates.latitude,
-          longitude: item.coordinates.longitude
+          latitude: parseFloat(item.coordinates.latitude),
+          longitude: parseFloat(item.coordinates.longitude)
         }} title={item.name} description={item.address}>
           <SvgElement svg_data={ForkIcon}/>
         </MapView.Marker>
