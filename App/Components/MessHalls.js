@@ -46,33 +46,10 @@ class MessHalls extends Component {
 
   constructor(props) {
     super(props)
-
-    // this.state = {
-    //   data_ready: false,
-    //   menu_data: null
-    // }
-
-    // api.getMenus().then((res)=> {
-    //   //console.log('real data', res)
-    //   //this.props.getRestData(res)
-    //   //return res
-    //   console.log('here is the response data?', res)
-    //   this.setState({menu_data: res})
-    //   this.setState({data_ready: true})
-    //   //this.setState({menu_data: res})
-    // })
-
   }
 
   render() {
 
-    //console.log('prizopz', this.props)
-
-    //import MenuInfo from '../Data/Data.js'
-    //const MenuInfo = this.props.restData
-    //console.log('this.state.data_ready', this.state.data_ready)
-
-    //if (this.state.data_ready) {
       if (this.props.restData) {
 
       const MessHallMenus = this.props.restData.map((data, key) => {
@@ -101,7 +78,6 @@ class MessHalls extends Component {
         </View>
       )
     } else {
-      //console.log('returning blank view')
       return (
         <View></View>
       )

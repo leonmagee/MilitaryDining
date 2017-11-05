@@ -80,7 +80,7 @@ const ASPECT_RATIO = width / height
 const LATITUDE_DELTA = 0.0922
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO
 
-class MapSearch extends Component {
+class MapPage extends Component {
 
   constructor(props) {
     super(props);
@@ -166,14 +166,18 @@ class MapSearch extends Component {
 
     if (this.props.restData) {
 
-      var mess_hall_markers = this.props.restData.map((item, index) => (
-        <MapView.Marker key={index} coordinate={{
-          latitude: parseFloat(item.coordinates.latitude),
-          longitude: parseFloat(item.coordinates.longitude)
-        }} title={item.name} description={item.address}>
-          <SvgElement svg_data={ForkIcon}/>
-        </MapView.Marker>
-      ))
+      var mess_hall_markers = this.props.restData.map((item, index) => {
+        if (item.coordinates.latitude && item.coordinates.longitude) {
+          return (
+            <MapView.Marker key={index} coordinate={{
+              latitude: parseFloat(item.coordinates.latitude),
+              longitude: parseFloat(item.coordinates.longitude)
+            }} title={item.name} description={item.address}>
+              <SvgElement svg_data={ForkIcon}/>
+            </MapView.Marker>
+          )
+        }
+      })
     } else {
       var mess_hall_markers = <View></View>
     }
@@ -205,4 +209,4 @@ class MapSearch extends Component {
 
 mapStateToProps = (state) => ({restData: state.restData})
 
-module.exports = connect(mapStateToProps)(MapSearch)
+module.exports = connect(mapStateToProps)(MapPage)

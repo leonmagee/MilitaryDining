@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+console.log('background test is being loaded')
 
 import BackgroundGeolocation from "react-native-background-geolocation";
 

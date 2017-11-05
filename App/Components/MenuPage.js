@@ -105,7 +105,6 @@ class MenuPage extends Component {
     }
 
     const menuz = this.props.currentMenu;
-    //console.log('menu?', menuz)
 
     /**
     * @todo I probably need to have a separate state for each item, which will be easier..

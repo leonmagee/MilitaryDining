@@ -1,25 +1,14 @@
 import React, {Component} from 'react'
 import {vw, vh} from '../Utils/helper'
 import {connect} from 'react-redux'
-//import SampleData from '../Data/Data'
-//import LinkButton from './LinkButton'
 import Settings from './Settings'
 import MessHalls from './MessHalls'
 import MenuPage from './MenuPage'
-import MapSearch from './MapSearchNew'
+import MapPage from './MapPage'
 import MenuBar from './MenuBar'
 import LinearGradient from 'react-native-linear-gradient'
 import variables from '../Styles/Variables'
 import api from '../Utils/api'
-//import Data from '../Data/Data'
-
-// console.log('testing data', Data)
-//
-// api.getMenus().then((res)=> {
-//   console.log('real data', res)
-// })
-
-
 
 import {StyleSheet, Text, View, Dimensions, Image} from 'react-native';
 
@@ -68,36 +57,18 @@ const styles = StyleSheet.create({
     color: '#FFF',
     backgroundColor: 'transparent'
   },
-  // menuBar: {
-  //   position: 'absolute',
-  //   height: 50,
-  //   paddingTop: 10,
-  //   paddingBottom: 5,
-  //   backgroundColor: 'rgba(0,0,0,0.6)',
-  //   justifyContent: 'space-around',
-  //   alignItems: 'center',
-  //   flexDirection: 'row',
-  //   bottom: 0,
-  //   width: width
-  // }
 });
 
 class Homepage extends Component {
 
   constructor(props) {
     super(props)
-    console.log('CONSTRUCTORZZZ')
   }
 
-  // componentWillMount() {
-  // }
-  //
   componentDidMount() {
     api.getMenus().then((res)=> {
-      //console.log('real data', res)
-      this.props.getRestData(res)
+      this.props.setRestData(res)
     })
-    console.log('COMPONENTZZZZ')
   }
 
   render() {
@@ -107,7 +78,7 @@ class Homepage extends Component {
     } else if (this.props.currentPage === 'mess_halls') {
       var currentActivePage = (<MessHalls/>)
     } else if (this.props.currentPage === 'map') {
-      var currentActivePage = (<MapSearch/>)
+      var currentActivePage = (<MapPage/>)
     } else if (this.props.currentPage === 'menu_page') {
       var currentActivePage = (<MenuPage/>)
     } else {
@@ -147,12 +118,9 @@ class Homepage extends Component {
 mapStateToProps = (state) => ({currentPage: state.currentPage})
 
 mapActionsToProps = (dispatch) => ({
-  getRestData(results) {
+  setRestData(results) {
     dispatch({type: 'SET_DATA_VALUE', payload: results})
   },
-  // goToMessHallsPage() {
-  //   dispatch({type: 'MESS_HALLS_PAGE'})
-  // }
 })
 
 module.exports = connect(mapStateToProps, mapActionsToProps)(Homepage)
