@@ -6,9 +6,12 @@ import MessHalls from './MessHalls'
 import MenuPage from './MenuPage'
 import MapPage from './MapPage'
 import MenuBar from './MenuBar'
-import LinearGradient from 'react-native-linear-gradient'
+//import LinearGradient from 'react-native-linear-gradient'
 import variables from '../Styles/Variables'
 import api from '../Utils/api'
+import bgGeo from "react-native-background-geolocation";
+
+//import Foo from './BackgroundGeolocationTest' //testing react-native-background-geolocation
 
 import {StyleSheet, Text, View, Dimensions, Image} from 'react-native';
 
@@ -56,18 +59,101 @@ const styles = StyleSheet.create({
     fontFamily: 'Black Ops One',
     color: '#FFF',
     backgroundColor: 'transparent'
-  },
+  }
 });
 
 class Homepage extends Component {
 
   constructor(props) {
     super(props)
+
+    //     BackgroundGeolocation.on('geofence', function(params) {
+    //       console.log('- Geofence event: ', params.identifier);
+    //     });
+    //     // Add a geofence
+    //     BackgroundGeolocation.addGeofences({
+    //       identifier: 'HOME',
+    //       radius: 200,
+    //       latitude: 45.51818958022214,
+    //       longitude: -73.61409989192487,
+    //       notifyOnEntry: true,
+    //       notifyOnExit: true
+    //     });
+    //     // Remove a geofence
+    //     //bgGeo.removeGeofence("HOME");
+    //     // Fetch geofences
+    //     BackgroundGeolocation.getGeofences(function(geofences) {
+    //       console.log('- Geofences: ', geofences);
+    //     });
+    //
+    //     BackgroundGeolocation.configure({
+    //   desiredAccuracy: 0,
+    //   distanceFilter: 50,
+    // }, function(state) {
+    //   console.log('- BackgroundGeolocation configured and ready');
+    //   if (!state.enabled) {  // <-- current state provided to callback
+    //     BackgroundGeolocation.start();
+    //   }
+    // });
+
+    // Use #setConfig if you need to change options after you've executed #configure
+
+    // BackgroundGeolocation.setConfig({
+    //   desiredAccuracy: 10,
+    //   distanceFilter: 10
+    // }, function() {
+    //   console.log('set config success');
+    // }, function() {
+    //   console.log('failed to setConfig');
+    // });
+
   }
 
   componentDidMount() {
-    api.getMenus().then((res)=> {
+    api.getMenus().then((res) => {
       this.props.setRestData(res)
+
+      const myGeoFences = res.map((item, index) => {
+        if (item.coordinates.latitude && item.coordinates.longitude) {
+          console.log('lat:', item.coordinates.latitude, 'long:', item.coordinates.longitude)
+          return ({
+            identifier: item.name,
+            radius: 200,
+            latitude: item.coordinates.latitude,
+            longitude: item.coordinates.longitude,
+            notifyOnEntry: true,
+            notifyOnExit: true
+          })
+
+        }
+      })
+
+      //console.log('mygeobitches?', myGeoFences)
+
+      // Listen for geofence events.
+      // bgGeo.on('geofence', function(params) {
+      //   console.log('- Geofence event: ', params.identifier);
+      // });
+      // Add a geofence
+      bgGeo.addGeofences(myGeoFences);
+      // bgGeo.addGeofences([
+      //   {
+      //     identifier: 'HOME',
+      //     radius: 200,
+      //     latitude: 45.51818958022214,
+      //     longitude: -73.61409989192487,
+      //     notifyOnEntry: true,
+      //     notifyOnExit: true
+      //   }
+      // ]);
+      // Remove a geofence
+      //bgGeo.removeGeofence("HOME");
+      // Fetch geofences
+      bgGeo.getGeofences(function(geofences) {
+        console.log('- Geofences: ', geofences);
+      });
+      //
+      // console.log('results res is', res)
     })
   }
 
@@ -99,9 +185,8 @@ class Homepage extends Component {
               home: false,
               settings: true,
               mess_halls: true,
-              map: true,
-            }}
-            />
+              map: true
+            }}/>
           </View>
         </View>
       )
@@ -120,7 +205,7 @@ mapStateToProps = (state) => ({currentPage: state.currentPage})
 mapActionsToProps = (dispatch) => ({
   setRestData(results) {
     dispatch({type: 'SET_DATA_VALUE', payload: results})
-  },
+  }
 })
 
 module.exports = connect(mapStateToProps, mapActionsToProps)(Homepage)
