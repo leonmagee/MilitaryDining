@@ -40,6 +40,7 @@
 		5053F64A1FA918FC00EDD44E /* TSBackgroundFetch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5053F6491FA918FC00EDD44E /* TSBackgroundFetch.framework */; };
 		5053F6961FAA1CEC00EDD44E /* RNBackgroundFetch+AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5053F6611FAA1CEC00EDD44E /* RNBackgroundFetch+AppDelegate.m */; };
 		5059B5661F9FAA52005A0861 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5059B5651F9FAA52005A0861 /* Images.xcassets */; };
+		50CC5AF11FB632C700D3728B /* libRCTPushNotification.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 50CC5AD31FB6325A00D3728B /* libRCTPushNotification.a */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		8CCF594E6B7A4E7D9C96F55F /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 14F19E9E80224B9C9D4BC96F /* libsqlite3.tbd */; };
@@ -353,6 +354,20 @@
 			remoteGlobalIDString = 50907F411FA0F9FD0050C9FE;
 			remoteInfo = "RNSVG-tvOS";
 		};
+		50CC5AD21FB6325A00D3728B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 50CC5AB41FB6325900D3728B /* RCTPushNotification.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RCTPushNotification;
+		};
+		50CC5AD41FB6325A00D3728B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 50CC5AB41FB6325900D3728B /* RCTPushNotification.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3D05745F1DE6004600184BB4;
+			remoteInfo = "RCTPushNotification-tvOS";
+		};
 		50D2AC381F97D30300807569 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 146833FF1AC3E56700842450 /* React.xcodeproj */;
@@ -450,6 +465,7 @@
 		5053F64B1FA92B0600EDD44E /* MilitaryDining.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = MilitaryDining.entitlements; path = MilitaryDining/MilitaryDining.entitlements; sourceTree = "<group>"; };
 		5053F6611FAA1CEC00EDD44E /* RNBackgroundFetch+AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RNBackgroundFetch+AppDelegate.m"; sourceTree = "<group>"; };
 		5059B5651F9FAA52005A0861 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		50CC5AB41FB6325900D3728B /* RCTPushNotification.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTPushNotification.xcodeproj; path = "../node_modules/react-native/Libraries/PushNotificationIOS/RCTPushNotification.xcodeproj"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		6AAF6E2A7E5541DEBE4A2424 /* AirMaps.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AirMaps.xcodeproj; path = "../node_modules/react-native-maps/lib/ios/AirMaps.xcodeproj"; sourceTree = "<group>"; };
 		6E6522101195444B8C87EC51 /* BVLinearGradient.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = BVLinearGradient.xcodeproj; path = "../node_modules/react-native-linear-gradient/BVLinearGradient.xcodeproj"; sourceTree = "<group>"; };
@@ -478,6 +494,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50CC5AF11FB632C700D3728B /* libRCTPushNotification.a in Frameworks */,
 				5053F64A1FA918FC00EDD44E /* TSBackgroundFetch.framework in Frameworks */,
 				5053F6481FA918CC00EDD44E /* TSLocationManager.framework in Frameworks */,
 				B323621C46194BF4A0E2D70F /* libz.tbd in Frameworks */,
@@ -727,6 +744,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		50CC5AB51FB6325900D3728B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				50CC5AD31FB6325A00D3728B /* libRCTPushNotification.a */,
+				50CC5AD51FB6325A00D3728B /* libRCTPushNotification-tvOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		5E91572E1DD0AC6500FF2AA8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -748,6 +774,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				50CC5AB41FB6325900D3728B /* RCTPushNotification.xcodeproj */,
 				5053F6241FA916E900EDD44E /* Lumberjack.xcodeproj */,
 				5053F5F51FA916BF00EDD44E /* RNBackgroundFetch.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
@@ -989,6 +1016,10 @@
 				{
 					ProductGroup = 00C302D41ABCB9D200DB3ED1 /* Products */;
 					ProjectRef = 00C302D31ABCB9D200DB3ED1 /* RCTNetwork.xcodeproj */;
+				},
+				{
+					ProductGroup = 50CC5AB51FB6325900D3728B /* Products */;
+					ProjectRef = 50CC5AB41FB6325900D3728B /* RCTPushNotification.xcodeproj */;
 				},
 				{
 					ProductGroup = 139105B71AF99BAD00B5F7CC /* Products */;
@@ -1319,6 +1350,20 @@
 			fileType = archive.ar;
 			path = "libRNSVG-tvOS.a";
 			remoteRef = 50907F6C1FA0F9FE0050C9FE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		50CC5AD31FB6325A00D3728B /* libRCTPushNotification.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTPushNotification.a;
+			remoteRef = 50CC5AD21FB6325A00D3728B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		50CC5AD51FB6325A00D3728B /* libRCTPushNotification-tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libRCTPushNotification-tvOS.a";
+			remoteRef = 50CC5AD41FB6325A00D3728B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		50D2AC391F97D30300807569 /* libthird-party.a */ = {

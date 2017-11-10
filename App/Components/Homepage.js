@@ -11,7 +11,7 @@ import variables from '../Styles/Variables'
 import api from '../Utils/api'
 import bgGeo from "react-native-background-geolocation";
 
-//import Foo from './BackgroundGeolocationTest' //testing react-native-background-geolocation
+import Foo from './BackgroundGeolocationTest' //testing react-native-background-geolocation
 
 import {StyleSheet, Text, View, Dimensions, Image} from 'react-native';
 
@@ -195,6 +195,7 @@ class Homepage extends Component {
     return (
       <View style={styles.mainOuterWrap}>
         {currentActivePage}
+        <View><Foo /></View>
       </View>
     )
   }

@@ -5,7 +5,7 @@ import variables from '../Styles/Variables'
 import api from '../Utils/api'
 import bgGeo from "react-native-background-geolocation";
 
-import {StyleSheet, Text, View, Picker, AppState} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 
 const styles = StyleSheet.create({
   mainOuterWrap: {
@@ -22,24 +22,57 @@ const styles = StyleSheet.create({
   }
 });
 
-class BackgroundGeoTester extends Component {
+class BackgroundGeoTesterNew extends Component {
 
   constructor(props) {
     super(props)
 
     this.state = {
       geoFences: [],
-      seconds: 5,
     }
-
-    this.handleAppStateChange = this.handleAppStateChange.bind(this)
   }
 
   componentDidMount() {
 
 
 
-    AppState.addEventListener('change', this.handleAppStateChange)
+    // 1.  Wire up event-listeners
+         bgGeo.on('geofence', this.onGeofence);
+
+         // 2.  #configure the plugin (just once for life-time of app)
+         bgGeo.configure(
+             {
+                 // Geolocation Config
+                 desiredAccuracy: 0,
+                 distanceFilter: 10,
+                 // Activity Recognition
+                 stopTimeout: 1,
+                 // Application config
+                 debug: false, // <-- enable this hear sounds for background-geolocation life-cycle.
+                 logLevel: bgGeo.LOG_LEVEL_VERBOSE,
+                 // Allow the background-service to continue tracking when user closes the app.
+                 stopOnTerminate: false,
+                 startOnBoot: true // <-- Auto start tracking when device is powered-up.
+             },
+             state => {
+                 console.log('- BackgroundGeolocation is configured and ready: ', state.enabled);
+
+                 if (!state.enabled) {
+                     // 3. Start tracking!
+                     // Geofences-only mode
+                     bgGeo.startGeofences(state1 => {
+                         console.log('- Start geofences: ', state1);
+                     });
+                 }
+             },
+             () => console.log('set config success'),
+             () => console.log('failed to setConfig')
+         );
+
+
+
+
+
 
 
 
@@ -48,7 +81,7 @@ class BackgroundGeoTester extends Component {
 
       const myGeoFences = res.map((item, index) => {
         if (item.coordinates.latitude && item.coordinates.longitude) {
-          //console.log('lat:', item.coordinates.latitude, 'long:', item.coordinates.longitude)
+          console.log('lat:', item.coordinates.latitude, 'long:', item.coordinates.longitude)
           return ({
             identifier: item.name,
             radius: 200,
@@ -73,7 +106,7 @@ class BackgroundGeoTester extends Component {
 
       bgGeo.addGeofences(myGeoFences);
       bgGeo.getGeofences(function(geofences) {
-        //console.log('- Geofences: ', geofences);
+        console.log('- Geofences: ', geofences);
 
 
       });
@@ -83,18 +116,8 @@ class BackgroundGeoTester extends Component {
   }
 
   componentWillUnmount() {
-    console.log('will unmountz?')
 
-    AppState.removeEventListener('change', this.handleAppStateChange)
 
-  }
-
-  handleAppStateChange(appState) {
-    if ( appState === 'background' ) {
-      console.log('app is in background', this.state.seconds)
-    } else {
-      console.log('app is NOT in background', this.state.seconds)
-    }
   }
 
 
@@ -115,15 +138,6 @@ class BackgroundGeoTester extends Component {
       <View style={styles.mainOuterWrap}>
         <Text style={styles.testingTitle}>Just Testing</Text>
         <View>{geoDataz}</View>
-        <Picker
-        style={styles.picker}
-        selectedValue={this.state.seconds}
-        onValueChange={(seconds) => this.setState({seconds})}
-        >
-          <Picker.Item label="5" value={5} />
-          <Picker.Item label="10" value={10} />
-          <Picker.Item label="15" value={15} />
-        </Picker>
       </View>
     )
   }
@@ -137,4 +151,4 @@ mapActionsToProps = (dispatch) => ({
   }
 })
 
-module.exports = connect(mapStateToProps, mapActionsToProps)(BackgroundGeoTester)
+module.exports = connect(mapStateToProps, mapActionsToProps)(BackgroundGeoTesterNew)
