@@ -73,7 +73,8 @@ class MessHalls extends Component {
           <MenuBar menuLinks={{
             home: true,
             settings: true,
-            mess_halls: false
+            mess_halls: false,
+            map: true,
           }}/>
         </View>
       )

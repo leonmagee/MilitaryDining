@@ -16,7 +16,7 @@ export default class MilitaryDining extends Component {
   render() {
     return (
       <Provider store={store}>
-        <PushTester/>
+        <Homepage/>
       </Provider>
     )
   }

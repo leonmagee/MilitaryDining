@@ -20,6 +20,7 @@ import SvgElement from './SvgElement'
 //import {ForkIcon, CurrentMarker} from '../SVG/SvgIcons'
 import {ForkIcon} from '../SVG/SvgIcons'
 import {variables} from '../Styles/Variables'
+import MenuBar from './MenuBar'
 //import SampleData from '../Data/Data'
 
 // const messHallCoordinates = []
@@ -193,6 +194,12 @@ class MapPage extends Component {
             </MapView.Marker>
             {mess_hall_markers}
           </MapView>
+          <MenuBar menuLinks={{
+            home: true,
+            settings: true,
+            mess_halls: true,
+            map: false,
+          }} />
         </View>
       )
     } else {

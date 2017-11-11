@@ -367,7 +367,8 @@ class Settings extends Component {
         <MenuBar menuLinks={{
           home: true,
           settings: false,
-          mess_halls: true
+          mess_halls: true,
+          map: true,
         }} />
       </View>
     )
