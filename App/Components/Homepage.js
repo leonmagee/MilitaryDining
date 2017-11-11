@@ -9,7 +9,10 @@ import MenuBar from './MenuBar'
 //import LinearGradient from 'react-native-linear-gradient'
 import variables from '../Styles/Variables'
 import api from '../Utils/api'
-import bgGeo from "react-native-background-geolocation";
+import bgGeo from 'react-native-background-geolocation'
+import PushController from './PushController'
+import PushNotification from 'react-native-push-notification'
+
 
 //import Foo from './BackgroundGeolocationTest' //testing react-native-background-geolocation
 
@@ -111,15 +114,34 @@ class Homepage extends Component {
 
   componentDidMount() {
 
-    const myConfig = {
+    //bgGeo.on('location', this.onLocation)
 
+    // bgGeo.on('geofenceschange', function(event) {
+    //   console.log('geofenceschange fired! ', event);
+    // });
+
+    bgGeo.on('geofenceschange', this.onGeoFenceChange)
+
+    const myConfig = {
+      desiredAccuracy: 0,
+      distanceFilter: 10,
+      // Activity Recognition
+      stopTimeout: 1,
+      // Application config
+      // turning debug to false gets rid of the sounds
+      debug: false, // <-- enable this hear sounds for background-geolocation life-cycle.
+      //logLevel: BackgroundGeolocation.LOG_LEVEL_VERBOSE,
+      stopOnTerminate: false, // <-- Allow the background-service to continue tracking when user closes the app.
+      startOnBoot: true,
+      maxDaysToPersist: 0
     }
-    
+
     bgGeo.configure(myConfig, (state) => {
       console.log('- ready to use');
-      if (!state.enabled) { bgGeo.startGeofences(); }
+      if (!state.enabled) {
+        bgGeo.startGeofences();
+      }
     });
-
 
     api.getMenus().then((res) => {
       this.props.setRestData(res)
@@ -166,6 +188,43 @@ class Homepage extends Component {
       //
       // console.log('results res is', res)
     })
+  }
+
+  componentWillUnmount() {
+    // Remove BackgroundGeolocation listeners
+    //bgGeo.un('location', this.onLocation)
+    bgGeo.un('geofenceschange', this.onGeoFenceChange)
+    // bgGeo.un('error', this.onError);
+    // bgGeo.un('motionchange', this.onMotionChange);
+    // bgGeo.un('activitychange', this.onActivityChange);
+    // bgGeo.un('providerchange', this.onProviderChange);
+  }
+
+  // onLocation(location) {
+  //   console.log('- [js]location: ', JSON.stringify(location));
+  // }
+
+  onGeoFenceChange(event) {
+    console.log('geofenceschange fired! ', event);
+    if ( event.on.length) {
+      const mess_on_name = event.on[0].identifier
+      console.log('you are now close to mess hall', mess_on_name)
+      PushNotification.localNotificationSchedule({
+        message: `Your are now inside the radius of ${mess_on_name}`, // (required)
+        date: new Date(Date.now()), // send notification now
+      });
+    }
+    if ( event.off.length) {
+      const mess_off_name = event.off[0]
+      console.log('you are now far away from mess hall', mess_off_name)
+      PushNotification.localNotificationSchedule({
+        message: `Your are now outside the radius of ${mess_off_name}`, // (required)
+        date: new Date(Date.now()), // send notification now
+      });
+    }
+
+
+
   }
 
   render() {

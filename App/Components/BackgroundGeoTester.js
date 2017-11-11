@@ -56,7 +56,7 @@ class BackgroundGeoTester extends Component {
           //console.log('lat:', item.coordinates.latitude, 'long:', item.coordinates.longitude)
           return ({
             identifier: item.name,
-            radius: 200,
+            radius: 50,
             latitude: item.coordinates.latitude,
             longitude: item.coordinates.longitude,
             notifyOnEntry: true,
