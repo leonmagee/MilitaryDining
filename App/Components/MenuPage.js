@@ -155,7 +155,7 @@ class MenuPage extends Component {
           icon: '+',
           visible: false,
           opacity: new Animated.Value(0),
-          details: breakfast_details
+          details: breakfast_brunch_details
         },
         lunch: {
           icon: '+',
@@ -173,7 +173,7 @@ class MenuPage extends Component {
           icon: '+',
           visible: false,
           opacity: new Animated.Value(0),
-          details: dinner_details
+          details: dinner_brunch_details
         },
         pastry_bar: {
           icon: '+',
@@ -553,20 +553,22 @@ class MenuPage extends Component {
         var pastrybarWrap = <View></View>
       }
 
-      return (
-        <View key={key}>
-          <LinearGradient colors={['#333', '#222', '#333']} style={styles.dayWrap}>
-            <Text style={styles.dayText}>Day {menu.day}</Text>
-            <Text style={styles.dayText}>{menu.date}</Text>
-          </LinearGradient>
-          {breakfastWrap}
-          {breakfastBrunchWrap}
-          {lunchWrap}
-          {dinnerWrap}
-          {dinnerBrunchWrap}
-          {pastrybarWrap}
-        </View>
-      )
+      if (menu.day && menu.date) {
+        return (
+          <View key={key}>
+            <LinearGradient colors={['#333', '#222', '#333']} style={styles.dayWrap}>
+              <Text style={styles.dayText}>Day {menu.day}</Text>
+              <Text style={styles.dayText}>{menu.date}</Text>
+            </LinearGradient>
+            {breakfastWrap}
+            {breakfastBrunchWrap}
+            {lunchWrap}
+            {dinnerWrap}
+            {dinnerBrunchWrap}
+            {pastrybarWrap}
+          </View>
+        )
+      }
     })
 
     return (

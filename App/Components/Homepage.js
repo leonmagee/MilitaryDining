@@ -156,7 +156,6 @@ class Homepage extends Component {
             notifyOnEntry: true,
             notifyOnExit: true
           })
-
         }
       })
 
@@ -271,6 +270,7 @@ class Homepage extends Component {
               map: true
             }}/>
           </View>
+          <PushController />
         </View>
       )
     }
