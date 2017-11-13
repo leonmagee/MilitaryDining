@@ -13,7 +13,6 @@ import bgGeo from 'react-native-background-geolocation'
 import PushController from './PushController'
 import PushNotification from 'react-native-push-notification'
 
-
 //import Foo from './BackgroundGeolocationTest' //testing react-native-background-geolocation
 
 import {StyleSheet, Text, View, Dimensions, Image} from 'react-native';
@@ -151,7 +150,7 @@ class Homepage extends Component {
           console.log('lat:', item.coordinates.latitude, 'long:', item.coordinates.longitude)
           return ({
             identifier: item.name,
-            radius: 200,
+            radius: 50,
             latitude: item.coordinates.latitude,
             longitude: item.coordinates.longitude,
             notifyOnEntry: true,
@@ -206,24 +205,38 @@ class Homepage extends Component {
 
   onGeoFenceChange(event) {
     console.log('geofenceschange fired! ', event);
-    if ( event.on.length) {
-      const mess_on_name = event.on[0].identifier
-      console.log('you are now close to mess hall', mess_on_name)
-      PushNotification.localNotificationSchedule({
-        message: `Your are now inside the radius of ${mess_on_name}`, // (required)
-        date: new Date(Date.now()), // send notification now
-      });
-    }
-    if ( event.off.length) {
-      const mess_off_name = event.off[0]
-      console.log('you are now far away from mess hall', mess_off_name)
-      PushNotification.localNotificationSchedule({
-        message: `Your are now outside the radius of ${mess_off_name}`, // (required)
-        date: new Date(Date.now()), // send notification now
-      });
-    }
+    if (event.on.length) {
 
+      event.on.map((event) => {
+        PushNotification.localNotificationSchedule({
+          message: `Your are now inside the radius of ${event.identifier}`, // (required)
+          date: new Date(Date.now()), // send notification now
+        });
+      })
 
+      // const mess_on_name = event.on[0].identifier
+      // console.log('you are now close to mess hall', mess_on_name)
+      // PushNotification.localNotificationSchedule({
+      //   message: `Your are now inside the radius of ${mess_on_name}`, // (required)
+      //   date: new Date(Date.now()), // send notification now
+      // });
+    }
+    if (event.off.length) {
+
+      event.off.map((event) => {
+        PushNotification.localNotificationSchedule({
+          message: `Your are now outside the radius of ${event}`, // (required)
+          date: new Date(Date.now()), // send notification now
+        });
+      })
+
+      // const mess_off_name = event.off[0]
+      // console.log('you are now far away from mess hall', mess_off_name)
+      // PushNotification.localNotificationSchedule({
+      //   message: `Your are now outside the radius of ${mess_off_name}`, // (required)
+      //   date: new Date(Date.now()), // send notification now
+      // });
+    }
 
   }
 

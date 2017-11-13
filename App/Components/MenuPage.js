@@ -118,6 +118,11 @@ class MenuPage extends Component {
       } else {
         var breakfast_details = null;
       }
+      if (menu.breakfast_brunch) {
+        var breakfast_brunch_details = menu.breakfast_brunch.map((item, key) => ({icon: '(more info)', visible: false, opacity: new Animated.Value(0)}))
+      } else {
+        var breakfast_brunch_details = null;
+      }
       if (menu.lunch) {
         var lunch_details = menu.lunch.map((item, key) => ({icon: '(more info)', visible: false, opacity: new Animated.Value(0)}))
       } else {
@@ -127,6 +132,11 @@ class MenuPage extends Component {
         var dinner_details = menu.dinner.map((item, key) => ({icon: '(more info)', visible: false, opacity: new Animated.Value(0)}))
       } else {
         var dinner_details = null;
+      }
+      if (menu.dinner_brunch) {
+        var dinner_brunch_details = menu.dinner_brunch.map((item, key) => ({icon: '(more info)', visible: false, opacity: new Animated.Value(0)}))
+      } else {
+        var dinner_brunch_details = null;
       }
       if (menu.pastry_bar) {
         var pastry_bar_details = menu.pastry_bar.map((item, key) => ({icon: '(more info)', visible: false, opacity: new Animated.Value(0)}))
@@ -141,6 +151,12 @@ class MenuPage extends Component {
           opacity: new Animated.Value(0),
           details: breakfast_details
         },
+        breakfast_brunch: {
+          icon: '+',
+          visible: false,
+          opacity: new Animated.Value(0),
+          details: breakfast_details
+        },
         lunch: {
           icon: '+',
           visible: false,
@@ -148,6 +164,12 @@ class MenuPage extends Component {
           details: lunch_details
         },
         dinner: {
+          icon: '+',
+          visible: false,
+          opacity: new Animated.Value(0),
+          details: dinner_details
+        },
+        dinner_brunch: {
           icon: '+',
           visible: false,
           opacity: new Animated.Value(0),
@@ -237,6 +259,31 @@ class MenuPage extends Component {
         var breakfast = <View></View>
       }
 
+      if (menu.breakfast_brunch) {
+        var breakfast_brunch = menu.breakfast_brunch.map((item, item_key) => {
+          if (this.state.menuToggle[key].breakfast_brunch.details[item_key].visible) {
+            var menu_details_item = (<MenuDetails portion={item.portion} cal={item.cal} fat={item.fat} pro={item.pro} carb={item.carb}/>)
+          } else {
+            var menu_details_item = (
+              <View></View>
+            )
+          }
+          return (
+            <TouchableHighlight onPress={() => this.toggleMenuDetails(key, item_key, 'breakfast_brunch')} style={styles.menuFoodItemWrap} key={item_key} underlayColor="transparent">
+              <View>
+                <View style={styles.menuFoodItemWrapInner}>
+                  <Text style={styles.menuFoodItem}>{item.name}</Text>
+                  <Text style={styles.menuFoodItemIcon}>{this.state.menuToggle[key].breakfast_brunch.details[item_key].icon}</Text>
+                </View>
+                {menu_details_item}
+              </View>
+            </TouchableHighlight>
+          )
+        })
+      } else {
+        var breakfast_brunch = <View></View>
+      }
+
       if (menu.lunch) {
         var lunch = menu.lunch.map((item, item_key) => {
           if (this.state.menuToggle[key].lunch.details[item_key].visible) {
@@ -287,6 +334,31 @@ class MenuPage extends Component {
         var dinner = <View></View>
       }
 
+      if (menu.dinner_brunch) {
+        var dinner_brunch = menu.dinner_brunch.map((item, item_key) => {
+          if (this.state.menuToggle[key].dinner_brunch.details[item_key].visible) {
+            var menu_details_item = (<MenuDetails portion={item.portion} cal={item.cal} fat={item.fat} pro={item.pro} carb={item.carb}/>)
+          } else {
+            var menu_details_item = (
+              <View></View>
+            )
+          }
+          return (
+            <TouchableHighlight onPress={() => this.toggleMenuDetails(key, item_key, 'dinner_brunch')} style={styles.menuFoodItemWrap} key={item_key} underlayColor="transparent">
+              <View>
+                <View style={styles.menuFoodItemWrapInner}>
+                  <Text style={styles.menuFoodItem}>{item.name}</Text>
+                  <Text style={styles.menuFoodItemIcon}>{this.state.menuToggle[key].dinner_brunch.details[item_key].icon}</Text>
+                </View>
+                {menu_details_item}
+              </View>
+            </TouchableHighlight>
+          )
+        })
+      } else {
+        var dinner_brunch = <View></View>
+      }
+
       if (menu.pastry_bar) {
         var pastry_bar = menu.pastry_bar.map((item, item_key) => {
           if (this.state.menuToggle[key].pastry_bar.details[item_key].visible) {
@@ -326,6 +398,20 @@ class MenuPage extends Component {
         )
       }
 
+      if (this.state.menuToggle[key].breakfast_brunch.visible) {
+        var breakastBrunchContent = (
+          <Animated.View style={{
+            'opacity': this.state.menuToggle[key].breakfast_brunch.opacity
+          }}>
+            {breakfast_brunch}
+          </Animated.View>
+        )
+      } else {
+        var breakastBrunchContent = (
+          <View></View>
+        )
+      }
+
       if (this.state.menuToggle[key].lunch.visible) {
         var lunchContent = (
           <Animated.View style={{
@@ -350,6 +436,20 @@ class MenuPage extends Component {
         )
       } else {
         var dinnerContent = (
+          <View></View>
+        )
+      }
+
+      if (this.state.menuToggle[key].dinner_brunch.visible) {
+        var dinnerBrunchContent = (
+          <Animated.View style={{
+            'opacity': this.state.menuToggle[key].dinner_brunch.opacity
+          }}>
+            {dinner_brunch}
+          </Animated.View>
+        )
+      } else {
+        var dinnerBrunchContent = (
           <View></View>
         )
       }
@@ -381,6 +481,13 @@ class MenuPage extends Component {
             </View>
           </TouchableHighlight>
           {breakastContent}
+          <TouchableHighlight onPress={() => this.toggleMenu(key, 'breakfast_brunch')} underlayColor="transparent">
+            <View style={styles.mealNameWrap}>
+              <Text style={styles.mealNameText}>Breakfast / Brunch</Text>
+              <Text style={styles.mealNameText}>{this.state.menuToggle[key].breakfast_brunch.icon}</Text>
+            </View>
+          </TouchableHighlight>
+          {breakastBrunchContent}
           <TouchableHighlight onPress={() => this.toggleMenu(key, 'lunch')} underlayColor="transparent">
             <View style={styles.mealNameWrap}>
               <Text style={styles.mealNameText}>Lunch</Text>
@@ -395,6 +502,13 @@ class MenuPage extends Component {
             </View>
           </TouchableHighlight>
           {dinnerContent}
+          <TouchableHighlight onPress={() => this.toggleMenu(key, 'dinner_brunch')} underlayColor="transparent">
+            <View style={styles.mealNameWrap}>
+              <Text style={styles.mealNameText}>Dinner / Brunch</Text>
+              <Text style={styles.mealNameText}>{this.state.menuToggle[key].dinner_brunch.icon}</Text>
+            </View>
+          </TouchableHighlight>
+          {dinnerBrunchContent}
           <TouchableHighlight onPress={() => this.toggleMenu(key, 'pastry_bar')} underlayColor="transparent">
             <View style={styles.mealNameWrap}>
               <Text style={styles.mealNameText}>Pastry Bar</Text>
