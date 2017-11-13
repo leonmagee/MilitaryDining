@@ -469,6 +469,20 @@ class MenuPage extends Component {
         )
       }
 
+      if (menu.breakfast) {
+        var breakfastWrap = <View>
+          <TouchableHighlight onPress={() => this.toggleMenu(key, 'breakfast')} underlayColor="transparent">
+            <View style={styles.mealNameWrap}>
+              <Text style={styles.mealNameText}>Breakfast</Text>
+              <Text style={styles.mealNameText}>{this.state.menuToggle[key].breakfast.icon}</Text>
+            </View>
+          </TouchableHighlight>
+          {breakastContent}
+        </View>
+      } else {
+        var breakfastWrap = <View></View>
+      }
+
       if (menu.breakfast_brunch) {
         var breakfastBrunchWrap = <View>
           <TouchableHighlight onPress={() => this.toggleMenu(key, 'breakfast_brunch')} underlayColor="transparent">
@@ -483,20 +497,8 @@ class MenuPage extends Component {
         var breakfastBrunchWrap = <View></View>
       }
 
-      return (
-        <View key={key}>
-          <LinearGradient colors={['#333', '#222', '#333']} style={styles.dayWrap}>
-            <Text style={styles.dayText}>Day {menu.day}</Text>
-            <Text style={styles.dayText}>{menu.date}</Text>
-          </LinearGradient>
-          <TouchableHighlight onPress={() => this.toggleMenu(key, 'breakfast')} underlayColor="transparent">
-            <View style={styles.mealNameWrap}>
-              <Text style={styles.mealNameText}>Breakfast</Text>
-              <Text style={styles.mealNameText}>{this.state.menuToggle[key].breakfast.icon}</Text>
-            </View>
-          </TouchableHighlight>
-          {breakastContent}
-          {breakfastBrunchWrap}
+      if (menu.lunch) {
+        var lunchWrap = <View>
           <TouchableHighlight onPress={() => this.toggleMenu(key, 'lunch')} underlayColor="transparent">
             <View style={styles.mealNameWrap}>
               <Text style={styles.mealNameText}>Lunch</Text>
@@ -504,6 +506,13 @@ class MenuPage extends Component {
             </View>
           </TouchableHighlight>
           {lunchContent}
+        </View>
+      } else {
+        var lunchWrap = <View></View>
+      }
+
+      if (menu.dinner) {
+        var dinnerWrap = <View>
           <TouchableHighlight onPress={() => this.toggleMenu(key, 'dinner')} underlayColor="transparent">
             <View style={styles.mealNameWrap}>
               <Text style={styles.mealNameText}>Dinner</Text>
@@ -511,6 +520,13 @@ class MenuPage extends Component {
             </View>
           </TouchableHighlight>
           {dinnerContent}
+        </View>
+      } else {
+        var dinnerWrap = <View></View>
+      }
+
+      if (menu.dinner_brunch) {
+        var dinnerBrunchWrap = <View>
           <TouchableHighlight onPress={() => this.toggleMenu(key, 'dinner_brunch')} underlayColor="transparent">
             <View style={styles.mealNameWrap}>
               <Text style={styles.mealNameText}>Dinner / Brunch</Text>
@@ -518,6 +534,13 @@ class MenuPage extends Component {
             </View>
           </TouchableHighlight>
           {dinnerBrunchContent}
+        </View>
+      } else {
+        var dinnerBrunchWrap = <View></View>
+      }
+
+      if (menu.pastry_bar) {
+        var pastrybarWrap = <View>
           <TouchableHighlight onPress={() => this.toggleMenu(key, 'pastry_bar')} underlayColor="transparent">
             <View style={styles.mealNameWrap}>
               <Text style={styles.mealNameText}>Pastry Bar</Text>
@@ -525,6 +548,23 @@ class MenuPage extends Component {
             </View>
           </TouchableHighlight>
           {pastrybarContent}
+        </View>
+      } else {
+        var pastrybarWrap = <View></View>
+      }
+
+      return (
+        <View key={key}>
+          <LinearGradient colors={['#333', '#222', '#333']} style={styles.dayWrap}>
+            <Text style={styles.dayText}>Day {menu.day}</Text>
+            <Text style={styles.dayText}>{menu.date}</Text>
+          </LinearGradient>
+          {breakfastWrap}
+          {breakfastBrunchWrap}
+          {lunchWrap}
+          {dinnerWrap}
+          {dinnerBrunchWrap}
+          {pastrybarWrap}
         </View>
       )
     })
