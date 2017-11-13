@@ -259,6 +259,7 @@ class MenuPage extends Component {
         var breakfast = <View></View>
       }
 
+      //console.log('zzzzz',menu.breakfast_brunch)
       if (menu.breakfast_brunch) {
         var breakfast_brunch = menu.breakfast_brunch.map((item, item_key) => {
           if (this.state.menuToggle[key].breakfast_brunch.details[item_key].visible) {
@@ -468,6 +469,20 @@ class MenuPage extends Component {
         )
       }
 
+      if (menu.breakfast_brunch) {
+        var breakfastBrunchWrap = <View>
+          <TouchableHighlight onPress={() => this.toggleMenu(key, 'breakfast_brunch')} underlayColor="transparent">
+            <View style={styles.mealNameWrap}>
+              <Text style={styles.mealNameText}>Breakfast / Brunch</Text>
+              <Text style={styles.mealNameText}>{this.state.menuToggle[key].breakfast_brunch.icon}</Text>
+            </View>
+          </TouchableHighlight>
+          {breakastBrunchContent}
+        </View>
+      } else {
+        var breakfastBrunchWrap = <View></View>
+      }
+
       return (
         <View key={key}>
           <LinearGradient colors={['#333', '#222', '#333']} style={styles.dayWrap}>
@@ -481,13 +496,7 @@ class MenuPage extends Component {
             </View>
           </TouchableHighlight>
           {breakastContent}
-          <TouchableHighlight onPress={() => this.toggleMenu(key, 'breakfast_brunch')} underlayColor="transparent">
-            <View style={styles.mealNameWrap}>
-              <Text style={styles.mealNameText}>Breakfast / Brunch</Text>
-              <Text style={styles.mealNameText}>{this.state.menuToggle[key].breakfast_brunch.icon}</Text>
-            </View>
-          </TouchableHighlight>
-          {breakastBrunchContent}
+          {breakfastBrunchWrap}
           <TouchableHighlight onPress={() => this.toggleMenu(key, 'lunch')} underlayColor="transparent">
             <View style={styles.mealNameWrap}>
               <Text style={styles.mealNameText}>Lunch</Text>
