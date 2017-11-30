@@ -69,6 +69,8 @@ class Homepage extends Component {
   constructor(props) {
     super(props)
 
+    console.log('homepage is loading...')
+
     //     BackgroundGeolocation.on('geofence', function(params) {
     //       console.log('- Geofence event: ', params.identifier);
     //     });

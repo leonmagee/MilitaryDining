@@ -10,7 +10,8 @@ import {
   TextInput,
   StyleSheet,
   TouchableHighlight,
-  AsyncStorage
+  AsyncStorage,
+  Animated
 } from 'react-native'
 
 const styles = StyleSheet.create({
@@ -91,6 +92,25 @@ const styles = StyleSheet.create({
     fontFamily: 'Black Ops One',
     color: '#FFF',
     fontSize: 20
+  },
+  settingsUpdatedWrap: {
+    backgroundColor: variables.brandSixth,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 5,
+    position: 'absolute',
+    bottom: 55,
+    left: 10,
+    right: 10,
+    alignSelf: 'stretch',
+    flex: 1,
+    borderWidth: 1,
+    borderColor: '#258e87',
+  },
+  settingsUpdatedText: {
+    color: '#FFF',
+    fontFamily: 'Black Ops One',
+    fontSize: 16,
   }
 })
 
@@ -118,7 +138,9 @@ class Settings extends Component {
       height_inches: '0',
       gender: 'male',
       age: '',
-      activity: '3'
+      activity: '3',
+      updated: 'false',
+      updatedOpacity: new Animated.Value(0)
     }
 
     this.getUserName()
@@ -141,6 +163,20 @@ class Settings extends Component {
     this.saveUserGender(this.state.gender)
     this.saveUserAge(this.state.age)
     this.saveUserActivity(this.state.activity)
+    this.setState({
+      updated: true,
+    })
+    Animated.timing(this.state.updatedOpacity, {
+      toValue: 1,
+      duration: 500, // use timing for animation
+    }).start(() => {
+      setTimeout(() => {
+        Animated.timing(this.state.updatedOpacity, {
+          toValue: 0,
+          duration: 500, // use timing for animation
+        }).start()
+      }, 1300)
+    })
   }
 
   saveUserName(value) {
@@ -324,6 +360,14 @@ class Settings extends Component {
       }
     ]
 
+    if (this.state.updated === true) {
+      var settingsUpdated = <Animated.View style={[styles.settingsUpdatedWrap, {opacity: this.state.updatedOpacity}]}>
+        <Text style={styles.settingsUpdatedText}>SETTINGS UPDATED!</Text>
+      </Animated.View>
+    } else {
+      var settingsUpdated = <View></View>
+    }
+
     return (
       <View style={styles.mainWrap}>
         <View style={styles.settingsTitleWrap}>
@@ -368,8 +412,9 @@ class Settings extends Component {
           home: true,
           settings: false,
           mess_halls: true,
-          map: true,
-        }} />
+          map: true
+        }}/>
+        {settingsUpdated}
       </View>
     )
   }
