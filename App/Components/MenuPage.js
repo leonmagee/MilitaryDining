@@ -90,7 +90,10 @@ const styles = StyleSheet.create({
   menuFoodItem: {
     color: '#444',
     fontWeight: 'bold',
-    fontSize: 12
+    fontSize: 12,
+    backgroundColor: '#222',
+    paddingHorizontal: 10,
+    paddingVertical: 5,
   }
 })
 
@@ -185,6 +188,18 @@ class MenuPage extends Component {
     })
   }
 
+  get_item_color(color) {
+    if (color === 'red' ) {
+      return 'red';
+    }
+    if (color === 'yellow' ) {
+      return 'yellow';
+    }
+    if (color === 'green' ) {
+      return 'blue';
+    }
+  }
+
   /**
 * Array syntax working here for accesing object property!
 **/
@@ -243,11 +258,13 @@ class MenuPage extends Component {
               <View></View>
             )
           }
+
+          //console.log(item);
           return (
             <TouchableHighlight onPress={() => this.toggleMenuDetails(key, item_key, 'breakfast')} style={styles.menuFoodItemWrap} key={item_key} underlayColor="transparent">
               <View>
                 <View style={styles.menuFoodItemWrapInner}>
-                  <Text style={styles.menuFoodItem}>{item.name}</Text>
+                  <Text style={[styles.menuFoodItem, {'color': this.get_item_color(item.chart)}]}>{item.name}</Text>
                   <Text style={styles.menuFoodItemIcon}>{this.state.menuToggle[key].breakfast.details[item_key].icon}</Text>
                 </View>
                 {menu_details_item}
@@ -259,7 +276,7 @@ class MenuPage extends Component {
         var breakfast = <View></View>
       }
 
-      //console.log('zzzzz',menu.breakfast_brunch)
+      //console.log('chartzz',menu.breakfast_brunch)
       if (menu.breakfast_brunch) {
         var breakfast_brunch = menu.breakfast_brunch.map((item, item_key) => {
           if (this.state.menuToggle[key].breakfast_brunch.details[item_key].visible) {
@@ -273,7 +290,7 @@ class MenuPage extends Component {
             <TouchableHighlight onPress={() => this.toggleMenuDetails(key, item_key, 'breakfast_brunch')} style={styles.menuFoodItemWrap} key={item_key} underlayColor="transparent">
               <View>
                 <View style={styles.menuFoodItemWrapInner}>
-                  <Text style={styles.menuFoodItem}>{item.name}</Text>
+                  <Text style={[styles.menuFoodItem, {'color': this.get_item_color(item.chart)}]}>{item.name}</Text>
                   <Text style={styles.menuFoodItemIcon}>{this.state.menuToggle[key].breakfast_brunch.details[item_key].icon}</Text>
                 </View>
                 {menu_details_item}
@@ -298,7 +315,7 @@ class MenuPage extends Component {
             <TouchableHighlight onPress={() => this.toggleMenuDetails(key, item_key, 'lunch')} style={styles.menuFoodItemWrap} key={item_key} underlayColor="transparent">
               <View>
                 <View style={styles.menuFoodItemWrapInner}>
-                  <Text style={styles.menuFoodItem}>{item.name}</Text>
+                  <Text style={[styles.menuFoodItem, {'color': this.get_item_color(item.chart)}]}>{item.name}</Text>
                   <Text style={styles.menuFoodItemIcon}>{this.state.menuToggle[key].lunch.details[item_key].icon}</Text>
                 </View>
                 {menu_details_item}
@@ -323,7 +340,7 @@ class MenuPage extends Component {
             <TouchableHighlight onPress={() => this.toggleMenuDetails(key, item_key, 'dinner')} style={styles.menuFoodItemWrap} key={item_key} underlayColor="transparent">
               <View>
                 <View style={styles.menuFoodItemWrapInner}>
-                  <Text style={styles.menuFoodItem}>{item.name}</Text>
+                  <Text style={[styles.menuFoodItem, {'color': this.get_item_color(item.chart)}]}>{item.name}</Text>
                   <Text style={styles.menuFoodItemIcon}>{this.state.menuToggle[key].dinner.details[item_key].icon}</Text>
                 </View>
                 {menu_details_item}
@@ -348,7 +365,7 @@ class MenuPage extends Component {
             <TouchableHighlight onPress={() => this.toggleMenuDetails(key, item_key, 'dinner_brunch')} style={styles.menuFoodItemWrap} key={item_key} underlayColor="transparent">
               <View>
                 <View style={styles.menuFoodItemWrapInner}>
-                  <Text style={styles.menuFoodItem}>{item.name}</Text>
+                  <Text style={[styles.menuFoodItem, {'color': this.get_item_color(item.chart)}]}>{item.name}</Text>
                   <Text style={styles.menuFoodItemIcon}>{this.state.menuToggle[key].dinner_brunch.details[item_key].icon}</Text>
                 </View>
                 {menu_details_item}
@@ -373,7 +390,7 @@ class MenuPage extends Component {
             <TouchableHighlight onPress={() => this.toggleMenuDetails(key, item_key, 'pastry_bar')} style={styles.menuFoodItemWrap} key={item_key} underlayColor="transparent">
               <View>
                 <View style={styles.menuFoodItemWrapInner}>
-                  <Text style={styles.menuFoodItem}>{item.name}</Text>
+                  <Text style={[styles.menuFoodItem, {'color': this.get_item_color(item.chart)}]}>{item.name}</Text>
                   <Text style={styles.menuFoodItemIcon}>{this.state.menuToggle[key].pastry_bar.details[item_key].icon}</Text>
                 </View>
                 {menu_details_item}

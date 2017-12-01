@@ -69,55 +69,106 @@ class Homepage extends Component {
   constructor(props) {
     super(props)
 
-    //console.log('homepage is loading...')
+    console.log('homepage is loading...')
+
+    //     BackgroundGeolocation.on('geofence', function(params) {
+    //       console.log('- Geofence event: ', params.identifier);
+    //     });
+    //     // Add a geofence
+    //     BackgroundGeolocation.addGeofences({
+    //       identifier: 'HOME',
+    //       radius: 200,
+    //       latitude: 45.51818958022214,
+    //       longitude: -73.61409989192487,
+    //       notifyOnEntry: true,
+    //       notifyOnExit: true
+    //     });
+    //     // Remove a geofence
+    //     //bgGeo.removeGeofence("HOME");
+    //     // Fetch geofences
+    //     BackgroundGeolocation.getGeofences(function(geofences) {
+    //       console.log('- Geofences: ', geofences);
+    //     });
+    //
+    //     BackgroundGeolocation.configure({
+    //   desiredAccuracy: 0,
+    //   distanceFilter: 50,
+    // }, function(state) {
+    //   console.log('- BackgroundGeolocation configured and ready');
+    //   if (!state.enabled) {  // <-- current state provided to callback
+    //     BackgroundGeolocation.start();
+    //   }
+    // });
+
+    // Use #setConfig if you need to change options after you've executed #configure
+
+    // BackgroundGeolocation.setConfig({
+    //   desiredAccuracy: 10,
+    //   distanceFilter: 10
+    // }, function() {
+    //   console.log('set config success');
+    // }, function() {
+    //   console.log('failed to setConfig');
+    // });
 
   }
 
   componentDidMount() {
 
+    //bgGeo.on('location', this.onLocation)
 
-    // bgGeo.on('geofenceschange', this.onGeoFenceChange)
-
-    // const myConfig = {
-    //   desiredAccuracy: 0,
-    //   distanceFilter: 10,
-    //   // Activity Recognition
-    //   stopTimeout: 1,
-    //   // Application config
-    //   // turning debug to false gets rid of the sounds
-    //   debug: false, // <-- enable this hear sounds for background-geolocation life-cycle.
-    //   //logLevel: BackgroundGeolocation.LOG_LEVEL_VERBOSE,
-    //   stopOnTerminate: false, // <-- Allow the background-service to continue tracking when user closes the app.
-    //   startOnBoot: true,
-    //   maxDaysToPersist: 0
-    // }
-
-    // bgGeo.configure(myConfig, (state) => {
-    //   console.log('- ready to use');
-    //   if (!state.enabled) {
-    //     bgGeo.startGeofences();
-    //   }
+    // bgGeo.on('geofenceschange', function(event) {
+    //   console.log('geofenceschange fired! ', event);
     // });
+
+    bgGeo.on('geofenceschange', this.onGeoFenceChange)
+
+    const myConfig = {
+      desiredAccuracy: 0,
+      distanceFilter: 10,
+      // Activity Recognition
+      stopTimeout: 1,
+      // Application config
+      // turning debug to false gets rid of the sounds
+      debug: false, // <-- enable this hear sounds for background-geolocation life-cycle.
+      //logLevel: BackgroundGeolocation.LOG_LEVEL_VERBOSE,
+      stopOnTerminate: false, // <-- Allow the background-service to continue tracking when user closes the app.
+      startOnBoot: true,
+      maxDaysToPersist: 0
+    }
+
+    bgGeo.configure(myConfig, (state) => {
+      console.log('- ready to use');
+      if (!state.enabled) {
+        bgGeo.startGeofences();
+      }
+    });
 
     api.getMenus().then((res) => {
       this.props.setRestData(res)
 
-      // const myGeoFences = res.map((item, index) => {
-      //   if (item.coordinates.latitude && item.coordinates.longitude) {
-      //     console.log('lat:', item.coordinates.latitude, 'long:', item.coordinates.longitude)
-      //     return ({
-      //       identifier: item.name,
-      //       radius: 50,
-      //       latitude: item.coordinates.latitude,
-      //       longitude: item.coordinates.longitude,
-      //       notifyOnEntry: true,
-      //       notifyOnExit: true
-      //     })
-      //   }
-      // })
+      const myGeoFences = res.map((item, index) => {
+        if (item.coordinates.latitude && item.coordinates.longitude) {
+          console.log('lat:', item.coordinates.latitude, 'long:', item.coordinates.longitude)
+          return ({
+            identifier: item.name,
+            radius: 50,
+            latitude: item.coordinates.latitude,
+            longitude: item.coordinates.longitude,
+            notifyOnEntry: true,
+            notifyOnExit: true
+          })
+        }
+      })
 
+      //console.log('mygeobitches?', myGeoFences)
+
+      // Listen for geofence events.
+      // bgGeo.on('geofence', function(params) {
+      //   console.log('- Geofence event: ', params.identifier);
+      // });
       // Add a geofence
-     // bgGeo.addGeofences(myGeoFences);
+      bgGeo.addGeofences(myGeoFences);
       // bgGeo.addGeofences([
       //   {
       //     identifier: 'HOME',
@@ -131,9 +182,9 @@ class Homepage extends Component {
       // Remove a geofence
       //bgGeo.removeGeofence("HOME");
       // Fetch geofences
-      // bgGeo.getGeofences(function(geofences) {
-      //   console.log('- Geofences: ', geofences);
-      // });
+      bgGeo.getGeofences(function(geofences) {
+        console.log('- Geofences: ', geofences);
+      });
       //
       // console.log('results res is', res)
     })
@@ -142,7 +193,7 @@ class Homepage extends Component {
   componentWillUnmount() {
     // Remove BackgroundGeolocation listeners
     //bgGeo.un('location', this.onLocation)
-    //bgGeo.un('geofenceschange', this.onGeoFenceChange)
+    bgGeo.un('geofenceschange', this.onGeoFenceChange)
     // bgGeo.un('error', this.onError);
     // bgGeo.un('motionchange', this.onMotionChange);
     // bgGeo.un('activitychange', this.onActivityChange);

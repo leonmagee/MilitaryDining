@@ -1,6 +1,6 @@
 var api = {
     getMenus() {
-      const menus_url = 'https://militarydining.wpengine.com/wp-json/md/menus?abcd'
+      const menus_url = 'https://militarydining.wpengine.com/wp-json/md/menus?abcde'
       return fetch(menus_url, {headers: {'Cache-Control': 'no-cache'}}).then((res) => res.json())
 
 
