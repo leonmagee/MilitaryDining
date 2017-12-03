@@ -3,6 +3,7 @@ package com.militarydining;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.oblador.vectoricons.VectorIconsPackage;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.transistorsoft.rnbackgroundgeolocation.RNBackgroundGeolocation;
@@ -29,6 +30,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new VectorIconsPackage(),
             new ReactNativePushNotificationPackage(),
             new ReactNativePushNotificationPackage(),
             new RNBackgroundGeolocation(),

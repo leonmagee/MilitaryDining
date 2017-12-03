@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import MenuBar from './MenuBar'
 import {Dropdown} from 'react-native-material-dropdown'
 import {CalorieCounter} from '../Math/Calculator'
 import {variables} from '../Styles/Variables'
@@ -99,7 +98,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingVertical: 5,
     position: 'absolute',
-    bottom: 55,
+    bottom: 10,
     left: 10,
     right: 10,
     alignSelf: 'stretch',
@@ -408,12 +407,6 @@ class Settings extends Component {
         <TouchableHighlight style={styles.updateButton} underlayColor={variables.brandPrimary} onPress={() => this.processUpdate()}>
           <Text style={styles.updateButtonText}>UPDATE</Text>
         </TouchableHighlight>
-        <MenuBar menuLinks={{
-          home: true,
-          settings: false,
-          mess_halls: true,
-          map: true
-        }}/>
         {settingsUpdated}
       </View>
     )

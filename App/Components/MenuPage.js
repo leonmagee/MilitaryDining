@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import LinearGradient from 'react-native-linear-gradient'
-import MenuBar from './MenuBar'
+//import MenuBar from './MenuBar'
 import MenuDetails from './MenuDetails'
 import {variables} from '../Styles/Variables'
 
@@ -16,7 +16,8 @@ import {
 
 const styles = StyleSheet.create({
   mainOuterWrap: {
-    flex: 1
+    flex: 1,
+    alignSelf: 'stretch',
   },
   scrollViewWrap: {
     marginBottom: 45
@@ -190,13 +191,13 @@ class MenuPage extends Component {
 
   get_item_color(color) {
     if (color === 'red' ) {
-      return 'red';
+      return '#fb3a3a';
     }
     if (color === 'yellow' ) {
       return 'yellow';
     }
     if (color === 'green' ) {
-      return 'blue';
+      return '#31fe31';
     }
   }
 
@@ -600,11 +601,6 @@ class MenuPage extends Component {
             </View>
           </View>
         </ScrollView>
-        <MenuBar menuLinks={{
-          home: true,
-          settings: true,
-          mess_halls: true
-        }}/>
       </View>
     )
   }

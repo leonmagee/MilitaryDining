@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import MenuBar from './MenuBar'
+//import MenuBar from './MenuBar'
+import MenuPage from './MenuPage'
 import {variables} from '../Styles/Variables'
 import {View, ScrollView, Text, TouchableHighlight, StyleSheet} from 'react-native'
 //import api from '../Utils/api'
@@ -10,10 +11,15 @@ import {View, ScrollView, Text, TouchableHighlight, StyleSheet} from 'react-nati
 
 
 const styles = StyleSheet.create({
-  mainWrap: {
+  mainWrapOuter: {
     display: 'flex',
     alignItems: 'center',
-    flex: 1
+    flex: 1,
+  },
+  mainWrap: {
+    display: 'flex',
+    alignSelf: 'stretch',
+    flex: 1,
   },
   pageTitleWrap: {
     paddingVertical: 20,
@@ -50,51 +56,91 @@ class MessHalls extends Component {
 
   render() {
 
-      if (this.props.restData) {
+    console.log(this.props.currentPage);
 
-      const MessHallMenus = this.props.restData.map((data, key) => {
-        return (
-          <View key={key} style={styles.messHallTitleWrap}>
-            <TouchableHighlight onPress={() => this.props.goToMenuPage(data)} underlayColor="transparent">
-              <Text style={styles.messHallTitle}>{data.name}</Text>
-            </TouchableHighlight>
-          </View>
-        )
-      })
 
-      return (
-        <View style={styles.mainWrap}>
-          <View style={styles.pageTitleWrap}>
-            <Text style={styles.pageTitle}>Choose Mess Hall</Text>
-          </View>
-          <ScrollView style={styles.messHallWrap}>
-            {MessHallMenus}
-          </ScrollView>
-          <MenuBar menuLinks={{
-            home: true,
-            settings: true,
-            mess_halls: false,
-            map: true,
-          }}/>
-        </View>
-      )
+    if (this.props.currentPage === 'menu_page') {
+      var currentActivePage = (<MenuPage/>)
     } else {
-      return (
-        <View></View>
-      )
+      if (this.props.restData) {
+        
+              const MessHallMenus = this.props.restData.map((data, key) => {
+                return (
+                  <View key={key} style={styles.messHallTitleWrap}>
+                    <TouchableHighlight onPress={() => this.props.goToMenuPage(data)} underlayColor="transparent">
+                      <Text style={styles.messHallTitle}>{data.name}</Text>
+                    </TouchableHighlight>
+                  </View>
+                )
+              })
+        
+              var currentActivePage = (
+                <View style={styles.mainWrap}>
+                  <View style={styles.pageTitleWrap}>
+                    <Text style={styles.pageTitle}>Choose Mess Hall</Text>
+                  </View>
+                  <ScrollView style={styles.messHallWrap}>
+                    {MessHallMenus}
+                  </ScrollView>
+                </View>
+              )
+            } else {
+              var currentActivePage = <View></View>  
+              // return (
+              //   <View></View>
+              // )
+            } 
     }
+
+
+    return (
+      <View style={styles.mainWrapOuter}>
+        {currentActivePage}
+      </View>
+    )
+
+    //   if (this.props.restData) {
+
+    //   const MessHallMenus = this.props.restData.map((data, key) => {
+    //     return (
+    //       <View key={key} style={styles.messHallTitleWrap}>
+    //         <TouchableHighlight onPress={() => this.props.goToMenuPage(data)} underlayColor="transparent">
+    //           <Text style={styles.messHallTitle}>{data.name}</Text>
+    //         </TouchableHighlight>
+    //       </View>
+    //     )
+    //   })
+
+    //   return (
+    //     <View style={styles.mainWrap}>
+    //       <View style={styles.pageTitleWrap}>
+    //         <Text style={styles.pageTitle}>Choose Mess Hall</Text>
+    //       </View>
+    //       <ScrollView style={styles.messHallWrap}>
+    //         {MessHallMenus}
+    //       </ScrollViewa>
+    //     </View>
+    //   )
+    // } else {
+    //   return (
+    //     <View></View>
+    //   )
+    // }
+
+
+
   }
 }
 
 mapStateToProps = (state) => ({currentPage: state.currentPage, restData: state.restData})
 
 mapActionsToProps = (dispatch) => ({
-  goToSettingsPage() {
-    dispatch({type: 'SETTINGS_PAGE'})
-  },
-  goToMessHallsPage() {
-    dispatch({type: 'MESS_HALLS_PAGE'})
-  },
+  // goToSettingsPage() {
+  //   dispatch({type: 'SETTINGS_PAGE'})
+  // },
+  // goToMessHallsPage() {
+  //   dispatch({type: 'MESS_HALLS_PAGE'})
+  // },
   goToMenuPage(data) {
     dispatch({type: 'MESS_HALL_MENU', payload: data})
   }
