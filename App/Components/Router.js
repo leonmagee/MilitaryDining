@@ -8,21 +8,28 @@ import MapPage from './MapPage'
 import MenuPage from './MenuPage'
 import {variables} from '../Styles/Variables'
 
+const navigationOptions = ({ navigation }) => ({
+    title: `${navigation.state.params.name}`,
+    // style: {
+    // fontSize: 18,
+    // color: 'red',
+    // backgroundColor: '#ccc',
+    // }
+    })
+
 const MessHallStack = StackNavigator({
     MessHalls: {
         screen: MessHalls,
         navigationOptions: {
-            title: 'xxxx',
-            tabBarLabel: 'MESS HALLS',
-            tabBarIcon: ({ tintColor }) => <Icon name="restaurant" size={30} color={tintColor}/>
+            title: 'Choose Mess Hall',
         }
     },
     MenuPage: {
         screen: MenuPage,
-        navigationOptions: {
-            tabBarLabel: 'MESS HALLS',
-            tabBarIcon: ({ tintColor }) => <Icon name="restaurant" size={30} color={tintColor}/>
-        } 
+        navigationOptions: navigationOptions
+        //     title: to `${state.params.name}`
+        //     //title: 'single view' 
+        // } 
     }
 })
 
@@ -42,7 +49,7 @@ export const Tabs = TabNavigator({
         }
     },
     MessHalls: {
-        screen: MessHalls,
+        screen: MessHallStack,
         navigationOptions: {
             tabBarLabel: 'MESS HALLS',
             tabBarIcon: ({ tintColor }) => <Icon name="restaurant" size={30} color={tintColor}/>

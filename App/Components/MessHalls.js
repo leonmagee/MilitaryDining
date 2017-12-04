@@ -54,27 +54,26 @@ class MessHalls extends Component {
     super(props)
   }
 
+  navigateToPage(data) {
+    this.props.goToMenuPage(data)
+    this.props.navigation.navigate('MenuPage', data)
+  }
+
   render() {
 
-    console.log(this.props.currentPage);
-
-
-    if (this.props.currentPage === 'menu_page') {
-      var currentActivePage = (<MenuPage/>)
-    } else {
       if (this.props.restData) {
         
               const MessHallMenus = this.props.restData.map((data, key) => {
                 return (
                   <View key={key} style={styles.messHallTitleWrap}>
-                    <TouchableHighlight onPress={() => this.props.goToMenuPage(data)} underlayColor="transparent">
+                    <TouchableHighlight onPress={() => this.navigateToPage(data)} underlayColor="transparent">
                       <Text style={styles.messHallTitle}>{data.name}</Text>
                     </TouchableHighlight>
                   </View>
                 )
               })
         
-              var currentActivePage = (
+               currentActivePage = (
                 <View style={styles.mainWrap}>
                   <View style={styles.pageTitleWrap}>
                     <Text style={styles.pageTitle}>Choose Mess Hall</Text>
@@ -86,11 +85,7 @@ class MessHalls extends Component {
               )
             } else {
               var currentActivePage = <View></View>  
-              // return (
-              //   <View></View>
-              // )
             } 
-    }
 
 
     return (
@@ -143,7 +138,7 @@ mapActionsToProps = (dispatch) => ({
   // },
   goToMenuPage(data) {
     dispatch({type: 'MESS_HALL_MENU', payload: data})
-  }
+   }
 })
 
 module.exports = connect(mapStateToProps, mapActionsToProps)(MessHalls)
