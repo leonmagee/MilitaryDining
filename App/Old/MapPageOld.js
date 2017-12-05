@@ -1,15 +1,32 @@
+/**
+* @todo remove activity indicator?
+* @todo initial background color of map?
+* @todo add map marker of known locationl (just one to start?)
+* @todo how to make zooming happen smoothly?
+* @todo does tracking work now?
+* @todo instal geofence package
+**/
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {
   View, Text,
+  //Animated,
   StyleSheet,
   Dimensions,
   ActivityIndicator
 } from 'react-native'
 import MapView from 'react-native-maps'
 import SvgElement from './SvgElement'
+//import {ForkIcon, CurrentMarker} from '../SVG/SvgIcons'
 import {ForkIcon} from '../SVG/SvgIcons'
 import {variables} from '../Styles/Variables'
+//import SampleData from '../Data/Data'
+
+// const messHallCoordinates = []
+// SampleData.map((item) => {
+//   item.coordinates.svg_key = ForkIcon
+//   messHallCoordinates.push(item.coordinates)
+// })
 
 const styles = StyleSheet.create({
   container: {
@@ -56,6 +73,8 @@ const styles = StyleSheet.create({
 
 const {width, height} = Dimensions.get('window')
 
+//const SCREEN_WIDTH = width
+//const SCREEN_HEIGHT = height
 const ASPECT_RATIO = width / height
 
 const LATITUDE_DELTA = 0.0922
@@ -101,6 +120,9 @@ class MapPage extends Component {
         isLoading: false
       })
 
+      // this.setState({initalPosition: initialRegion})
+      // this.setState({markerPosition: initialRegion})
+      // this.setState({isLoading: false})
     }, (error) => alert(JSON.stringify(error)), {
       enableHighAccuracy: true,
       timeout: 20000,
@@ -112,6 +134,13 @@ class MapPage extends Component {
       let lat = parseFloat(position.coords.latitude)
       let long = parseFloat(position.coords.longitude)
 
+      // let lastRegion = {
+      //   latitude: lat,
+      //   longitude: long,
+      //   latitudeDelta: LATITUDE_DELTA,
+      //   longitudeDelta: LONGITUDE_DELTA
+      // }
+
       this.setState({
         markerPosition: {
           latitude: lat,
@@ -119,6 +148,8 @@ class MapPage extends Component {
         }
       })
 
+      //this.setState({initalPosition: lastRegion})
+      //this.setState({markerPosition: lastRegion})
     }, (error) => alert(JSON.stringify(error)), {
       enableHighAccuracy: true,
       timeout: 20000,

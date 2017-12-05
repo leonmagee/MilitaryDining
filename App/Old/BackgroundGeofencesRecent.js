@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+//import MenuPage from './MenuPage'
 import api from '../Utils/api'
 import bgGeo from 'react-native-background-geolocation'
 import PushController from './PushController'
@@ -12,6 +13,9 @@ class BackgroundGeofences extends Component {
 
   constructor(props) {
     super(props)
+
+    //console.log('bg geofences is loading...')
+
   }
 
   componentDidMount() {
@@ -22,14 +26,19 @@ class BackgroundGeofences extends Component {
     const myConfig = {
       desiredAccuracy: 0,
       distanceFilter: 10,
+      // Activity Recognition
       stopTimeout: 1,
+      // Application config
+      // turning debug to false gets rid of the sounds
       debug: false, // <-- enable this hear sounds for background-geolocation life-cycle.
+      //logLevel: BackgroundGeolocation.LOG_LEVEL_VERBOSE,
       stopOnTerminate: false, // <-- Allow the background-service to continue tracking when user closes the app.
       startOnBoot: true,
       maxDaysToPersist: 0
     }
 
     bgGeo.configure(myConfig, (state) => {
+      console.log('- ready to use');
       if (!state.enabled) {
         bgGeo.startGeofences();
       }
@@ -40,7 +49,7 @@ class BackgroundGeofences extends Component {
 
       const myGeoFences = res.map((item, index) => {
         if (item.coordinates.latitude && item.coordinates.longitude) {
-          //console.log('lat:', item.coordinates.latitude, 'long:', item.coordinates.longitude)
+          console.log('lat:', item.coordinates.latitude, 'long:', item.coordinates.longitude)
           return ({
             identifier: item.name,
             radius: 50,
@@ -52,9 +61,10 @@ class BackgroundGeofences extends Component {
         }
       })
 
+      // Add a geofence
+            /** maybe cuaseing error */
+
      //bgGeo.addGeofences(myGeoFences);
-
-
       // bgGeo.addGeofences([
       //   {
       //     identifier: 'HOME',
@@ -135,7 +145,7 @@ class BackgroundGeofences extends Component {
   }
 }
 
-//mapStateToProps = (state) => ({currentPage: state.currentPage})
+mapStateToProps = (state) => ({currentPage: state.currentPage})
 
 mapActionsToProps = (dispatch) => ({
   setRestData(results) {
@@ -143,4 +153,4 @@ mapActionsToProps = (dispatch) => ({
   }
 })
 
-module.exports = connect(null, mapActionsToProps)(BackgroundGeofences)
+module.exports = connect(mapStateToProps, mapActionsToProps)(BackgroundGeofences)

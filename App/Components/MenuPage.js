@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import LinearGradient from 'react-native-linear-gradient'
-//import MenuBar from './MenuBar'
 import MenuDetails from './MenuDetails'
 import {variables} from '../Styles/Variables'
 
@@ -32,19 +31,6 @@ const styles = StyleSheet.create({
     //marginTop: 20,
     flex: 1,
     alignSelf: 'stretch'
-  },
-  messHallNameWrap: {
-    // paddingTop: 40,
-    // paddingBottom: 5,
-    paddingVertical: 20,
-    backgroundColor: variables.brandPrimary,
-    alignSelf: 'stretch',
-    alignItems: 'center'
-  },
-  messHallName: {
-    fontSize: 24,
-    color: '#FFF',
-    fontFamily: 'Black Ops One'
   },
   dayWrap: {
     backgroundColor: '#111',
@@ -105,16 +91,10 @@ class MenuPage extends Component {
 
     this.state = {
       menuToggle: [],
-      //animatedOpacity: new Animated.Value(0)
     }
 
     const menuz = this.props.currentMenu;
 
-    /**
-    * @todo I probably need to have a separate state for each item, which will be easier..
-    * if each item is it's own component I should be able to do this without a detached array to manage
-    * the state...
-    **/
     menuz.menus.map((menu, key) => {
 
       if (menu.breakfast) {
@@ -201,9 +181,9 @@ class MenuPage extends Component {
     }
   }
 
-  /**
-* Array syntax working here for accesing object property!
-**/
+/**
+ * Array syntax working here for accesing object property
+ **/
   toggleMenu(key, item) {
     const newMenuToggle = this.state.menuToggle;
     if (newMenuToggle[key][item].icon === '+') {
@@ -260,7 +240,6 @@ class MenuPage extends Component {
             )
           }
 
-          //console.log(item);
           return (
             <TouchableHighlight onPress={() => this.toggleMenuDetails(key, item_key, 'breakfast')} style={styles.menuFoodItemWrap} key={item_key} underlayColor="transparent">
               <View>
@@ -277,7 +256,6 @@ class MenuPage extends Component {
         var breakfast = <View></View>
       }
 
-      //console.log('chartzz',menu.breakfast_brunch)
       if (menu.breakfast_brunch) {
         var breakfast_brunch = menu.breakfast_brunch.map((item, item_key) => {
           if (this.state.menuToggle[key].breakfast_brunch.details[item_key].visible) {
@@ -593,9 +571,6 @@ class MenuPage extends Component {
       <View style={styles.mainOuterWrap}>
         <ScrollView style={styles.scrollViewWrap}>
           <View style={styles.mainWrap}>
-            <View style={styles.messHallNameWrap}>
-              <Text style={styles.messHallName}>{menuz.name}</Text>
-            </View>
             <View style={styles.messHallWrap}>
               {menu_days}
             </View>

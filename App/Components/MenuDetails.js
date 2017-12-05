@@ -4,12 +4,10 @@ import {View, Text, Animated, StyleSheet} from 'react-native'
 
 const styles = StyleSheet.create({
   menuDetailWrap: {
-    //paddingVertical: 20,
     borderWidth: 1,
     borderColor: '#EAEAEA',
     marginTop: 13,
     marginBottom: 8,
-    //marginHorizontal: 10,
   },
   menuDetailsItemWrap: {
     flexDirection: 'row',
@@ -18,7 +16,6 @@ const styles = StyleSheet.create({
     borderBottomColor: '#EEE',
     paddingVertical: 8,
     paddingHorizontal: 13,
-    //paddingHorizontal: 40,
   },
   menuDetailsItemWrapFinal: {
     flexDirection: 'row',
@@ -28,14 +25,11 @@ const styles = StyleSheet.create({
   },
   menuDetailsItemLabel: {
     color: '#777',
-    //fontSize: 17,
   },
   menuDetailsItem: {
     color: '#333',
     fontWeight: 'bold',
-    //backgroundColor: 'red',
     minWidth: 150,
-    //fontSize: 17,
   }
 })
 

@@ -79,7 +79,6 @@ const styles = StyleSheet.create({
     fontSize: 16
   },
   updateButton: {
-    //backgroundColor: '#3E5B3D',
     backgroundColor: variables.brandPrimary,
     paddingVertical: 8,
     paddingHorizontal: 15,
@@ -118,18 +117,6 @@ class Settings extends Component {
   constructor(props) {
     super(props)
 
-    //const userName = this.getUserName
-
-    // this.state = {
-    //   name: '',
-    //   weight: '',
-    //   height_feet: 5,
-    //   height_inches: 0,
-    //   gender: 'male',
-    //   age: '',
-    //   activity: '3'
-    // }
-
     this.state = {
       name: '',
       weight: '',
@@ -151,9 +138,6 @@ class Settings extends Component {
     this.getUserActivity()
   }
 
-  /**
-  * Process Data when 'Update' link is clicked
-  **/
   processUpdate() {
     this.saveUserName(this.state.name)
     this.saveUserWeight(this.state.weight)
