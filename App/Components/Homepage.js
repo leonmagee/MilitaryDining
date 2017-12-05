@@ -1,7 +1,5 @@
 import React, {Component} from 'react'
-import {vw, vh} from '../Utils/helper'
 import { Icon } from 'react-native-elements'
-
 import {StyleSheet, Text, View, Dimensions, Image} from 'react-native';
 
 let {width, height} = Dimensions.get('window')
