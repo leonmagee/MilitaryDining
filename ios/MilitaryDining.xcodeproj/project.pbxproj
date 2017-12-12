@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -42,7 +43,6 @@
 		5053F64A1FA918FC00EDD44E /* TSBackgroundFetch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5053F6491FA918FC00EDD44E /* TSBackgroundFetch.framework */; };
 		5053F6961FAA1CEC00EDD44E /* RNBackgroundFetch+AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5053F6611FAA1CEC00EDD44E /* RNBackgroundFetch+AppDelegate.m */; };
 		5059B5661F9FAA52005A0861 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5059B5651F9FAA52005A0861 /* Images.xcassets */; };
-		506FE35A1FD31D9200EC1E93 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 506FE3591FD31D9200EC1E93 /* MapKit.framework */; };
 		50CC5AF11FB632C700D3728B /* libRCTPushNotification.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 50CC5AD31FB6325A00D3728B /* libRCTPushNotification.a */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		784972E917644CBF948194F1 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B6651E03BA524A94ACD9427B /* MaterialCommunityIcons.ttf */; };
@@ -488,7 +488,6 @@
 		5053F64B1FA92B0600EDD44E /* MilitaryDining.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = MilitaryDining.entitlements; path = MilitaryDining/MilitaryDining.entitlements; sourceTree = "<group>"; };
 		5053F6611FAA1CEC00EDD44E /* RNBackgroundFetch+AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RNBackgroundFetch+AppDelegate.m"; sourceTree = "<group>"; };
 		5059B5651F9FAA52005A0861 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		506FE3591FD31D9200EC1E93 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		50CC5AB41FB6325900D3728B /* RCTPushNotification.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTPushNotification.xcodeproj; path = "../node_modules/react-native/Libraries/PushNotificationIOS/RCTPushNotification.xcodeproj"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		6AAF6E2A7E5541DEBE4A2424 /* AirMaps.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AirMaps.xcodeproj; path = "../node_modules/react-native-maps/lib/ios/AirMaps.xcodeproj"; sourceTree = "<group>"; };
@@ -531,7 +530,6 @@
 				5053F64A1FA918FC00EDD44E /* TSBackgroundFetch.framework in Frameworks */,
 				5053F6481FA918CC00EDD44E /* TSLocationManager.framework in Frameworks */,
 				B323621C46194BF4A0E2D70F /* libz.tbd in Frameworks */,
-				506FE35A1FD31D9200EC1E93 /* MapKit.framework in Frameworks */,
 				5053F6441FA9175B00EDD44E /* libCocoaLumberjack.a in Frameworks */,
 				5053F6431FA9174700EDD44E /* libRNBackgroundFetch.a in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
@@ -699,7 +697,6 @@
 		4F0F7FB5A12A4ED591A0ECD4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				506FE3591FD31D9200EC1E93 /* MapKit.framework */,
 				5053F6491FA918FC00EDD44E /* TSBackgroundFetch.framework */,
 				5053F6471FA918CC00EDD44E /* TSLocationManager.framework */,
 				5053F6451FA9184700EDD44E /* libsqlite3.0.tbd */,
@@ -1005,7 +1002,7 @@
 								enabled = true;
 							};
 							com.apple.Maps.iOS = {
-								enabled = 1;
+								enabled = 0;
 							};
 							com.apple.Push = {
 								enabled = 1;
@@ -1634,9 +1631,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = R38RR7877A;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/../node_modules/react-native-background-geolocation/ios/**",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../node_modules/react-native-background-geolocation/ios/**";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1675,9 +1670,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = R38RR7877A;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/../node_modules/react-native-background-geolocation/ios/**",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../node_modules/react-native-background-geolocation/ios/**";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
@@ -1718,9 +1711,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = R38RR7877A;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/../node_modules/react-native-background-geolocation/ios/**",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../node_modules/react-native-background-geolocation/ios/**";
 				"FRAMEWORK_SEARCH_PATHS[arch=*]" = (
 					"$(PROJECT_DIR)/../node_modules/react-native-background-fetch/ios/**",
 					"$(PROJECT_DIR)/../node_modules/react-native-background-geolocation/ios/**",
@@ -1740,6 +1731,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "military-dining-military-dining";
 				PRODUCT_NAME = MilitaryDining;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1759,9 +1751,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = R38RR7877A;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/../node_modules/react-native-background-geolocation/ios/**",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../node_modules/react-native-background-geolocation/ios/**";
 				"FRAMEWORK_SEARCH_PATHS[arch=*]" = (
 					"$(PROJECT_DIR)/../node_modules/react-native-background-fetch/ios/**",
 					"$(PROJECT_DIR)/../node_modules/react-native-background-geolocation/ios/**",
@@ -1781,6 +1771,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "military-dining-military-dining";
 				PRODUCT_NAME = MilitaryDining;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1800,9 +1791,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = R38RR7877A;
 				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/../node_modules/react-native-background-geolocation/ios/**",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../node_modules/react-native-background-geolocation/ios/**";
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1846,9 +1835,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = R38RR7877A;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/../node_modules/react-native-background-geolocation/ios/**",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../node_modules/react-native-background-geolocation/ios/**";
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",

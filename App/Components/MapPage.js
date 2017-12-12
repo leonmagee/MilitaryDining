@@ -71,7 +71,8 @@ class MapPage extends Component {
         latitude: 0,
         longitude: 0,
         latitudeDelta: 0,
-        longitudeDelta: 0
+        longitudeDelta: 0,
+        locationWorking: false
       },
       markerPosition: {
         latitude: 0,
@@ -83,6 +84,14 @@ class MapPage extends Component {
 
   componentDidMount() {
     navigator.geolocation.getCurrentPosition((position) => {
+      console.log('posizzz', position)
+
+
+ 
+        /**
+         * Then the inital position should be for the maps
+         */
+
       let lat = parseFloat(position.coords.latitude)
       let long = parseFloat(position.coords.longitude)
 
@@ -101,12 +110,27 @@ class MapPage extends Component {
         isLoading: false
       })
 
-    }, (error) => alert(JSON.stringify(error)), {
-      enableHighAccuracy: true,
-      timeout: 20000,
-      maximumAge: 1000,
-      accuracy: 1
+
+      
+
+    },   (error) => {
+
+      if ( this.props.restData ) {
+         console.log('resters', this.props.restData)
+      }
+
+      
+
+
+      console.log('error callback', error);
     })
+
+    // (error) => alert(JSON.stringify(error)), { // error callback
+    //   enableHighAccuracy: true,
+    //   timeout: 20000,
+    //   maximumAge: 1000,
+    //   accuracy: 1
+    // }
 
     this.watchID = navigator.geolocation.watchPosition((position) => {
       let lat = parseFloat(position.coords.latitude)
@@ -119,13 +143,15 @@ class MapPage extends Component {
         }
       })
 
-    }, (error) => alert(JSON.stringify(error)), {
-      enableHighAccuracy: true,
-      timeout: 20000,
+    }, null, {
+      enableHighAccuracy: false,
+      timeout: 35000,
       maximumAge: 1000,
       accuracy: 1
     })
   }
+
+  //(error) => alert(JSON.stringify(error)) replaced with null
 
   componentWillUnmount() {
     navigator.geolocation.clearWatch(this.watchID)
@@ -151,15 +177,21 @@ class MapPage extends Component {
       var mess_hall_markers = <View></View>
     }
 
+    if (this.state.locationWorking) {
+      var user_location_marker = <MapView.Marker coordinate={this.state.markerPosition}>
+      <View style={styles.radius}>
+        <View style={styles.marker}></View>
+      </View>
+    </MapView.Marker>
+    } else {
+      var user_location_marker = <View></View>
+    }
+
     if (this.state.initalPosition.latitude > 0) {
       return (
         <View style={styles.container}>
           <MapView style={styles.map} initialRegion={this.state.initalPosition}>
-            <MapView.Marker coordinate={this.state.markerPosition}>
-              <View style={styles.radius}>
-                <View style={styles.marker}></View>
-              </View>
-            </MapView.Marker>
+            {user_location_marker}
             {mess_hall_markers}
           </MapView>
         </View>

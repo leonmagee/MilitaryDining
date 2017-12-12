@@ -5,7 +5,7 @@ import bgGeo from 'react-native-background-geolocation'
 import PushController from './PushController'
 import PushNotification from 'react-native-push-notification'
 
-import {View} from 'react-native';
+import {View, AsyncStorage} from 'react-native';
 
 
 class BackgroundGeofences extends Component {
@@ -16,7 +16,6 @@ class BackgroundGeofences extends Component {
 
   componentDidMount() {
 
-
     bgGeo.on('geofenceschange', this.onGeoFenceChange)
 
     const myConfig = {
@@ -24,6 +23,7 @@ class BackgroundGeofences extends Component {
       distanceFilter: 10,
       stopTimeout: 1,
       debug: false, // <-- enable this hear sounds for background-geolocation life-cycle.
+      //debug: true,
       stopOnTerminate: false, // <-- Allow the background-service to continue tracking when user closes the app.
       startOnBoot: true,
       maxDaysToPersist: 0
@@ -33,109 +33,104 @@ class BackgroundGeofences extends Component {
       if (!state.enabled) {
         bgGeo.startGeofences();
       }
-    });
 
-    api.getMenus().then((res) => {
-      this.props.setRestData(res)
+      api.getMenus().then((res) => {
+        this.props.setRestData(res)
+  
+        res.map((item, index) => {
+          if (item.coordinates.latitude && item.coordinates.longitude) {
 
-      const myGeoFences = res.map((item, index) => {
-        if (item.coordinates.latitude && item.coordinates.longitude) {
-          //console.log('lat:', item.coordinates.latitude, 'long:', item.coordinates.longitude)
-          return ({
-            identifier: item.name,
-            radius: 50,
-            latitude: item.coordinates.latitude,
-            longitude: item.coordinates.longitude,
-            notifyOnEntry: true,
-            notifyOnExit: true
-          })
-        }
+            bgGeo.addGeofence({
+              identifier: item.name,
+              radius: 150,
+              latitude: item.coordinates.latitude,
+              longitude: item.coordinates.longitude,
+              notifyOnEntry: true,
+              notifyOnExit: true
+            });
+
+          }
+        })
       })
-
-     //bgGeo.addGeofences(myGeoFences);
-
-
-      // bgGeo.addGeofences([
-      //   {
-      //     identifier: 'HOME',
-      //     radius: 200,
-      //     latitude: 45.51818958022214,
-      //     longitude: -73.61409989192487,
-      //     notifyOnEntry: true,
-      //     notifyOnExit: true
-      //   }
-      // ]);
-      // Remove a geofence
-      //bgGeo.removeGeofence("HOME");
-      // Fetch geofences
-      /** maybe cuaseing error */
-      bgGeo.getGeofences(function(geofences) {
-        //console.log('- Geofences: ', geofences);
-      });
-      //
-      // console.log('results res is', res)
     })
+
+    //bgGeo.removeGeofence("Lestats On Park");
+
+    // bgGeo.getGeofences(function(geofences) {
+    //   //const testdump = JSON.stringify(geofences)
+    //   //console.dir(testdump);
+    //   console.log('- Geofences: ', geofences);
+    // });
+
   }
 
   componentWillUnmount() {
-    // Remove BackgroundGeolocation listeners
-    //bgGeo.un('location', this.onLocation)
     bgGeo.un('geofenceschange', this.onGeoFenceChange)
-    // bgGeo.un('error', this.onError);
-    // bgGeo.un('motionchange', this.onMotionChange);
-    // bgGeo.un('activitychange', this.onActivityChange);
-    // bgGeo.un('providerchange', this.onProviderChange);
   }
 
-  // onLocation(location) {
-  //   console.log('- [js]location: ', JSON.stringify(location));
-  // }
-
   onGeoFenceChange(event) {
-    //console.log('geofenceschange fired! ', event);
     if (event.on.length) {
 
       event.on.map((event) => {
-        PushNotification.localNotificationSchedule({
-          message: `Your are now inside the radius of ${event.identifier}`, // (required)
-          date: new Date(Date.now()), // send notification now
-        });
+
+      /**
+       * 1. check to see if a recent notificaion was sent (records kept in storage)
+       * 2. if there was, do nothing
+       * 3. if not, save to asyncstorage and send notification
+       */
+        const event_name = event.identifier.replace( / /g, '_')
+        const storage_name = '@' + event_name
+        //console.log( 'store name', storage_name)
+
+        AsyncStorage.getItem(storage_name).then((value) => {
+          const current_date = Date.now()
+          const current_date_string = current_date.toString()
+          const value_number = parseInt(value)
+          const time_difference = (60 * 5 * 1000)
+          if (!value || (current_date > (value_number + time_difference))) {
+            // console.log( 'lets save data and send notification...')
+            // console.log('current time', current_date)
+            // console.log('saved value time', value_number)
+            // console.log('event name', storage_name)
+            AsyncStorage.setItem(storage_name, current_date_string)
+            PushNotification.localNotificationSchedule({
+              message: `Your are now close to ${event.identifier}. Use Military Dining to see menu details`, // (required)
+              date: new Date(Date.now()), // send notification now
+            });
+            
+          } 
+          // else {
+          //   console.log( 'we do nothing...')
+          //   console.log('current time', current_date)
+          //   console.log('saved value time', value_number)
+          //   console.log('event name', storage_name)
+          // }
+        }).done()
+
+
+
       })
 
-      // const mess_on_name = event.on[0].identifier
-      // console.log('you are now close to mess hall', mess_on_name)
-      // PushNotification.localNotificationSchedule({
-      //   message: `Your are now inside the radius of ${mess_on_name}`, // (required)
-      //   date: new Date(Date.now()), // send notification now
-      // });
     }
-    if (event.off.length) {
+    // if (event.off.length) {
 
-      event.off.map((event) => {
-        PushNotification.localNotificationSchedule({
-          message: `Your are now outside the radius of ${event}`, // (required)
-          date: new Date(Date.now()), // send notification now
-        });
-      })
-
-      // const mess_off_name = event.off[0]
-      // console.log('you are now far away from mess hall', mess_off_name)
-      // PushNotification.localNotificationSchedule({
-      //   message: `Your are now outside the radius of ${mess_off_name}`, // (required)
-      //   date: new Date(Date.now()), // send notification now
-      // });
-    }
-
+    //   event.off.map((event) => {
+    //     PushNotification.localNotificationSchedule({
+    //       message: `Your are now outside the radius of ${event}`, // (required)
+    //       date: new Date(Date.now()), // send notification now
+    //     });
+    //   })
+    // }
   }
 
   render() {
     return (
-      <View></View>
+      <View>
+        <PushController />
+      </View>
     )
   }
 }
-
-//mapStateToProps = (state) => ({currentPage: state.currentPage})
 
 mapActionsToProps = (dispatch) => ({
   setRestData(results) {

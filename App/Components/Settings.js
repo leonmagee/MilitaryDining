@@ -10,7 +10,7 @@ import {
   StyleSheet,
   TouchableHighlight,
   AsyncStorage,
-  Animated
+  Animated,
 } from 'react-native'
 
 const styles = StyleSheet.create({
@@ -59,11 +59,17 @@ const styles = StyleSheet.create({
   },
   dropdownWrap: {
     paddingHorizontal: 30,
-    marginBottom: 15
+    marginBottom: 15,
   },
   dropdownWrapMultiple: {
     flex: 1,
     paddingHorizontal: 4
+  },
+  dropdownWrapMultipleLess: {
+    flex: 0.35,
+  },
+  dropdownWrapMultipleMore: {
+    flex: 0.65,
   },
   inputLabel: {
     color: 'rgba(0, 0, 0, .38)',
@@ -73,7 +79,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.5,
     fontSize: 16,
     borderBottomColor: 'rgba(0, 0, 0, .38)',
-    paddingVertical: 7
+    paddingVertical: 7,
   },
   dropdownInput: {
     fontSize: 16
@@ -84,7 +90,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     alignItems: 'center',
     borderRadius: 8,
-    marginHorizontal: 80
+    marginHorizontal: 80,
+    marginTop: 20,
   },
   updateButtonText: {
     fontFamily: 'Black Ops One',
@@ -364,9 +371,15 @@ class Settings extends Component {
           <Text style={styles.inputLabel}>Name</Text>
           <TextInput style={styles.textInput} value={this.state.name} onChangeText={(name) => this.setState({name})}/>
         </View>
-        <View style={styles.inputWrap}>
-          <Text style={styles.inputLabel}>Weight (lbs)</Text>
-          <TextInput style={styles.textInput} value={this.state.weight} onChangeText={(weight) => this.setState({weight})}/>
+        <View style={styles.multipleInputWrap}>
+          <View style={[styles.inputWrap, styles.inputWrapMultipleItem]}>
+            <Text style={styles.inputLabel}>Weight (lbs)</Text>
+            <TextInput style={styles.textInput} value={this.state.weight} onChangeText={(weight) => this.setState({weight})}/>
+          </View>
+          <View style={[styles.inputWrap, styles.inputWrapMultipleItem]}>
+            <Text style={styles.inputLabel}>Age (years)</Text>
+            <TextInput value={this.state.age} style={styles.textInput} onChangeText={(age) => this.setState({age})}/>
+          </View>
         </View>
         <View style={styles.multipleInputWrap}>
           <View style={styles.dropdownWrapMultiple}>
@@ -377,17 +390,14 @@ class Settings extends Component {
           </View>
         </View>
         <View style={styles.multipleInputWrap}>
-          <View style={styles.dropdownWrapMultiple}>
+          <View style={[styles.dropdownWrapMultiple, styles.dropdownWrapMultipleLess]}>
             <Dropdown onChangeText={(gender) => this.setState({gender})} labelHeight={16} style={styles.dropdownInput} label='Gender' value={this.state.gender} data={gender}/>
           </View>
-          <View style={[styles.inputWrap, styles.inputWrapMultipleItem]}>
-            <Text style={styles.inputLabel}>Age (years)</Text>
-            <TextInput value={this.state.age} style={styles.textInput} onChangeText={(age) => this.setState({age})}/>
+          <View style={[styles.dropdownWrapMultiple, styles.dropdownWrapMultipleMore]}>
+            <Dropdown onChangeText={(activity) => this.setState({activity})} labelHeight={16} style={styles.dropdownInput} label='Activity' value={this.state.activity} itemCount={5} data={activity}/>
           </View>
         </View>
-        <View style={styles.dropdownWrap}>
-          <Dropdown onChangeText={(activity) => this.setState({activity})} labelHeight={16} style={styles.dropdownInput} label='Activity' value={this.state.activity} itemCount={5} data={activity}/>
-        </View>
+
         <TouchableHighlight style={styles.updateButton} underlayColor={variables.brandPrimary} onPress={() => this.processUpdate()}>
           <Text style={styles.updateButtonText}>UPDATE</Text>
         </TouchableHighlight>
