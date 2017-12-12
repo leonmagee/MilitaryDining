@@ -84,13 +84,13 @@ class MapPage extends Component {
 
   componentDidMount() {
     navigator.geolocation.getCurrentPosition((position) => {
-      console.log('posizzz', position)
-
-
  
         /**
          * Then the inital position should be for the maps
          */
+         this.setState({
+          locationWorking: true,
+         })
 
       let lat = parseFloat(position.coords.latitude)
       let long = parseFloat(position.coords.longitude)
@@ -110,19 +110,21 @@ class MapPage extends Component {
         isLoading: false
       })
 
-
-      
-
     },   (error) => {
-
-      if ( this.props.restData ) {
-         console.log('resters', this.props.restData)
+      /**
+       * Set default location if no geolocation
+       */
+      let initialRegion = {
+        latitude: 33.230148,
+        longitude: -117.381126,
+        latitudeDelta: LATITUDE_DELTA,
+        longitudeDelta: LONGITUDE_DELTA
       }
+      this.setState({
+        initalPosition: initialRegion,
+        isLoading: false
+      })
 
-      
-
-
-      console.log('error callback', error);
     })
 
     // (error) => alert(JSON.stringify(error)), { // error callback
