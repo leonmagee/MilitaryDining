@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
         color: '#FFF',
         fontWeight: 'bold',
         fontSize: 17,
-        fontFamily: 'Black Ops One',
+        fontFamily: 'BlackOpsOne-Regular',
         backgroundColor: 'transparent',
     },
 });

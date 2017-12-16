@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   messHallTitle: {
     fontSize: 20,
     color: '#222',
-    fontFamily: 'Black Ops One'
+    fontFamily: 'BlackOpsOne-Regular'
   }
 })
 

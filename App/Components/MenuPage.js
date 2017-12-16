@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   dayText: {
-    fontFamily: 'Black Ops One',
+    fontFamily: 'BlackOpsOne-Regular',
     fontSize: 17,
     color: '#FFF',
     backgroundColor: 'transparent'
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   mealNameText: {
-    fontFamily: 'Black Ops One',
+    fontFamily: 'BlackOpsOne-Regular',
     fontSize: 20,
     color: '#333'
   },

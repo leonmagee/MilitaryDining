@@ -19,8 +19,9 @@ const MessHallStack = StackNavigator({
             title: 'CHOOSE MESS HALL',
             headerTitleStyle: {
                 color: '#FFF',
-                fontFamily: 'Black Ops One',
-                fontSize: 23
+                fontFamily: 'BlackOpsOne-Regular',
+                fontSize: 23,
+                fontWeight: 'normal',
             }
         }
     },
@@ -36,7 +37,7 @@ const MessHallStack = StackNavigator({
         },
         headerTitleStyle: {
             color: '#FFF',
-            fontFamily: 'Black Ops One'
+            fontFamily: 'BlackOpsOne-Regular'
         },
         headerTintColor: '#FFF'
     }
@@ -90,13 +91,13 @@ export const Tabs = TabNavigator({
         },
         labelStyle: {
             ...Platform.select({
-                ios: {
-                    fontSize: 14,
-                },
+                // ios: {
+                //     fontSize: 14,
+                // },
                 android: {
                     fontSize: 11,
                 },
         })
-       }
+      }
     }
 })

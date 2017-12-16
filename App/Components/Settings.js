@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   settingsTitle: {
     fontSize: 30,
     color: '#111',
-    fontFamily: 'Black Ops One'
+    fontFamily: 'BlackOpsOne-Regular'
   },
   multipleInputWrap: {
     flexDirection: 'row',
@@ -46,12 +46,12 @@ const styles = StyleSheet.create({
   },
   caloriesText: {
     color: variables.brandSecond,
-    fontFamily: 'Black Ops One',
+    fontFamily: 'BlackOpsOne-Regular',
     fontSize: 40
   },
   inputWrap: {
     paddingHorizontal: 30,
-    marginBottom: 20
+    marginBottom: 20,
   },
   inputWrapMultipleItem: {
     flex: 1,
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   updateButtonText: {
-    fontFamily: 'Black Ops One',
+    fontFamily: 'BlackOpsOne-Regular',
     color: '#FFF',
     fontSize: 20
   },
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
   },
   settingsUpdatedText: {
     color: '#FFF',
-    fontFamily: 'Black Ops One',
+    fontFamily: 'BlackOpsOne-Regular',
     fontSize: 16,
   }
 })
@@ -369,16 +369,16 @@ class Settings extends Component {
         </View>
         <View style={styles.inputWrap}>
           <Text style={styles.inputLabel}>Name</Text>
-          <TextInput style={styles.textInput} value={this.state.name} onChangeText={(name) => this.setState({name})}/>
+          <TextInput underlineColorAndroid='transparent' style={styles.textInput} value={this.state.name} onChangeText={(name) => this.setState({name})}/>
         </View>
         <View style={styles.multipleInputWrap}>
           <View style={[styles.inputWrap, styles.inputWrapMultipleItem]}>
             <Text style={styles.inputLabel}>Weight (lbs)</Text>
-            <TextInput style={styles.textInput} value={this.state.weight} onChangeText={(weight) => this.setState({weight})}/>
+            <TextInput underlineColorAndroid='transparent' style={styles.textInput} value={this.state.weight} onChangeText={(weight) => this.setState({weight})}/>
           </View>
           <View style={[styles.inputWrap, styles.inputWrapMultipleItem]}>
             <Text style={styles.inputLabel}>Age (years)</Text>
-            <TextInput value={this.state.age} style={styles.textInput} onChangeText={(age) => this.setState({age})}/>
+            <TextInput underlineColorAndroid='transparent' value={this.state.age} style={styles.textInput} onChangeText={(age) => this.setState({age})}/>
           </View>
         </View>
         <View style={styles.multipleInputWrap}>
