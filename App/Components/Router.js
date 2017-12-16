@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {Platform} from 'react-native'
 import {TabNavigator, StackNavigator} from 'react-navigation'
 import {Icon} from 'react-native-elements'
 import Homepage from './Homepage'
@@ -69,14 +70,33 @@ export const Tabs = TabNavigator({
         navigationOptions: {
             tabBarLabel: 'AREA MAP',
             tabBarIcon: ({tintColor}) => <Icon name="person-pin-circle" size={30} color={tintColor}/>
-        }
+        },
     }
 }, {
     tabBarOptions: {
+        tabBarPosition: 'bottom',
         activeTintColor: '#FFF',
         inactiveTintColor: '#AAA',
+        indicatorStyle: {
+            backgroundColor: variables.brandSecond,
+            height: 4,
+        },
+        // tabBarUnderlineStyle: {
+        //     borderColor: 'blue'
+        // },
+        //pressColor: 'red',
         style: {
             backgroundColor: variables.brandPrimary,
-        }
+        },
+        labelStyle: {
+            ...Platform.select({
+                ios: {
+                    fontSize: 14,
+                },
+                android: {
+                    fontSize: 11,
+                },
+        })
+       }
     }
 })
