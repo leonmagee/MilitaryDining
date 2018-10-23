@@ -37,7 +37,8 @@ const MessHallStack = StackNavigator({
         },
         headerTitleStyle: {
             color: '#FFF',
-            fontFamily: 'BlackOpsOne-Regular'
+            fontFamily: 'BlackOpsOne-Regular',
+            fontWeight: 'normal',
         },
         headerTintColor: '#FFF'
     }

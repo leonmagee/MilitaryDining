@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
   },
   dayText: {
     fontFamily: 'BlackOpsOne-Regular',
+    fontWeight: 'normal',
     fontSize: 17,
     color: '#FFF',
     backgroundColor: 'transparent'
@@ -56,6 +57,7 @@ const styles = StyleSheet.create({
   },
   mealNameText: {
     fontFamily: 'BlackOpsOne-Regular',
+    fontWeight: 'normal',
     fontSize: 20,
     color: '#333'
   },

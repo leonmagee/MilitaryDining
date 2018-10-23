@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 17,
         fontFamily: 'BlackOpsOne-Regular',
+        fontWeight: 'normal',
         backgroundColor: 'transparent',
     },
 });

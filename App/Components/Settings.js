@@ -32,7 +32,8 @@ const styles = StyleSheet.create({
   settingsTitle: {
     fontSize: 30,
     color: '#111',
-    fontFamily: 'BlackOpsOne-Regular'
+    fontFamily: 'BlackOpsOne-Regular',
+    fontWeight: 'normal',
   },
   multipleInputWrap: {
     flexDirection: 'row',
@@ -47,6 +48,7 @@ const styles = StyleSheet.create({
   caloriesText: {
     color: variables.brandSecond,
     fontFamily: 'BlackOpsOne-Regular',
+    fontWeight: 'normal',
     fontSize: 40
   },
   inputWrap: {
@@ -95,6 +97,7 @@ const styles = StyleSheet.create({
   },
   updateButtonText: {
     fontFamily: 'BlackOpsOne-Regular',
+    fontWeight: 'normal',
     color: '#FFF',
     fontSize: 20
   },
@@ -115,6 +118,7 @@ const styles = StyleSheet.create({
   settingsUpdatedText: {
     color: '#FFF',
     fontFamily: 'BlackOpsOne-Regular',
+    fontWeight: 'normal',
     fontSize: 16,
   }
 })
