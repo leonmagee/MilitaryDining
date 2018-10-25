@@ -4,6 +4,7 @@ import {TabNavigator, StackNavigator} from 'react-navigation'
 import {Icon} from 'react-native-elements'
 import Homepage from './Homepage'
 import Settings from './Settings'
+import Profile from './Profile'
 import MessHalls from './MessHalls'
 import MapPage from './MapPage'
 import MenuPage from './MenuPage'
@@ -53,9 +54,10 @@ export const Tabs = TabNavigator({
         }
     },
     Settings: {
-        screen: Settings,
+        //screen: Settings,
+        screen: Profile,
         navigationOptions: {
-            tabBarLabel: 'HEALTH',
+            tabBarLabel: 'PROFILE',
             tabBarIcon: ({tintColor}) => <Icon name="directions-run" size={30} color={tintColor}/>
         }
     },
