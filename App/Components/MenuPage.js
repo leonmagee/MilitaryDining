@@ -3,6 +3,8 @@ import {connect} from 'react-redux'
 import LinearGradient from 'react-native-linear-gradient'
 import MenuDetails from './MenuDetails'
 import {variables} from '../Styles/Variables'
+//import entities from 'html-entities';
+
 
 import {
   View,
@@ -70,11 +72,12 @@ const styles = StyleSheet.create({
   menuFoodItemWrapInner: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   menuFoodItemIcon: {
-    color: '#777',
-    fontSize: 9
+    color: '#666',
+    fontSize: 9,
+    //flex: 0.3,
   },
   menuFoodItem: {
     color: '#444',
@@ -83,6 +86,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#222',
     paddingHorizontal: 10,
     paddingVertical: 5,
+    flex: 0.9,
   }
 })
 
@@ -129,6 +133,13 @@ class MenuPage extends Component {
       } else {
         var pastry_bar_details = null;
       }
+
+      /**
+      * @todo this seems like a bad way to do this - can't I render out different components
+      * instead of doing it this way?
+      * breatfast, breakfast_brunch, etc.. should all be components
+      * when I initially set this up there were only 3? then it got more out of hand
+      */
 
       this.state.menuToggle[key] = {
         breakfast: {
@@ -259,7 +270,13 @@ class MenuPage extends Component {
       }
 
       if (menu.breakfast_brunch) {
+
+      //console.log(menu.breakfast_brunch[1].name);
+      //console.log(entities.decode(menu.breakfast_brunch[1].name));
+
         var breakfast_brunch = menu.breakfast_brunch.map((item, item_key) => {
+          let menu_item_name = item.name.replace(/xxx/gi, 'yyy')
+
           if (this.state.menuToggle[key].breakfast_brunch.details[item_key].visible) {
             var menu_details_item = (<MenuDetails portion={item.portion} cal={item.cal} fat={item.fat} pro={item.pro} carb={item.carb}/>)
           } else {
@@ -271,7 +288,7 @@ class MenuPage extends Component {
             <TouchableHighlight onPress={() => this.toggleMenuDetails(key, item_key, 'breakfast_brunch')} style={styles.menuFoodItemWrap} key={item_key} underlayColor="transparent">
               <View>
                 <View style={styles.menuFoodItemWrapInner}>
-                  <Text style={[styles.menuFoodItem, {'color': this.get_item_color(item.chart)}]}>{item.name}</Text>
+                  <Text style={[styles.menuFoodItem, {'color': this.get_item_color(item.chart)}]}>{menu_item_name}</Text>
                   <Text style={styles.menuFoodItemIcon}>{this.state.menuToggle[key].breakfast_brunch.details[item_key].icon}</Text>
                 </View>
                 {menu_details_item}
