@@ -130,13 +130,17 @@ class Settings extends Component {
       height_feet: '5',
       height_inches: '0',
       gender: 'male',
+      rank: 'N/A',
       age: '',
       activity: '3',
       updated: 'false',
       updatedOpacity: new Animated.Value(0)
     }
 
+    //AsyncStorage.clear()
+
     this.getUserName()
+    this.getUserRank()
     this.getUserWeight()
     this.getUserHeightFeet()
     this.getUserHeightInches()
@@ -147,6 +151,7 @@ class Settings extends Component {
 
   processUpdate() {
     this.saveUserName(this.state.name)
+    this.saveUserRank(this.state.rank)
     this.saveUserWeight(this.state.weight)
     this.saveUserHeightFeet(this.state.height_feet)
     this.saveUserHeightInches(this.state.height_inches)
@@ -172,6 +177,9 @@ class Settings extends Component {
   saveUserName(value) {
     AsyncStorage.setItem('@UserName', value)
   }
+  saveUserRank(value) {
+    AsyncStorage.setItem('@UserRank', value)
+  }
   saveUserWeight(value) {
     AsyncStorage.setItem('@UserWeight', value)
   }
@@ -195,6 +203,13 @@ class Settings extends Component {
     AsyncStorage.getItem('@UserName').then((value) => {
       if (value) {
         this.setState({name: value})
+      }
+    }).done()
+  }
+  getUserRank() {
+    AsyncStorage.getItem('@UserRank').then((value) => {
+      if (value) {
+        this.setState({rank: value})
       }
     }).done()
   }
@@ -350,6 +365,29 @@ class Settings extends Component {
       }
     ]
 
+    let rank = [
+      {
+        value: '1',
+        label: 'N/A'
+      },
+      {
+        value: '2',
+        label: 'Private'
+      },
+      {
+        value: '3',
+        label: 'Corporal'
+      },
+      {
+        value: '4',
+        label: 'Major'
+      },
+      {
+        value: '5',
+        label: 'Captain'
+      },
+    ]
+
     if (this.state.updated === true) {
       var settingsUpdated = <Animated.View style={[styles.settingsUpdatedWrap, {opacity: this.state.updatedOpacity}]}>
         <Text style={styles.settingsUpdatedText}>SETTINGS UPDATED!</Text>
@@ -360,42 +398,66 @@ class Settings extends Component {
 
     return (
       <View style={styles.mainWrap}>
+
         <View style={styles.settingsTitleWrap}>
           <Text style={styles.settingsTitle}>Your Info</Text>
         </View>
+
         <View style={styles.caloriesWrap}>
           <Text style={styles.inputLabel}>Recommended Daily Calorie Intake</Text>
           <Text style={styles.caloriesText}>{dailyCalories}</Text>
         </View>
-        <View style={styles.inputWrap}>
-          <Text style={styles.inputLabel}>Name</Text>
-          <TextInput underlineColorAndroid='transparent' style={styles.textInput} value={this.state.name} onChangeText={(name) => this.setState({name})}/>
-        </View>
+
         <View style={styles.multipleInputWrap}>
+
+          <View style={[styles.inputWrap, styles.inputWrapMultipleItem, styles.dropdownWrapMultipleMore]}>
+            <Text style={styles.inputLabel}>Name</Text>
+            <TextInput underlineColorAndroid='transparent' style={styles.textInput} value={this.state.name} onChangeText={(name) => this.setState({name})}/>
+          </View>
+
+          <View style={[styles.dropdownWrapMultiple, styles.dropdownWrapMultipleLess]}>
+            <Dropdown onChangeText={(rank) => this.setState({rank})} labelHeight={16} style={styles.dropdownInput} label='Rank' value={this.state.rank} itemCount={5} data={rank}/>
+          </View>
+
+        </View>
+
+        <View style={styles.multipleInputWrap}>
+
           <View style={[styles.inputWrap, styles.inputWrapMultipleItem]}>
             <Text style={styles.inputLabel}>Weight (lbs)</Text>
             <TextInput underlineColorAndroid='transparent' style={styles.textInput} value={this.state.weight} onChangeText={(weight) => this.setState({weight})}/>
           </View>
+
           <View style={[styles.inputWrap, styles.inputWrapMultipleItem]}>
             <Text style={styles.inputLabel}>Age (years)</Text>
             <TextInput underlineColorAndroid='transparent' value={this.state.age} style={styles.textInput} onChangeText={(age) => this.setState({age})}/>
           </View>
+
         </View>
+
         <View style={styles.multipleInputWrap}>
+
           <View style={styles.dropdownWrapMultiple}>
             <Dropdown onChangeText={(height_feet) => this.setState({height_feet})} labelHeight={16} itemCount={4} style={styles.dropdownInput} label='Height Feet' value={this.state.height_feet} data={height_feet}/>
           </View>
+
           <View style={styles.dropdownWrapMultiple}>
             <Dropdown onChangeText={(height_inches) => this.setState({height_inches})} labelHeight={16} itemCount={6} style={styles.dropdownInput} label='Height Inches' value={this.state.height_inches} data={height_inches}/>
           </View>
+
         </View>
+
         <View style={styles.multipleInputWrap}>
+
+          
           <View style={[styles.dropdownWrapMultiple, styles.dropdownWrapMultipleLess]}>
             <Dropdown onChangeText={(gender) => this.setState({gender})} labelHeight={16} style={styles.dropdownInput} label='Gender' value={this.state.gender} data={gender}/>
           </View>
+
           <View style={[styles.dropdownWrapMultiple, styles.dropdownWrapMultipleMore]}>
             <Dropdown onChangeText={(activity) => this.setState({activity})} labelHeight={16} style={styles.dropdownInput} label='Activity' value={this.state.activity} itemCount={5} data={activity}/>
           </View>
+
         </View>
 
         <TouchableHighlight style={styles.updateButton} underlayColor={variables.brandPrimary} onPress={() => this.processUpdate()}>

@@ -8,6 +8,7 @@ import Profile from './Profile'
 import MessHalls from './MessHalls'
 import MapPage from './MapPage'
 import MenuPage from './MenuPage'
+import FavoriteFoods from './FavoriteFoods'
 import {variables} from '../Styles/Variables'
 
 const navigationOptions = ({navigation}) => ({title: `${navigation.state.params.name}`})
@@ -54,8 +55,8 @@ export const Tabs = TabNavigator({
         }
     },
     Settings: {
-        //screen: Settings,
-        screen: Profile,
+        screen: Settings,
+        //screen: Profile,
         navigationOptions: {
             tabBarLabel: 'PROFILE',
             tabBarIcon: ({tintColor}) => <Icon name="directions-run" size={30} color={tintColor}/>
@@ -66,6 +67,13 @@ export const Tabs = TabNavigator({
         navigationOptions: {
             tabBarLabel: 'MESS HALLS',
             tabBarIcon: ({tintColor}) => <Icon name="restaurant" size={30} color={tintColor}/>
+        }
+    },
+    Foods: {
+        screen: FavoriteFoods,
+        navigationOptions: {
+            tabBarLabel: 'FOODS',
+            tabBarIcon: ({tintColor}) => <Icon name="downcircle" size={30} color={tintColor}/>
         }
     },
     Map: {
