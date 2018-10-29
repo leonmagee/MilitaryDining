@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {Platform} from 'react-native'
 import {TabNavigator, StackNavigator} from 'react-navigation'
+//import {Icon} from 'react-native-elements'
 import {Icon} from 'react-native-elements'
 import Homepage from './Homepage'
 import Settings from './Settings'
@@ -69,11 +70,11 @@ export const Tabs = TabNavigator({
             tabBarIcon: ({tintColor}) => <Icon name="restaurant" size={30} color={tintColor}/>
         }
     },
-    Foods: {
+    Favorites: {
         screen: FavoriteFoods,
         navigationOptions: {
-            tabBarLabel: 'FOODS',
-            tabBarIcon: ({tintColor}) => <Icon name="downcircle" size={30} color={tintColor}/>
+            tabBarLabel: 'FAVORITES',
+            tabBarIcon: ({tintColor}) => <Icon name="favorite" size={30} color={tintColor}/>
         }
     },
     Map: {
@@ -87,7 +88,7 @@ export const Tabs = TabNavigator({
     tabBarOptions: {
         tabBarPosition: 'bottom',
         activeTintColor: '#FFF',
-        inactiveTintColor: '#AAA',
+        inactiveTintColor: '#CCC',
         indicatorStyle: {
             backgroundColor: variables.brandSecond,
             height: 4,
@@ -97,7 +98,9 @@ export const Tabs = TabNavigator({
         // },
         //pressColor: 'red',
         style: {
-            backgroundColor: variables.brandPrimary,
+            //backgroundColor: variables.brandPrimary,
+            backgroundColor: 'transparent',
+            paddingTop: 65,
         },
         labelStyle: {
             ...Platform.select({

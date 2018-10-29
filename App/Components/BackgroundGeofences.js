@@ -52,6 +52,12 @@ class BackgroundGeofences extends Component {
           }
         })
       })
+
+
+      api.getMenuItems().then((res) => {
+        this.props.setRestMenuItemData(res)
+      })
+
     })
 
     //bgGeo.removeGeofence("Lestats On Park");
@@ -135,7 +141,11 @@ class BackgroundGeofences extends Component {
 mapActionsToProps = (dispatch) => ({
   setRestData(results) {
     dispatch({type: 'SET_DATA_VALUE', payload: results})
+  },
+  setRestMenuItemData(results) {
+    dispatch({type: 'SET_MENU_ITEMS_DATA_VALUE', payload: results})
   }
+
 })
 
 module.exports = connect(null, mapActionsToProps)(BackgroundGeofences)

@@ -44,6 +44,8 @@ class MessHalls extends Component {
 
   render() {
 
+      // console.log('testy')
+      // console.log(this.props.restData)
       if (this.props.restData) {
         
         const MessHallMenus = this.props.restData.map((data, key) => {
