@@ -16,7 +16,7 @@ import {
 	TextInput,
 	StyleSheet,
 	ScrollView,
-	TouchableHightlight,
+	TouchableHighlight,
 	AsynchStorage,
 	Animated
 } from 'react-native'
@@ -26,6 +26,10 @@ const styles = StyleSheet.create({
 		backgroundColor: variables.backgroundWhite,
 		paddingHorizontal: 20,
 		paddingVertical: 15,
+	},
+	foodName: {
+		fontSize: 15,
+		fontFamily: 'BlackOpsOne-Regular',
 	},
 	foodDetais: {
 		margin: 5,
@@ -39,7 +43,37 @@ class FavoriteFoods extends Component {
 
 	constructor(props) {
 		super(props)
+
+		this.state = {
+			detailsToggle: []
+		}
 	}
+
+	toggleDetails(index) {
+		let currentArray = this.state.detailsToggle
+		if(currentArray[index]) {
+			currentArray[index] = false
+		} else {
+			currentArray[index] = true
+		}
+		this.setState({
+			detailsToggle:  currentArray
+		})
+	}
+
+	checkVisibility(index) {
+		let currentArray = this.state.detailsToggle
+		if (currentArray[index]) {
+			return true
+		} else {
+			return false
+		}
+	}
+
+	// helper functions?
+	removeQuotes(name) {
+    	return name.replace('&#8220;', '"').replace('&#8221;', '"')
+  	}
 
 	render() {
 
@@ -49,26 +83,48 @@ class FavoriteFoods extends Component {
 			// console.log('xxx')
 			console.log(this.props.restData)
 
+			let toggleArray = this.props.restData.length
+
+			//this.setState({'count', toggleArray})
+
+			// console.log('test count')
+
+			// console.log(toggleArray)
+
 			var favFoodList = this.props.restData.map((food, key) => {
+
+				if (this.checkVisibility(key)) {
+
+					var detailSection = <View style={styles.foodDetais}>
+
+						<Text>Calories: {food.cal}</Text>
+						<Text>Carbs: {food.carb}</Text>
+						<Text>Chart: {food.chart}</Text>
+						<Text>Fat: {food.fat}</Text>
+						<Text>Carbs: {food.carb}</Text>
+						<Text>Portion: {food.portion}</Text>
+						<Text>Protein: {food.pro}</Text>
+						<Text>Ref: {food.ref}</Text>
+
+					</View>
+
+				} else {
+
+					var detailSection = <View></View>
+				}
+
 				return (
-					<View key={key}>
+					<TouchableHighlight key={key} onPress={() => {this.toggleDetails(key)}} underlayColor="transparent">
 
-						<Text style={styles.foodName}>{food.name}</Text>
+						<View>
 
-						<View style={styles.foodDetais}>
+						<Text style={styles.foodName}>{this.removeQuotes(food.name)}</Text>
 
-							<Text>Calories: {food.cal}</Text>
-							<Text>Carbs: {food.carb}</Text>
-							<Text>Chart: {food.chart}</Text>
-							<Text>Fat: {food.fat}</Text>
-							<Text>Carbs: {food.carb}</Text>
-							<Text>Portion: {food.portion}</Text>
-							<Text>Protein: {food.pro}</Text>
-							<Text>Ref: {food.ref}</Text>
+						{detailSection}
 
 						</View>
 
-					</View>
+					</TouchableHighlight>
 					)
 			})
 

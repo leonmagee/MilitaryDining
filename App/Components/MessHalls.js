@@ -10,16 +10,12 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     flex: 1,
-    //paddingTop: 120,
-    backgroundColor: 'transparent'
   },
   mainWrap: {
     display: 'flex',
     alignSelf: 'stretch',
     flex: 1,
-    backgroundColor: 'transparent',
-    //backgroundColor: 'red',
-    //marginTop: 93,
+    backgroundColor: variables.backgroundWhite,
   },
   messHallWrap: {
     alignSelf: 'stretch'
