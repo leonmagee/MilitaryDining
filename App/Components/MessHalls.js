@@ -10,13 +10,16 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     flex: 1,
-    //backgroundColor: 'red',
-    //backgroundColor: 'transparent'
+    //paddingTop: 120,
+    backgroundColor: 'transparent'
   },
   mainWrap: {
     display: 'flex',
     alignSelf: 'stretch',
     flex: 1,
+    backgroundColor: 'transparent',
+    //backgroundColor: 'red',
+    //marginTop: 93,
   },
   messHallWrap: {
     alignSelf: 'stretch'
@@ -53,7 +56,7 @@ class MessHalls extends Component {
           return (
             <View key={key} style={styles.messHallTitleWrap}>
               <TouchableHighlight onPress={() => this.navigateToPage(data)} underlayColor="transparent">
-                <Text style={styles.messHallTitle}>{data.name}xxx</Text>
+                <Text style={styles.messHallTitle}>{data.name}</Text>
               </TouchableHighlight>
             </View>
           )

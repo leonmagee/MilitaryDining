@@ -8,7 +8,7 @@ export const defaults = {
 		paddingBottom: 15,
 		alignSelf: 'stretch',
 		alignItems: 'center',
-		marginHorizontal: 30
+		//marginHorizontal: 30
 	},
 	defaultTitle: {
 		fontSize: 30,

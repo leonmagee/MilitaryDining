@@ -19,23 +19,24 @@ const MessHallStack = StackNavigator({
         screen: MessHalls,
         headerMode: 'none',
 
-        cardStyle: {
-            backgroundColor: 'transparent',
-        },
-        transitionConfig: (): Object => ({
-            containerStyle: {
-                backgroundColor: 'transparent',
-            },
-        }),
+        // cardStyle: {
+        //     backgroundColor: 'transparent',
+        // },
+        // transitionConfig: (): Object => ({
+        //     containerStyle: {
+        //         backgroundColor: 'transparent',
+        //     },
+        // }),
 
 
         //transparentCard: true,
         navigationOptions: {
-            title: 'CHOOSE MESS HALL',
+            title: 'Mess Halls',
             headerTitleStyle: {
                 color: '#FFF',
                 fontFamily: 'BlackOpsOne-Regular',
-                fontSize: 23,
+                fontSize: 30,
+                //marginBottom: 15,
                 fontWeight: 'normal',
             }
         }
@@ -48,14 +49,15 @@ const MessHallStack = StackNavigator({
     // Default Options
     navigationOptions: {
         headerStyle: {
-            //backgroundColor: variables.brandPrimary
-            //backgroundColor: 'transparent',
+            //backgroundColor: variables.brandPrimary,
+            backgroundColor: 'transparent',
             //position: 'absolute', 
             //backgroundColor: 'transparent', 
             // zIndex: 100, 
             // top: 0, 
             // left: 0, 
             // right: 0,
+            height: 93,
         },
         headerTransparent: true,
         headerTitleStyle: {
@@ -120,7 +122,10 @@ export const Tabs = TabNavigator({
         style: {
             //backgroundColor: variables.brandPrimary,
             backgroundColor: 'transparent',
-            paddingTop: 65,
+            height: 90,
+            //paddingTop: 40,
+            paddingBottom: 30,
+            //paddingTop: 65,
         },
         labelStyle: {
             ...Platform.select({
