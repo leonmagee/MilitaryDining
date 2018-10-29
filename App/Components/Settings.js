@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {Dropdown} from 'react-native-material-dropdown'
 import {CalorieCounter} from '../Math/Calculator'
 import {variables} from '../Styles/Variables'
+import {defaults} from '../Styles/Defaults'
 
 import {
   View,
@@ -14,11 +15,10 @@ import {
 } from 'react-native'
 
 const styles = StyleSheet.create({
-  mainWrap: {
-    backgroundColor: '#F4F4F4',
-    display: 'flex',
+  innerWrap: {
+    backgroundColor: variables.backgroundWhite,
+    paddingTop: 10,
     flex: 1,
-    paddingVertical: 40
   },
   settingsTitleWrap: {
     marginBottom: 25,
@@ -397,11 +397,13 @@ class Settings extends Component {
     }
 
     return (
-      <View style={styles.mainWrap}>
+      <View style={defaults.defaultMainWrap}>
 
-        <View style={styles.settingsTitleWrap}>
-          <Text style={styles.settingsTitle}>Your Info</Text>
+        <View style={defaults.defaultTitleWrap}>
+          <Text style={defaults.defaultTitle}>Your Info</Text>
         </View>
+
+        <View style={styles.innerWrap}>
 
         <View style={styles.caloriesWrap}>
           <Text style={styles.inputLabel}>Recommended Daily Calorie Intake</Text>
@@ -464,6 +466,8 @@ class Settings extends Component {
           <Text style={styles.updateButtonText}>UPDATE</Text>
         </TouchableHighlight>
         {settingsUpdated}
+
+        </View>
       </View>
     )
   }

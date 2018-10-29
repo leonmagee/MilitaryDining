@@ -5,7 +5,7 @@ import {TabNavigator, StackNavigator} from 'react-navigation'
 import {Icon} from 'react-native-elements'
 import Homepage from './Homepage'
 import Settings from './Settings'
-import Profile from './Profile'
+//import Profile from './Profile'
 import MessHalls from './MessHalls'
 import MapPage from './MapPage'
 import MenuPage from './MenuPage'
@@ -18,6 +18,18 @@ const MessHallStack = StackNavigator({
     MessHalls: {
         screen: MessHalls,
         headerMode: 'none',
+
+        cardStyle: {
+            backgroundColor: 'transparent',
+        },
+        transitionConfig: (): Object => ({
+            containerStyle: {
+                backgroundColor: 'transparent',
+            },
+        }),
+
+
+        //transparentCard: true,
         navigationOptions: {
             title: 'CHOOSE MESS HALL',
             headerTitleStyle: {
@@ -36,8 +48,16 @@ const MessHallStack = StackNavigator({
     // Default Options
     navigationOptions: {
         headerStyle: {
-            backgroundColor: variables.brandPrimary
+            //backgroundColor: variables.brandPrimary
+            //backgroundColor: 'transparent',
+            //position: 'absolute', 
+            //backgroundColor: 'transparent', 
+            // zIndex: 100, 
+            // top: 0, 
+            // left: 0, 
+            // right: 0,
         },
+        headerTransparent: true,
         headerTitleStyle: {
             color: '#FFF',
             fontFamily: 'BlackOpsOne-Regular'

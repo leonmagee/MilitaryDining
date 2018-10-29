@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import MenuPage from './MenuPage'
 import {variables} from '../Styles/Variables'
+//import {defaults} from '../Styles/Defaults'
 import {View, ScrollView, Text, TouchableHighlight, StyleSheet} from 'react-native'
 
 const styles = StyleSheet.create({
@@ -9,6 +10,8 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     flex: 1,
+    //backgroundColor: 'red',
+    //backgroundColor: 'transparent'
   },
   mainWrap: {
     display: 'flex',
@@ -44,15 +47,13 @@ class MessHalls extends Component {
 
   render() {
 
-      // console.log('testy')
-      // console.log(this.props.restData)
       if (this.props.restData) {
         
         const MessHallMenus = this.props.restData.map((data, key) => {
           return (
             <View key={key} style={styles.messHallTitleWrap}>
               <TouchableHighlight onPress={() => this.navigateToPage(data)} underlayColor="transparent">
-                <Text style={styles.messHallTitle}>{data.name}</Text>
+                <Text style={styles.messHallTitle}>{data.name}xxx</Text>
               </TouchableHighlight>
             </View>
           )

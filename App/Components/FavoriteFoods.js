@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {variables} from '../Styles/Variables'
+import {defaults} from '../Styles/Defaults'
 
 /**
 * @todo I can have one page which lists all food items (including which mess 
@@ -21,27 +22,8 @@ import {
 } from 'react-native'
 
 const styles = StyleSheet.create({
-	mainWrap: {
-		//backgroundColor: '#F4F4F4',
-		display: 'flex',
-		flex: 1,
-		paddingTop: 40,
-		//paddingHorizontal: 20,
-	},
-	settingsTitleWrap: {
-		paddingBottom: 15,
-		alignSelf: 'stretch',
-		alignItems: 'center',
-		marginHorizontal: 30
-	},
-	settingsTitle: {
-		fontSize: 30,
-		color: '#EEE',
-		backgroundColor: 'transparent',
-		fontFamily: 'BlackOpsOne-Regular'
-	},
 	scrollWrap: {
-		backgroundColor: '#FFF',
+		backgroundColor: variables.backgroundWhite,
 		paddingHorizontal: 20,
 		paddingVertical: 15,
 	},
@@ -106,23 +88,19 @@ class FavoriteFoods extends Component {
 
 		return(
 
-				<View style={styles.mainWrap}>
+				<View style={defaults.defaultMainWrap}>
 
-					<View style={styles.foodsWrap}>
+					<View style={defaults.defaultTitleWrap}>
 
-						<View style={styles.settingsTitleWrap}>
-
-							<Text style={styles.settingsTitle}>Favorite Foods</Text>
-
-						</View>
-
-						<ScrollView style={styles.scrollWrap}>
-
-							{favFoodList}
-
-						</ScrollView>
+						<Text style={defaults.defaultTitle}>Favorite Foods</Text>
 
 					</View>
+
+					<ScrollView style={styles.scrollWrap}>
+
+						{favFoodList}
+
+					</ScrollView>
 
 				</View>
 
