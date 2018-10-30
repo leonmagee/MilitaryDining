@@ -122,9 +122,12 @@ export const Tabs = TabNavigator({
         style: {
             //backgroundColor: variables.brandPrimary,
             backgroundColor: 'transparent',
-            height: 90,
+            height: 100,
             //paddingTop: 40,
+            paddingTop: 15,
             paddingBottom: 30,
+            borderTopColor: '#222',
+            borderTopWidth: 1,
             //paddingTop: 65,
         },
         labelStyle: {

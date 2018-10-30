@@ -2,6 +2,15 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {variables} from '../Styles/Variables'
 import {defaults} from '../Styles/Defaults'
+import {Icon} from 'react-native-elements'
+import {StreetLight, history} from '../SVG/SvgIcons.js'
+import SvgElementPath from './SvgElementPath.js'
+import FoodDetail from './FoodDetail'
+import Svg, {
+    Path,
+} from 'react-native-svg';
+
+
 
 /**
 * @todo I can have one page which lists all food items (including which mess 
@@ -27,15 +36,37 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 20,
 		paddingVertical: 15,
 	},
+	foodWrap: {
+		backgroundColor: '#EAEAEA',
+		borderColor: '#E5E5E5',
+		borderWidth: 1,
+		borderRadius: 15,
+		padding: 15,
+		marginBottom: 20,
+	},
 	foodName: {
 		fontSize: 15,
 		fontFamily: 'BlackOpsOne-Regular',
 	},
 	foodDetais: {
-		margin: 5,
-		padding: 5,
-		borderColor: '#DDD',
-		borderWidth: 2,
+		marginTop: 10,
+		display: 'flex',
+		justifyContent: 'space-between',
+		flexWrap: 'wrap',
+		flexDirection: 'row',
+	},
+	iconStyle: {
+		backgroundColor: 'red',
+	},
+	svgWrap: {
+		// backgroundColor: 'blue',
+		// height: 500,
+		  alignItems: 'center',
+        justifyContent: 'space-around',
+        borderWidth: 1,
+        borderColor: 'rgba(255,255,255,0.3)',
+        paddingTop: 15,
+        paddingBottom: 10,
 	}
 })
 
@@ -80,32 +111,23 @@ class FavoriteFoods extends Component {
 		var favFoodList = <View></View>
 
 		if (this.props.restData) {
-			// console.log('xxx')
-			console.log(this.props.restData)
 
 			let toggleArray = this.props.restData.length
-
-			//this.setState({'count', toggleArray})
-
-			// console.log('test count')
-
-			// console.log(toggleArray)
 
 			var favFoodList = this.props.restData.map((food, key) => {
 
 				if (this.checkVisibility(key)) {
 
-					var detailSection = <View style={styles.foodDetais}>
 
-						<Text>Calories: {food.cal}</Text>
-						<Text>Carbs: {food.carb}</Text>
-						<Text>Chart: {food.chart}</Text>
-						<Text>Fat: {food.fat}</Text>
-						<Text>Carbs: {food.carb}</Text>
-						<Text>Portion: {food.portion}</Text>
-						<Text>Protein: {food.pro}</Text>
-						<Text>Ref: {food.ref}</Text>
-
+					var detailSection = 
+					<View style={styles.foodDetais}>
+						<FoodDetail label="Calories" value={food.cal}/>
+						<FoodDetail label="Carbs" value={food.carb}/>
+						<FoodDetail label="Chart" value={food.chart}/>
+						<FoodDetail label="Fat" value={food.fat}/>
+						<FoodDetail label="Protein" value={food.pro}/>
+						<FoodDetail label="Ref" value={food.ref}/>
+						<FoodDetail label="Portion" value={food.portion}/>
 					</View>
 
 				} else {
@@ -114,33 +136,27 @@ class FavoriteFoods extends Component {
 				}
 
 				return (
-					<TouchableHighlight key={key} onPress={() => {this.toggleDetails(key)}} underlayColor="transparent">
-
-						<View>
+					<View style={styles.foodWrap} key={key}>
 
 						<Text style={styles.foodName}>{this.removeQuotes(food.name)}</Text>
 
-						{detailSection}
+						<TouchableHighlight onPress={() => {this.toggleDetails(key)}} underlayColor="transparent">
+							<Text>More Info...</Text>
+						</TouchableHighlight>
+
+						<View style={styles.svgWrap}>
+
+							<SvgElementPath svg_data={StreetLight} svg_scale={0.100}/>
 
 						</View>
 
-					</TouchableHighlight>
+						{detailSection}
+
+					</View>
 					)
 			})
 
 		} 
-
-		// cal: "130"
-		// carb: "16.7"
-		// chart: "green"
-		// fat: "6.5"
-		// id: 248
-		// name: "DANISH, ASSORTED"
-		// portion: "1 danish"
-		// pro: "1.9"
-		// ref: "D 039 00 / RM"
-
-		//console.log(food_list)
 
 		return(
 

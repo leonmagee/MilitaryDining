@@ -564,7 +564,7 @@ class MenuPage extends Component {
       if (menu.day && menu.date) {
         return (
           <View key={key}>
-            <LinearGradient colors={['#333', '#222', '#333']} style={styles.dayWrap}>
+            <LinearGradient colors={['#121212', '#141414', '#121212']} style={styles.dayWrap}>
               <Text style={styles.dayText}>Day {menu.day}</Text>
               <Text style={styles.dayText}>{menu.date}</Text>
             </LinearGradient>

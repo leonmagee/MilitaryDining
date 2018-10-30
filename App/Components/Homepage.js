@@ -24,8 +24,8 @@ const styles = StyleSheet.create({
     zIndex: 4000,
   },
   logoImage: {
-    width: width,
-    height: width,
+    width: width - 50,
+    height: width - 50,
   },
   mainOuterWrap: {
     flex: 1,
@@ -53,9 +53,9 @@ class Homepage extends Component {
       <View style={styles.mainOuterWrap}>
          <View style={styles.homeWrapOuter}>
           <View style={styles.homeWrap}>
-            <Image source={require('../Assets/Images/home-image.png')} style={styles.imageContainer}></Image>
+            <Image source={require('../Assets/Images/justin-tacos.png')} style={styles.imageContainer}></Image>
             <View style={styles.logoImageWrap}>
-              <Image source={require('../Assets/Images/military-dining-logo.png')} style={styles.logoImage}></Image>
+              <Image source={require('../Assets/Images/military-dining-logo-new.png')} style={styles.logoImage}></Image>
             </View>
           </View>
          </View>
