@@ -34,8 +34,7 @@ import {
 const styles = StyleSheet.create({
 	scrollWrap: {
 		backgroundColor: variables.backgroundWhite,
-		paddingHorizontal: 20,
-		paddingVertical: 15,
+		padding: 15,
 	},
 	foodWrap: {
 		backgroundColor: '#FDFDFD',
@@ -73,7 +72,10 @@ const styles = StyleSheet.create({
 		fontFamily: 'BlackOpsOne-Regular',
 	},
 	subHeaderWrap: {
-		//backgroundColor: 'tomato',
+		display: 'flex',
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'space-between'
 	},
 	moreInfoWrap: {
 		display: 'flex',
@@ -144,12 +146,12 @@ class FavoriteFoods extends Component {
 
 					var detailSection = 
 					<View style={styles.foodDetais}>
-						<FoodDetail label="Calories" value={food.cal}/>
-						<FoodDetail label="Carbs" value={food.carb}/>
-						<FoodDetail label="Fat" value={food.fat}/>
-						<FoodDetail label="Protein" value={food.pro}/>
-						<FoodDetail label="Ref" value={food.ref}/>
-						<FoodDetail label="Portion" value={food.portion}/>
+						<FoodDetail label="Calories" value={food.cal} bg={variables.brandPrimary}/>
+						<FoodDetail label="Carbs" value={food.carb} bg={variables.brandPrimary}/>
+						<FoodDetail label="Fat" value={food.fat} bg={variables.brandPrimary}/>
+						<FoodDetail label="Protein" value={food.pro} bg={variables.brandPrimary}/>
+						<FoodDetail label="Ref" value={food.ref} bg={variables.brandPrimary}/>
+						<FoodDetail label="Portion" value={food.portion} bg={variables.brandPrimary}/>
 					</View>
 
 					var more_less_info = 'LESS INFO'
@@ -187,7 +189,6 @@ class FavoriteFoods extends Component {
 
 						<View style={styles.subHeaderWrap}>
 
-
 							<TouchableHighlight onPress={() => {this.toggleDetails(key)}} underlayColor="transparent">
 								<View style={styles.moreInfoWrap}>
 									<Icon name={icon_name} type='entypo' size={16} color="#333"/>
@@ -195,9 +196,16 @@ class FavoriteFoods extends Component {
 								</View>
 							</TouchableHighlight>
 
-							{detailSection}
+							<TouchableHighlight onPress={() => {this.toggleDetails(key)}} underlayColor="transparent">
+								<View style={styles.moreInfoWrap}>
+									<Icon name="circle-with-cross" type='entypo' size={16} color="#333"/>
+									<Text style={styles.moreInfoText}>REMOVE</Text>
+								</View>
+							</TouchableHighlight>
 
 						</View>
+							
+						{detailSection}
 
 					</View>
 					)

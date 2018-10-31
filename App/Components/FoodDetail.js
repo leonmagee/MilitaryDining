@@ -7,9 +7,10 @@ import {
 
 const styles = StyleSheet.create({
 	elementWrap: {
-		backgroundColor: '#F9F9F9',
-		borderWidth: 1,
-		borderColor: '#F1F1F1',
+		//backgroundColor: '#F9F9F9',
+		//backgroundColor: variables.brandPrimary,
+		//borderWidth: 1,
+		//borderColor: '#222',
 		padding: 7,
 		display: 'flex',
 		flexDirection: 'row',
@@ -17,10 +18,10 @@ const styles = StyleSheet.create({
 		flexGrow: 1,
 	},
 	textLabel: {
-		color: '#444',
+		color: '#FFF',
 	},
 	textValue: {
-		color: '#222',
+		color: '#FFF',
 		marginLeft: 5,
 		fontWeight: 'bold',
 	}
@@ -37,7 +38,7 @@ class FoodDetail extends Component {
 
 		if (this.props.value) {
 			return(
-			<View style={styles.elementWrap}>
+			<View style={[styles.elementWrap, {backgroundColor: this.props.bg}]}>
 				<Text style={styles.textLabel}>{this.props.label}:</Text>
 				<Text style={styles.textValue}>{this.props.value}</Text>
 			</View>

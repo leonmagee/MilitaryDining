@@ -96,7 +96,7 @@ export const Tabs = TabNavigator({
         screen: FavoriteFoods,
         navigationOptions: {
             tabBarLabel: 'FAVORITES',
-            tabBarIcon: ({tintColor}) => <Icon name="favorite" size={30} color={tintColor}/>
+            tabBarIcon: ({tintColor}) => <Icon name="heart-outline" type="material-community" size={30} color={tintColor}/>
         }
     },
     Map: {
