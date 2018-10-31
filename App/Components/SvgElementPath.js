@@ -2,9 +2,10 @@ import React, {Component} from 'react';
 import Svg, {
     Path,
 } from 'react-native-svg';
+import {variables} from '../Styles/Variables.js'
 
 const defaultProps = {
-    svg_height: 54,
+    svg_height: 50,
     svg_width: 52,
     svg_scale: 0.6,
 };
@@ -24,11 +25,11 @@ export default class SvgElement extends Component {
     render() {
         var svg_paths = this.state.svg_data.map((item, index) => {
             return (
-                <Path key={index} x="0" y="0" fill="red" scale={this.state.svg_scale} d={item}/>
+                <Path key={index} x="0" y="0" fill={variables.healthGreen} scale={this.state.svg_scale} d={item}/>
             )
         });
         return (
-            <Svg height={this.state.svg_height} width={this.state.svg_width} style={{backgroundColor: 'green'}}>
+            <Svg height={this.state.svg_height} width={this.state.svg_width}>
                 {svg_paths}
             </Svg>
         )

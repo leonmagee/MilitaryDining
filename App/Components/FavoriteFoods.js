@@ -3,8 +3,8 @@ import {connect} from 'react-redux'
 import {variables} from '../Styles/Variables'
 import {defaults} from '../Styles/Defaults'
 import {Icon} from 'react-native-elements'
-import {StreetLight, history} from '../SVG/SvgIcons.js'
-import SvgElementPath from './SvgElementPath.js'
+//import {StreetLight, history} from '../SVG/SvgIcons.js'
+//import SvgElementPath from './SvgElementPath.js'
 import FoodDetail from './FoodDetail'
 import Svg, {
     Path,
@@ -22,6 +22,7 @@ import Svg, {
 import {
 	View,
 	Text,
+	Image,
 	TextInput,
 	StyleSheet,
 	ScrollView,
@@ -58,15 +59,14 @@ const styles = StyleSheet.create({
 	iconStyle: {
 		backgroundColor: 'red',
 	},
-	svgWrap: {
+	imageWrap: {
 		// backgroundColor: 'blue',
-		// height: 500,
-		  alignItems: 'center',
-        justifyContent: 'space-around',
-        borderWidth: 1,
-        borderColor: 'rgba(255,255,255,0.3)',
-        paddingTop: 15,
-        paddingBottom: 10,
+		width: 17,
+		height: 40,
+	},
+	imageElement: {
+		width: 17,
+		height: 40,
 	}
 })
 
@@ -135,8 +135,22 @@ class FavoriteFoods extends Component {
 					var detailSection = <View></View>
 				}
 
+				if ( food.chart === 'red' ) {
+					var image_url = require('../Assets/Images/red-light.png')
+				} else if (food.chart === 'yellow') {
+					var image_url = require('../Assets/Images/yellow-light.png')
+				} else {
+					var image_url = require('../Assets/Images/green-light.png')
+				}
+
 				return (
 					<View style={styles.foodWrap} key={key}>
+
+						<View style={styles.imageWrap}>
+							<Image source={image_url} style={styles.imageElement} />
+						</View>
+
+
 
 						<Text style={styles.foodName}>{this.removeQuotes(food.name)}</Text>
 
@@ -144,11 +158,7 @@ class FavoriteFoods extends Component {
 							<Text>More Info...</Text>
 						</TouchableHighlight>
 
-						<View style={styles.svgWrap}>
 
-							<SvgElementPath svg_data={StreetLight} svg_scale={0.100}/>
-
-						</View>
 
 						{detailSection}
 
