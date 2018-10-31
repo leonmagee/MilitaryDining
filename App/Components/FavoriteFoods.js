@@ -38,16 +38,52 @@ const styles = StyleSheet.create({
 		paddingVertical: 15,
 	},
 	foodWrap: {
-		backgroundColor: '#EAEAEA',
+		backgroundColor: '#FDFDFD',
 		borderColor: '#E5E5E5',
 		borderWidth: 1,
 		borderRadius: 15,
-		padding: 15,
+		paddingTop: 15,
+		paddingLeft: 15,
+		paddingRight: 15,
+		paddingBottom: 12,
 		marginBottom: 20,
 	},
+	headerWrap: {
+		display: 'flex',
+		flexDirection: 'row',
+		alignItems: 'center',
+		marginBottom: 10,
+	},
+	imageWrap: {
+		width: 17,
+		height: 40,
+		marginRight: 8,
+		//flexGrow: 0,
+
+	},
+	imageElement: {
+		width: 17,
+		height: 40,
+	},
+	foodNameWrap: {
+		flex: 1,
+	},
 	foodName: {
-		fontSize: 15,
+		fontSize: 16,
 		fontFamily: 'BlackOpsOne-Regular',
+	},
+	subHeaderWrap: {
+		//backgroundColor: 'tomato',
+	},
+	moreInfoWrap: {
+		display: 'flex',
+		flexDirection: 'row',
+		alignItems: 'center',
+	},
+	moreInfoText: {
+		fontWeight: 'bold',
+		marginLeft: 3,
+		color: '#333'
 	},
 	foodDetais: {
 		marginTop: 10,
@@ -56,18 +92,6 @@ const styles = StyleSheet.create({
 		flexWrap: 'wrap',
 		flexDirection: 'row',
 	},
-	iconStyle: {
-		backgroundColor: 'red',
-	},
-	imageWrap: {
-		// backgroundColor: 'blue',
-		width: 17,
-		height: 40,
-	},
-	imageElement: {
-		width: 17,
-		height: 40,
-	}
 })
 
 class FavoriteFoods extends Component {
@@ -118,21 +142,24 @@ class FavoriteFoods extends Component {
 
 				if (this.checkVisibility(key)) {
 
-
 					var detailSection = 
 					<View style={styles.foodDetais}>
 						<FoodDetail label="Calories" value={food.cal}/>
 						<FoodDetail label="Carbs" value={food.carb}/>
-						<FoodDetail label="Chart" value={food.chart}/>
 						<FoodDetail label="Fat" value={food.fat}/>
 						<FoodDetail label="Protein" value={food.pro}/>
 						<FoodDetail label="Ref" value={food.ref}/>
 						<FoodDetail label="Portion" value={food.portion}/>
 					</View>
 
+					var more_less_info = 'LESS INFO'
+					var icon_name = 'circle-with-minus'
+
 				} else {
 
 					var detailSection = <View></View>
+					var more_less_info = 'MORE INFO'
+					var icon_name = 'circle-with-plus'
 				}
 
 				if ( food.chart === 'red' ) {
@@ -146,21 +173,31 @@ class FavoriteFoods extends Component {
 				return (
 					<View style={styles.foodWrap} key={key}>
 
-						<View style={styles.imageWrap}>
-							<Image source={image_url} style={styles.imageElement} />
+						<View style={styles.headerWrap}>
+
+							<View style={styles.imageWrap}>
+								<Image source={image_url} style={styles.imageElement} />
+							</View>
+
+							<View style={styles.foodNameWrap}>
+								<Text style={styles.foodName}>{this.removeQuotes(food.name)}</Text>
+							</View>
+
 						</View>
 
+						<View style={styles.subHeaderWrap}>
 
 
-						<Text style={styles.foodName}>{this.removeQuotes(food.name)}</Text>
+							<TouchableHighlight onPress={() => {this.toggleDetails(key)}} underlayColor="transparent">
+								<View style={styles.moreInfoWrap}>
+									<Icon name={icon_name} type='entypo' size={16} color="#333"/>
+									<Text style={styles.moreInfoText}>{more_less_info}</Text>
+								</View>
+							</TouchableHighlight>
 
-						<TouchableHighlight onPress={() => {this.toggleDetails(key)}} underlayColor="transparent">
-							<Text>More Info...</Text>
-						</TouchableHighlight>
+							{detailSection}
 
-
-
-						{detailSection}
+						</View>
 
 					</View>
 					)

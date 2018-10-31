@@ -7,7 +7,9 @@ import {
 
 const styles = StyleSheet.create({
 	elementWrap: {
-		backgroundColor: '#CCC',
+		backgroundColor: '#F9F9F9',
+		borderWidth: 1,
+		borderColor: '#F1F1F1',
 		padding: 7,
 		display: 'flex',
 		flexDirection: 'row',
