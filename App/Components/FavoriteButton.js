@@ -13,7 +13,7 @@ class FavoriteButton extends Component {
 
 	render() {
 		return(
-			<TouchableHighlight>
+			<TouchableHighlight onPress={(id) => this.props.fav()} underlayColor="transparent">
               <View>
                 <Icon name="favorite" size={23} color="#AAA" />
               </View>

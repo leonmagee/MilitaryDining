@@ -5,6 +5,7 @@ import {defaults} from '../Styles/Defaults'
 import {Icon} from 'react-native-elements'
 //import {StreetLight, history} from '../SVG/SvgIcons.js'
 //import SvgElementPath from './SvgElementPath.js'
+import {removeQuotes} from './HelperFunctions'
 import FoodDetail from './FoodDetail'
 import Svg, {
     Path,
@@ -131,14 +132,27 @@ class FavoriteFoods extends Component {
 		console.log('remote this item: ', index)
 	}
 
-	// helper functions?
-	removeQuotes(name) {
-    	return name.replace('&#8220;', '"').replace('&#8221;', '"')
-  	}
-
 	render() {
 
 		var favFoodList = <View></View>
+
+		//if(this.props.restData) {
+
+			// this.props.restData.map((food, key) => {
+
+			// 	  AsyncStorage.getItem('@FavoritesArray').then((value) => {
+
+			// 	    if (value) {
+
+			// 	      let currentArray = JSON.parse(value)
+
+			// 	      console.log(currentArray)
+
+			// 	      //if (currentArray.indexOf(id) > -1) { }
+
+			// 		}
+			// 	}
+			// }
 
 		if (this.props.restData) {
 
@@ -186,7 +200,7 @@ class FavoriteFoods extends Component {
 							</View>
 
 							<View style={styles.foodNameWrap}>
-								<Text style={styles.foodName}>{this.removeQuotes(food.name)}</Text>
+								<Text style={styles.foodName}>{removeQuotes(food.name)}</Text>
 							</View>
 
 						</View>

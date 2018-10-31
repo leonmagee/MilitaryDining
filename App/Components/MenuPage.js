@@ -4,6 +4,7 @@ import LinearGradient from 'react-native-linear-gradient'
 import MenuDetails from './MenuDetails'
 import {variables} from '../Styles/Variables'
 import FavoriteButton from './FavoriteButton'
+import {removeQuotes} from './HelperFunctions'
 
 import {
   View,
@@ -11,7 +12,8 @@ import {
   Text,
   TouchableHighlight,
   Animated,
-  StyleSheet
+  StyleSheet,
+  AsyncStorage,
 } from 'react-native'
 
 const styles = StyleSheet.create({
@@ -171,6 +173,7 @@ class MenuPage extends Component {
     })
   }
 
+  // update this to use variables
   get_item_color(color) {
     if (color === 'red' ) {
       return '#fb3a3a';
@@ -226,9 +229,47 @@ toggleMenuDetails(key, item_key, item) {
   }
 }
 
-removeQuotes(name) {
-  return name.replace('&#8220;', '"').replace('&#8221;', '"')
+toggleFavorite(id) {
+
+  AsyncStorage.getItem('@FavoritesArray').then((value) => {
+
+    if (value) {
+
+      let currentArray = JSON.parse(value)
+
+      console.log(currentArray)
+
+      if (currentArray.indexOf(id) > -1) {
+
+        currentArray.splice(currentArray.indexOf(id), 1);
+
+        finalArray = JSON.stringify(currentArray)
+
+        AsyncStorage.setItem('@FavoritesArray', finalArray)
+
+        console.log('removed item', id)
+
+      } else {
+
+        currentArray.push(id)
+
+        finalArray = JSON.stringify(currentArray)
+
+        AsyncStorage.setItem('@FavoritesArray', finalArray)
+
+        console.log('added item', id) 
+      }
+
+
+    } else {
+
+      let newArray = [id]
+      finalArray = JSON.stringify(newArray)
+      AsyncStorage.setItem('@FavoritesArray', finalArray)
+    }
+  }).done()
 }
+
 
 render() {
 
@@ -239,27 +280,27 @@ render() {
     if (menu.breakfast) {
       var breakfast = menu.breakfast.map((item, item_key) => {
         if (item.id) {
-        if (this.state.menuToggle[key].breakfast.details[item_key].visible) {
-          var menu_details_item = (<MenuDetails portion={item.portion} cal={item.cal} fat={item.fat} pro={item.pro} carb={item.carb} reference={item.ref}/>)
-        } else {
-          var menu_details_item = (
-            <View></View>
+          if (this.state.menuToggle[key].breakfast.details[item_key].visible) {
+            var menu_details_item = (<MenuDetails portion={item.portion} cal={item.cal} fat={item.fat} pro={item.pro} carb={item.carb} reference={item.ref}/>)
+          } else {
+            var menu_details_item = (
+              <View></View>
+              )
+          }
+
+          return (
+            <TouchableHighlight onPress={() => this.toggleMenuDetails(key, item_key, 'breakfast')} style={styles.menuFoodItemWrap} key={item_key} underlayColor="transparent">
+            <View>
+            <View style={styles.menuFoodItemWrapInner}>
+            <FavoriteButton fav={() => this.toggleFavorite(item.id)} />
+            <Text style={[styles.menuFoodItem, {'color': this.get_item_color(item.chart)}]}>{removeQuotes(item.name)}</Text>
+            <Text style={styles.menuFoodItemIcon}>{this.state.menuToggle[key].breakfast.details[item_key].icon}</Text>
+            </View>
+            {menu_details_item}
+            </View>
+            </TouchableHighlight>
             )
         }
-
-        return (
-          <TouchableHighlight onPress={() => this.toggleMenuDetails(key, item_key, 'breakfast')} style={styles.menuFoodItemWrap} key={item_key} underlayColor="transparent">
-          <View>
-          <View style={styles.menuFoodItemWrapInner}>
-            <FavoriteButton />
-            <Text style={[styles.menuFoodItem, {'color': this.get_item_color(item.chart)}]}>{this.removeQuotes(item.name)}</Text>
-            <Text style={styles.menuFoodItemIcon}>{this.state.menuToggle[key].breakfast.details[item_key].icon}</Text>
-          </View>
-          {menu_details_item}
-          </View>
-          </TouchableHighlight>
-          )
-      }
       })
     } else {
       var breakfast = <View></View>
@@ -268,25 +309,26 @@ render() {
     if (menu.breakfast_brunch) {
       var breakfast_brunch = menu.breakfast_brunch.map((item, item_key) => {
         if (item.id) {
-        if (this.state.menuToggle[key].breakfast_brunch.details[item_key].visible) {
-          var menu_details_item = (<MenuDetails portion={item.portion} cal={item.cal} fat={item.fat} pro={item.pro} carb={item.carb} reference={item.ref}/>)
-        } else {
-          var menu_details_item = (
-            <View></View>
+          if (this.state.menuToggle[key].breakfast_brunch.details[item_key].visible) {
+            var menu_details_item = (<MenuDetails portion={item.portion} cal={item.cal} fat={item.fat} pro={item.pro} carb={item.carb} reference={item.ref}/>)
+          } else {
+            var menu_details_item = (
+              <View></View>
+              )
+          }
+          return (
+            <TouchableHighlight onPress={() => this.toggleMenuDetails(key, item_key, 'breakfast_brunch')} style={styles.menuFoodItemWrap} key={item_key} underlayColor="transparent">
+            <View>
+            <View style={styles.menuFoodItemWrapInner}>
+            <FavoriteButton fav={() => this.toggleFavorite(item.id)} />
+            <Text style={[styles.menuFoodItem, {'color': this.get_item_color(item.chart)}]}>{removeQuotes(item.name)}</Text>
+            <Text style={styles.menuFoodItemIcon}>{this.state.menuToggle[key].breakfast_brunch.details[item_key].icon}</Text>
+            </View>
+            {menu_details_item}
+            </View>
+            </TouchableHighlight>
             )
         }
-        return (
-          <TouchableHighlight onPress={() => this.toggleMenuDetails(key, item_key, 'breakfast_brunch')} style={styles.menuFoodItemWrap} key={item_key} underlayColor="transparent">
-          <View>
-          <View style={styles.menuFoodItemWrapInner}>
-          <Text style={[styles.menuFoodItem, {'color': this.get_item_color(item.chart)}]}>{this.removeQuotes(item.name)}</Text>
-          <Text style={styles.menuFoodItemIcon}>{this.state.menuToggle[key].breakfast_brunch.details[item_key].icon}</Text>
-          </View>
-          {menu_details_item}
-          </View>
-          </TouchableHighlight>
-          )
-      }
       })
     } else {
       var breakfast_brunch = <View></View>
@@ -306,7 +348,8 @@ render() {
             <TouchableHighlight onPress={() => this.toggleMenuDetails(key, item_key, 'lunch')} style={styles.menuFoodItemWrap} key={item_key} underlayColor="transparent">
             <View>
             <View style={styles.menuFoodItemWrapInner}>
-            <Text style={[styles.menuFoodItem, {'color': this.get_item_color(item.chart)}]}>{this.removeQuotes(item.name)}</Text>
+            <FavoriteButton fav={() => this.toggleFavorite(item.id)} />
+            <Text style={[styles.menuFoodItem, {'color': this.get_item_color(item.chart)}]}>{removeQuotes(item.name)}</Text>
             <Text style={styles.menuFoodItemIcon}>{this.state.menuToggle[key].lunch.details[item_key].icon}</Text>
             </View>
             {menu_details_item}
@@ -322,24 +365,25 @@ render() {
     if (menu.dinner) {
       var dinner = menu.dinner.map((item, item_key) => {
         if (item.id) {
-        if (this.state.menuToggle[key].dinner.details[item_key].visible) {
-          var menu_details_item = (<MenuDetails portion={item.portion} cal={item.cal} fat={item.fat} pro={item.pro} carb={item.carb} reference={item.ref}/>)
-        } else {
-          var menu_details_item = (
-            <View></View>
+          if (this.state.menuToggle[key].dinner.details[item_key].visible) {
+            var menu_details_item = (<MenuDetails portion={item.portion} cal={item.cal} fat={item.fat} pro={item.pro} carb={item.carb} reference={item.ref}/>)
+          } else {
+            var menu_details_item = (
+              <View></View>
+              )
+          }
+          return (
+            <TouchableHighlight onPress={() => this.toggleMenuDetails(key, item_key, 'dinner')} style={styles.menuFoodItemWrap} key={item_key} underlayColor="transparent">
+            <View>
+            <View style={styles.menuFoodItemWrapInner}>
+            <FavoriteButton fav={() => this.toggleFavorite(item.id)} />
+            <Text style={[styles.menuFoodItem, {'color': this.get_item_color(item.chart)}]}>{removeQuotes(item.name)}</Text>
+            <Text style={styles.menuFoodItemIcon}>{this.state.menuToggle[key].dinner.details[item_key].icon}</Text>
+            </View>
+            {menu_details_item}
+            </View>
+            </TouchableHighlight>
             )
-        }
-        return (
-          <TouchableHighlight onPress={() => this.toggleMenuDetails(key, item_key, 'dinner')} style={styles.menuFoodItemWrap} key={item_key} underlayColor="transparent">
-          <View>
-          <View style={styles.menuFoodItemWrapInner}>
-          <Text style={[styles.menuFoodItem, {'color': this.get_item_color(item.chart)}]}>{this.removeQuotes(item.name)}</Text>
-          <Text style={styles.menuFoodItemIcon}>{this.state.menuToggle[key].dinner.details[item_key].icon}</Text>
-          </View>
-          {menu_details_item}
-          </View>
-          </TouchableHighlight>
-          )
         }
       })
     } else {
@@ -349,25 +393,26 @@ render() {
     if (menu.dinner_brunch) {
       var dinner_brunch = menu.dinner_brunch.map((item, item_key) => {
         if (item.id) {
-        if (this.state.menuToggle[key].dinner_brunch.details[item_key].visible) {
-          var menu_details_item = (<MenuDetails portion={item.portion} cal={item.cal} fat={item.fat} pro={item.pro} carb={item.carb} reference={item.ref}/>)
-        } else {
-          var menu_details_item = (
-            <View></View>
+          if (this.state.menuToggle[key].dinner_brunch.details[item_key].visible) {
+            var menu_details_item = (<MenuDetails portion={item.portion} cal={item.cal} fat={item.fat} pro={item.pro} carb={item.carb} reference={item.ref}/>)
+          } else {
+            var menu_details_item = (
+              <View></View>
+              )
+          }
+          return (
+            <TouchableHighlight onPress={() => this.toggleMenuDetails(key, item_key, 'dinner_brunch')} style={styles.menuFoodItemWrap} key={item_key} underlayColor="transparent">
+            <View>
+            <View style={styles.menuFoodItemWrapInner}>
+            <FavoriteButton fav={() => this.toggleFavorite(item.id)} />
+            <Text style={[styles.menuFoodItem, {'color': this.get_item_color(item.chart)}]}>{removeQuotes(item.name)}</Text>
+            <Text style={styles.menuFoodItemIcon}>{this.state.menuToggle[key].dinner_brunch.details[item_key].icon}</Text>
+            </View>
+            {menu_details_item}
+            </View>
+            </TouchableHighlight>
             )
         }
-        return (
-          <TouchableHighlight onPress={() => this.toggleMenuDetails(key, item_key, 'dinner_brunch')} style={styles.menuFoodItemWrap} key={item_key} underlayColor="transparent">
-          <View>
-          <View style={styles.menuFoodItemWrapInner}>
-          <Text style={[styles.menuFoodItem, {'color': this.get_item_color(item.chart)}]}>{this.removeQuotes(item.name)}</Text>
-          <Text style={styles.menuFoodItemIcon}>{this.state.menuToggle[key].dinner_brunch.details[item_key].icon}</Text>
-          </View>
-          {menu_details_item}
-          </View>
-          </TouchableHighlight>
-          )
-      }
       })
     } else {
       var dinner_brunch = <View></View>
@@ -376,25 +421,26 @@ render() {
     if (menu.pastry_bar) {
       var pastry_bar = menu.pastry_bar.map((item, item_key) => {
         if (item.id) {
-        if (this.state.menuToggle[key].pastry_bar.details[item_key].visible) {
-          var menu_details_item = (<MenuDetails portion={item.portion} cal={item.cal} fat={item.fat} pro={item.pro} carb={item.carb} reference={item.ref}/>)
-        } else {
-          var menu_details_item = (
-            <View></View>
+          if (this.state.menuToggle[key].pastry_bar.details[item_key].visible) {
+            var menu_details_item = (<MenuDetails portion={item.portion} cal={item.cal} fat={item.fat} pro={item.pro} carb={item.carb} reference={item.ref}/>)
+          } else {
+            var menu_details_item = (
+              <View></View>
+              )
+          }
+          return (
+            <TouchableHighlight onPress={() => this.toggleMenuDetails(key, item_key, 'pastry_bar')} style={styles.menuFoodItemWrap} key={item_key} underlayColor="transparent">
+            <View>
+            <View style={styles.menuFoodItemWrapInner}>
+            <FavoriteButton fav={() => this.toggleFavorite(item.id)} />
+            <Text style={[styles.menuFoodItem, {'color': this.get_item_color(item.chart)}]}>{removeQuotes(item.name)}</Text>
+            <Text style={styles.menuFoodItemIcon}>{this.state.menuToggle[key].pastry_bar.details[item_key].icon}</Text>
+            </View>
+            {menu_details_item}
+            </View>
+            </TouchableHighlight>
             )
         }
-        return (
-          <TouchableHighlight onPress={() => this.toggleMenuDetails(key, item_key, 'pastry_bar')} style={styles.menuFoodItemWrap} key={item_key} underlayColor="transparent">
-          <View>
-          <View style={styles.menuFoodItemWrapInner}>
-          <Text style={[styles.menuFoodItem, {'color': this.get_item_color(item.chart)}]}>{this.removeQuotes(item.name)}</Text>
-          <Text style={styles.menuFoodItemIcon}>{this.state.menuToggle[key].pastry_bar.details[item_key].icon}</Text>
-          </View>
-          {menu_details_item}
-          </View>
-          </TouchableHighlight>
-          )
-      }
       })
     } else {
       var pastry_bar = <View></View>
