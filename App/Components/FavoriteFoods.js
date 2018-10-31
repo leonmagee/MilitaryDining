@@ -127,6 +127,10 @@ class FavoriteFoods extends Component {
 		}
 	}
 
+	removeFavorite(index) {
+		console.log('remote this item: ', index)
+	}
+
 	// helper functions?
 	removeQuotes(name) {
     	return name.replace('&#8220;', '"').replace('&#8221;', '"')
@@ -196,7 +200,7 @@ class FavoriteFoods extends Component {
 								</View>
 							</TouchableHighlight>
 
-							<TouchableHighlight onPress={() => {this.toggleDetails(key)}} underlayColor="transparent">
+							<TouchableHighlight onPress={() => {this.removeFavorite(key)}} underlayColor="transparent">
 								<View style={styles.moreInfoWrap}>
 									<Icon name="circle-with-cross" type='entypo' size={16} color="#333"/>
 									<Text style={styles.moreInfoText}>REMOVE</Text>

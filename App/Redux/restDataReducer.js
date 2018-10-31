@@ -7,8 +7,6 @@ import {SET_DATA_VALUE} from './actions'
  * Returns data from rest endpoint
  */
 export const restDataReducer = (state = null, action) => {
-	// console.log('here\'s all the data')
-	// console.log(action.payload)
   switch (action.type) {
     case SET_DATA_VALUE:
       return action.payload;

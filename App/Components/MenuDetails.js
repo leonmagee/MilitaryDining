@@ -39,28 +39,63 @@ class MenuDetails extends Component {
   }
 
   render() {
-    return (
-      <Animated.View style={styles.menuDetailWrap}>
-        <View style={styles.menuDetailsItemWrap}>
+    if (this.props.cal) {
+      var calories = <View style={styles.menuDetailsItemWrap}>
+          <Text style={styles.menuDetailsItemLabel}>Calories</Text>
+          <Text style={styles.menuDetailsItem}>{this.props.cal}</Text>
+        </View>
+    } else {
+      var portionSize = <View></View>
+    }
+    if (this.props.portion) {
+      var portionSize = <View style={styles.menuDetailsItemWrap}>
           <Text style={styles.menuDetailsItemLabel}>Portion Size</Text>
           <Text style={styles.menuDetailsItem}>{this.props.portion}</Text>
         </View>
-        <View style={styles.menuDetailsItemWrap}>
-          <Text style={styles.menuDetailsItemLabel}>Carlories</Text>
-          <Text style={styles.menuDetailsItem}>{this.props.cal}</Text>
-        </View>
-        <View style={styles.menuDetailsItemWrap}>
+    } else {
+      var portionSize = <View></View>
+    }
+    if (this.props.fat) {
+      var fat = <View style={styles.menuDetailsItemWrap}>
           <Text style={styles.menuDetailsItemLabel}>Fat</Text>
           <Text style={styles.menuDetailsItem}>{this.props.fat}</Text>
         </View>
-        <View style={styles.menuDetailsItemWrap}>
+    } else {
+      var fat = <View></View>
+    }
+    if (this.props.pro) {
+      var protein = <View style={styles.menuDetailsItemWrap}>
           <Text style={styles.menuDetailsItemLabel}>Protein</Text>
           <Text style={styles.menuDetailsItem}>{this.props.pro}</Text>
         </View>
-        <View style={styles.menuDetailsItemWrapFinal}>
+    } else {
+      var protein = <View></View>
+    }
+    if (this.props.carb) {
+      var carbs = <View style={styles.menuDetailsItemWrap}>
           <Text style={styles.menuDetailsItemLabel}>Carbs</Text>
           <Text style={styles.menuDetailsItem}>{this.props.carb}</Text>
         </View>
+    } else {
+      var carbs = <View></View>
+    }
+    if (this.props.reference) {
+      var ref = <View style={styles.menuDetailsItemWrap}>
+          <Text style={styles.menuDetailsItemLabel}>Recipe Reference</Text>
+          <Text style={styles.menuDetailsItem}>{this.props.reference}</Text>
+        </View>
+    } else {
+      var ref = <View></View>
+    }
+
+    return (
+      <Animated.View style={styles.menuDetailWrap}>
+        {calories}
+        {portionSize}
+        {fat}
+        {protein}
+        {carbs}
+        {ref}
       </Animated.View>
     )
   }
