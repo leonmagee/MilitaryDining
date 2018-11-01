@@ -3,22 +3,13 @@ import {connect} from 'react-redux'
 import {variables} from '../Styles/Variables'
 import {defaults} from '../Styles/Defaults'
 import {Icon} from 'react-native-elements'
-//import {StreetLight, history} from '../SVG/SvgIcons.js'
-//import SvgElementPath from './SvgElementPath.js'
 import {removeQuotes} from './HelperFunctions'
 import FoodDetail from './FoodDetail'
 import Svg, {
-    Path,
+	Path,
 } from 'react-native-svg';
 
 
-
-/**
-* @todo I can have one page which lists all food items (including which mess 
-        hall they are available at?) with search functionality - but this 
-        might not be in scope - and it could be hard to do with the searching, 
-        so it might not be a great idea. If this seems easy I can do it.
-*/
 
 import {
 	View,
@@ -28,7 +19,7 @@ import {
 	StyleSheet,
 	ScrollView,
 	TouchableHighlight,
-	AsynchStorage,
+	AsyncStorage,
 	Animated
 } from 'react-native'
 
@@ -58,8 +49,6 @@ const styles = StyleSheet.create({
 		width: 17,
 		height: 40,
 		marginRight: 8,
-		//flexGrow: 0,
-
 	},
 	imageElement: {
 		width: 17,
@@ -103,9 +92,20 @@ class FavoriteFoods extends Component {
 		super(props)
 
 		this.state = {
-			detailsToggle: []
+			detailsToggle: [],
+			currentFavorites: false,
 		}
 	}
+
+	// componentDidMount() {
+
+	// 	if(this.props.currentFavorites) {
+
+	// 		this.setState({
+	// 			currentFavorites: this.props.currentFavorites
+	// 		})
+	// 	}
+	// }
 
 	toggleDetails(index) {
 		let currentArray = this.state.detailsToggle
@@ -134,125 +134,121 @@ class FavoriteFoods extends Component {
 
 	render() {
 
+		// if (this.state.currentFavorites) {
+		// 	console.log('OK THIS SHIT IS WORKING NOW')
+		// 	console.log(this.state.currentFavorites)
+		// }
+
 		var favFoodList = <View></View>
 
-		//if(this.props.restData) {
+		if (this.props.currentFavorites) {
 
-			// this.props.restData.map((food, key) => {
+			if (this.props.restData) {
 
-			// 	  AsyncStorage.getItem('@FavoritesArray').then((value) => {
+				let toggleArray = this.props.restData.length
 
-			// 	    if (value) {
+				var favFoodList = this.props.restData.map((food, key) => {
 
-			// 	      let currentArray = JSON.parse(value)
+					if (this.props.currentFavorites.indexOf(food.id) > -1) {
 
-			// 	      console.log(currentArray)
+						if (this.checkVisibility(key)) {
 
-			// 	      //if (currentArray.indexOf(id) > -1) { }
+							var detailSection = 
+							<View style={styles.foodDetais}>
+							<FoodDetail label="Calories" value={food.cal} bg={variables.brandPrimary}/>
+							<FoodDetail label="Carbs" value={food.carb} bg={variables.brandPrimary}/>
+							<FoodDetail label="Fat" value={food.fat} bg={variables.brandPrimary}/>
+							<FoodDetail label="Protein" value={food.pro} bg={variables.brandPrimary}/>
+							<FoodDetail label="Ref" value={food.ref} bg={variables.brandPrimary}/>
+							<FoodDetail label="Portion" value={food.portion} bg={variables.brandPrimary}/>
+							</View>
 
-			// 		}
-			// 	}
-			// }
+							var more_less_info = 'LESS INFO'
+							var icon_name = 'circle-with-minus'
 
-		if (this.props.restData) {
+						} else {
 
-			let toggleArray = this.props.restData.length
+							var detailSection = <View></View>
+							var more_less_info = 'MORE INFO'
+							var icon_name = 'circle-with-plus'
+						}
 
-			var favFoodList = this.props.restData.map((food, key) => {
+						if ( food.chart === 'red' ) {
+							var image_url = require('../Assets/Images/red-light.png')
+						} else if (food.chart === 'yellow') {
+							var image_url = require('../Assets/Images/yellow-light.png')
+						} else {
+							var image_url = require('../Assets/Images/green-light.png')
+						}
 
-				if (this.checkVisibility(key)) {
+						return (
+							<View style={styles.foodWrap} key={key}>
 
-					var detailSection = 
-					<View style={styles.foodDetais}>
-						<FoodDetail label="Calories" value={food.cal} bg={variables.brandPrimary}/>
-						<FoodDetail label="Carbs" value={food.carb} bg={variables.brandPrimary}/>
-						<FoodDetail label="Fat" value={food.fat} bg={variables.brandPrimary}/>
-						<FoodDetail label="Protein" value={food.pro} bg={variables.brandPrimary}/>
-						<FoodDetail label="Ref" value={food.ref} bg={variables.brandPrimary}/>
-						<FoodDetail label="Portion" value={food.portion} bg={variables.brandPrimary}/>
-					</View>
-
-					var more_less_info = 'LESS INFO'
-					var icon_name = 'circle-with-minus'
-
-				} else {
-
-					var detailSection = <View></View>
-					var more_less_info = 'MORE INFO'
-					var icon_name = 'circle-with-plus'
-				}
-
-				if ( food.chart === 'red' ) {
-					var image_url = require('../Assets/Images/red-light.png')
-				} else if (food.chart === 'yellow') {
-					var image_url = require('../Assets/Images/yellow-light.png')
-				} else {
-					var image_url = require('../Assets/Images/green-light.png')
-				}
-
-				return (
-					<View style={styles.foodWrap} key={key}>
-
-						<View style={styles.headerWrap}>
+							<View style={styles.headerWrap}>
 
 							<View style={styles.imageWrap}>
-								<Image source={image_url} style={styles.imageElement} />
+							<Image source={image_url} style={styles.imageElement} />
 							</View>
 
 							<View style={styles.foodNameWrap}>
-								<Text style={styles.foodName}>{removeQuotes(food.name)}</Text>
+							<Text style={styles.foodName}>{removeQuotes(food.name)}</Text>
 							</View>
 
-						</View>
+							</View>
 
-						<View style={styles.subHeaderWrap}>
+							<View style={styles.subHeaderWrap}>
 
 							<TouchableHighlight onPress={() => {this.toggleDetails(key)}} underlayColor="transparent">
-								<View style={styles.moreInfoWrap}>
-									<Icon name={icon_name} type='entypo' size={16} color="#333"/>
-									<Text style={styles.moreInfoText}>{more_less_info}</Text>
-								</View>
+							<View style={styles.moreInfoWrap}>
+							<Icon name={icon_name} type='entypo' size={16} color="#333"/>
+							<Text style={styles.moreInfoText}>{more_less_info}</Text>
+							</View>
 							</TouchableHighlight>
 
 							<TouchableHighlight onPress={() => {this.removeFavorite(key)}} underlayColor="transparent">
-								<View style={styles.moreInfoWrap}>
-									<Icon name="circle-with-cross" type='entypo' size={16} color="#333"/>
-									<Text style={styles.moreInfoText}>REMOVE</Text>
-								</View>
+							<View style={styles.moreInfoWrap}>
+							<Icon name="circle-with-cross" type='entypo' size={16} color="#333"/>
+							<Text style={styles.moreInfoText}>REMOVE</Text>
+							</View>
 							</TouchableHighlight>
 
-						</View>
-							
-						{detailSection}
+							</View>
 
-					</View>
-					)
-			})
+							{detailSection}
 
-		} 
+							</View>
+							)
+
+					}
+				})
+
+			} 
+		}
+
+
 
 		return(
 
-				<View style={defaults.defaultMainWrap}>
+			<View style={defaults.defaultMainWrap}>
 
-					<View style={defaults.defaultTitleWrap}>
+			<View style={defaults.defaultTitleWrap}>
 
-						<Text style={defaults.defaultTitle}>Favorite Foods</Text>
+			<Text style={defaults.defaultTitle}>Favorite Foods</Text>
 
-					</View>
+			</View>
 
-					<ScrollView style={styles.scrollWrap}>
+			<ScrollView style={styles.scrollWrap}>
 
-						{favFoodList}
+			{favFoodList}
 
-					</ScrollView>
+			</ScrollView>
 
-				</View>
+			</View>
 
 			)
 	}
 }
 
-mapStateToProps = (state) => ({restData: state.restMenuItemData})
+mapStateToProps = (state) => ({restData: state.restMenuItemData, currentFavorites: state.currentFavorites})
 
 module.exports = connect(mapStateToProps)(FavoriteFoods)

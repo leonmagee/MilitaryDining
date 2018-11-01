@@ -14,6 +14,7 @@ import {
   Animated,
   StyleSheet,
   AsyncStorage,
+  Image,
 } from 'react-native'
 
 const styles = StyleSheet.create({
@@ -79,13 +80,20 @@ const styles = StyleSheet.create({
     marginLeft: 'auto',
   },
   menuFoodItem: {
-    fontWeight: 'bold',
-    fontSize: 12,
-    backgroundColor: '#222',
-    paddingHorizontal: 10,
+    //fontWeight: 'bold',
+    fontSize: 15,
+    fontFamily: 'BlackOpsOne-Regular',
+
+    //backgroundColor: '#222',
+    paddingHorizontal: 7,
     paddingVertical: 5,
-    marginLeft: 8,
-  }
+    //marginLeft: 3,
+  },
+  imageElement: {
+    width: 17,
+    height: 40,
+    marginLeft: 15,
+  },
 })
 
 class MenuPage extends Component {
@@ -173,17 +181,26 @@ class MenuPage extends Component {
     })
   }
 
-  // update this to use variables
+  // update this to use icons
   get_item_color(color) {
-    if (color === 'red' ) {
-      return '#fb3a3a';
+    // if (color === 'red' ) {
+    //   return '#fb3a3a';
+    // }
+    // if (color === 'yellow' ) {
+    //   return 'yellow';
+    // }
+    // if (color === 'green' ) {
+    //   return '#31fe31';
+    // }
+
+    if (color === 'red') {
+      return require('../Assets/Images/red-light.png')
+    } else if (color === 'yellow') {
+      return require('../Assets/Images/yellow-light.png')
+    } else {
+      return require('../Assets/Images/green-light.png')
     }
-    if (color === 'yellow' ) {
-      return 'yellow';
-    }
-    if (color === 'green' ) {
-      return '#31fe31';
-    }
+
   }
 
 /**
@@ -237,36 +254,41 @@ toggleFavorite(id) {
 
       let currentArray = JSON.parse(value)
 
-      console.log(currentArray)
+      //console.log(currentArray)
 
       if (currentArray.indexOf(id) > -1) {
 
         currentArray.splice(currentArray.indexOf(id), 1);
 
-        finalArray = JSON.stringify(currentArray)
+        var reduxArray = currentArray
+        let finalArray = JSON.stringify(currentArray)
 
         AsyncStorage.setItem('@FavoritesArray', finalArray)
 
-        console.log('removed item', id)
+        //console.log('removed item', id)
 
       } else {
 
         currentArray.push(id)
 
-        finalArray = JSON.stringify(currentArray)
+        var reduxArray = currentArray
+        let finalArray = JSON.stringify(currentArray)
 
         AsyncStorage.setItem('@FavoritesArray', finalArray)
 
-        console.log('added item', id) 
+        //console.log('added item', id) 
       }
 
 
     } else {
 
       let newArray = [id]
-      finalArray = JSON.stringify(newArray)
+      var reduxArray = newArray
+      let finalArray = JSON.stringify(newArray)
       AsyncStorage.setItem('@FavoritesArray', finalArray)
     }
+
+    this.props.setCurrentFavorites(reduxArray)
   }).done()
 }
 
@@ -287,13 +309,16 @@ render() {
               <View></View>
               )
           }
+          // icon url
+          //{'color': this.get_item_color(item.chart)}
 
           return (
             <TouchableHighlight onPress={() => this.toggleMenuDetails(key, item_key, 'breakfast')} style={styles.menuFoodItemWrap} key={item_key} underlayColor="transparent">
             <View>
             <View style={styles.menuFoodItemWrapInner}>
-            <FavoriteButton fav={() => this.toggleFavorite(item.id)} />
-            <Text style={[styles.menuFoodItem, {'color': this.get_item_color(item.chart)}]}>{removeQuotes(item.name)}</Text>
+            <FavoriteButton currentFavorites={this.props.currentFavorites} itemId={item.id} fav={() => this.toggleFavorite(item.id)} />
+            <Image source={this.get_item_color(item.chart)} style={styles.imageElement} />
+            <Text style={styles.menuFoodItem}>{removeQuotes(item.name)}</Text>
             <Text style={styles.menuFoodItemIcon}>{this.state.menuToggle[key].breakfast.details[item_key].icon}</Text>
             </View>
             {menu_details_item}
@@ -320,8 +345,9 @@ render() {
             <TouchableHighlight onPress={() => this.toggleMenuDetails(key, item_key, 'breakfast_brunch')} style={styles.menuFoodItemWrap} key={item_key} underlayColor="transparent">
             <View>
             <View style={styles.menuFoodItemWrapInner}>
-            <FavoriteButton fav={() => this.toggleFavorite(item.id)} />
-            <Text style={[styles.menuFoodItem, {'color': this.get_item_color(item.chart)}]}>{removeQuotes(item.name)}</Text>
+            <FavoriteButton currentFavorites={this.props.currentFavorites} itemId={item.id} fav={() => this.toggleFavorite(item.id)} />
+            <Image source={this.get_item_color(item.chart)} style={styles.imageElement} />
+            <Text style={styles.menuFoodItem}>{removeQuotes(item.name)}</Text>
             <Text style={styles.menuFoodItemIcon}>{this.state.menuToggle[key].breakfast_brunch.details[item_key].icon}</Text>
             </View>
             {menu_details_item}
@@ -348,8 +374,9 @@ render() {
             <TouchableHighlight onPress={() => this.toggleMenuDetails(key, item_key, 'lunch')} style={styles.menuFoodItemWrap} key={item_key} underlayColor="transparent">
             <View>
             <View style={styles.menuFoodItemWrapInner}>
-            <FavoriteButton fav={() => this.toggleFavorite(item.id)} />
-            <Text style={[styles.menuFoodItem, {'color': this.get_item_color(item.chart)}]}>{removeQuotes(item.name)}</Text>
+            <FavoriteButton currentFavorites={this.props.currentFavorites} itemId={item.id} fav={() => this.toggleFavorite(item.id)} />
+            <Image source={this.get_item_color(item.chart)} style={styles.imageElement} />
+            <Text style={styles.menuFoodItem}>{removeQuotes(item.name)}</Text>
             <Text style={styles.menuFoodItemIcon}>{this.state.menuToggle[key].lunch.details[item_key].icon}</Text>
             </View>
             {menu_details_item}
@@ -376,8 +403,9 @@ render() {
             <TouchableHighlight onPress={() => this.toggleMenuDetails(key, item_key, 'dinner')} style={styles.menuFoodItemWrap} key={item_key} underlayColor="transparent">
             <View>
             <View style={styles.menuFoodItemWrapInner}>
-            <FavoriteButton fav={() => this.toggleFavorite(item.id)} />
-            <Text style={[styles.menuFoodItem, {'color': this.get_item_color(item.chart)}]}>{removeQuotes(item.name)}</Text>
+            <FavoriteButton currentFavorites={this.props.currentFavorites} itemId={item.id} fav={() => this.toggleFavorite(item.id)} />
+            <Image source={this.get_item_color(item.chart)} style={styles.imageElement} />
+            <Text style={styles.menuFoodItem}>{removeQuotes(item.name)}</Text>
             <Text style={styles.menuFoodItemIcon}>{this.state.menuToggle[key].dinner.details[item_key].icon}</Text>
             </View>
             {menu_details_item}
@@ -404,8 +432,9 @@ render() {
             <TouchableHighlight onPress={() => this.toggleMenuDetails(key, item_key, 'dinner_brunch')} style={styles.menuFoodItemWrap} key={item_key} underlayColor="transparent">
             <View>
             <View style={styles.menuFoodItemWrapInner}>
-            <FavoriteButton fav={() => this.toggleFavorite(item.id)} />
-            <Text style={[styles.menuFoodItem, {'color': this.get_item_color(item.chart)}]}>{removeQuotes(item.name)}</Text>
+            <FavoriteButton currentFavorites={this.props.currentFavorites} itemId={item.id} fav={() => this.toggleFavorite(item.id)} />
+            <Image source={this.get_item_color(item.chart)} style={styles.imageElement} />
+            <Text style={styles.menuFoodItem}>{removeQuotes(item.name)}</Text>
             <Text style={styles.menuFoodItemIcon}>{this.state.menuToggle[key].dinner_brunch.details[item_key].icon}</Text>
             </View>
             {menu_details_item}
@@ -432,8 +461,9 @@ render() {
             <TouchableHighlight onPress={() => this.toggleMenuDetails(key, item_key, 'pastry_bar')} style={styles.menuFoodItemWrap} key={item_key} underlayColor="transparent">
             <View>
             <View style={styles.menuFoodItemWrapInner}>
-            <FavoriteButton fav={() => this.toggleFavorite(item.id)} />
-            <Text style={[styles.menuFoodItem, {'color': this.get_item_color(item.chart)}]}>{removeQuotes(item.name)}</Text>
+            <FavoriteButton currentFavorites={this.props.currentFavorites} itemId={item.id} fav={() => this.toggleFavorite(item.id)} />
+            <Image source={this.get_item_color(item.chart)} style={styles.imageElement} />
+            <Text style={styles.menuFoodItem}>{removeQuotes(item.name)}</Text>
             <Text style={styles.menuFoodItemIcon}>{this.state.menuToggle[key].pastry_bar.details[item_key].icon}</Text>
             </View>
             {menu_details_item}
@@ -646,6 +676,12 @@ return (
 }
 }
 
-mapStateToProps = (state) => ({currentMenu: state.currentMenu})
+mapActionsToProps = (dispatch) => ({
+  setCurrentFavorites(results) {
+    dispatch({type: 'SET_FAVORITES', payload: results})
+  }
+})
 
-module.exports = connect(mapStateToProps)(MenuPage)
+mapStateToProps = (state) => ({currentMenu: state.currentMenu, currentFavorites: state.currentFavorites})
+
+module.exports = connect(mapStateToProps, mapActionsToProps)(MenuPage)

@@ -11,6 +11,6 @@ export const currentMenuReducer = (state = null, action) => {
       return action.payload;
       break;
     default:
-      return null;
+      return state;
   }
 }
