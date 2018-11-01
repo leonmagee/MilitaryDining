@@ -79,15 +79,15 @@ const styles = StyleSheet.create({
     fontSize: 9,
     marginLeft: 'auto',
   },
+  foodNameWrap: {
+    flex: 1,
+    paddingRight: 15,
+  },
   menuFoodItem: {
-    //fontWeight: 'bold',
     fontSize: 15,
     fontFamily: 'BlackOpsOne-Regular',
-
-    //backgroundColor: '#222',
     paddingHorizontal: 7,
     paddingVertical: 5,
-    //marginLeft: 3,
   },
   imageElement: {
     width: 17,
@@ -318,7 +318,9 @@ render() {
             <View style={styles.menuFoodItemWrapInner}>
             <FavoriteButton currentFavorites={this.props.currentFavorites} itemId={item.id} fav={() => this.toggleFavorite(item.id)} />
             <Image source={this.get_item_color(item.chart)} style={styles.imageElement} />
+            <View style={styles.foodNameWrap}>
             <Text style={styles.menuFoodItem}>{removeQuotes(item.name)}</Text>
+            </View>
             <Text style={styles.menuFoodItemIcon}>{this.state.menuToggle[key].breakfast.details[item_key].icon}</Text>
             </View>
             {menu_details_item}
@@ -347,7 +349,9 @@ render() {
             <View style={styles.menuFoodItemWrapInner}>
             <FavoriteButton currentFavorites={this.props.currentFavorites} itemId={item.id} fav={() => this.toggleFavorite(item.id)} />
             <Image source={this.get_item_color(item.chart)} style={styles.imageElement} />
+            <View style={styles.foodNameWrap}>
             <Text style={styles.menuFoodItem}>{removeQuotes(item.name)}</Text>
+            </View>
             <Text style={styles.menuFoodItemIcon}>{this.state.menuToggle[key].breakfast_brunch.details[item_key].icon}</Text>
             </View>
             {menu_details_item}
@@ -376,7 +380,9 @@ render() {
             <View style={styles.menuFoodItemWrapInner}>
             <FavoriteButton currentFavorites={this.props.currentFavorites} itemId={item.id} fav={() => this.toggleFavorite(item.id)} />
             <Image source={this.get_item_color(item.chart)} style={styles.imageElement} />
+            <View style={styles.foodNameWrap}>            
             <Text style={styles.menuFoodItem}>{removeQuotes(item.name)}</Text>
+            </View>
             <Text style={styles.menuFoodItemIcon}>{this.state.menuToggle[key].lunch.details[item_key].icon}</Text>
             </View>
             {menu_details_item}
@@ -405,7 +411,9 @@ render() {
             <View style={styles.menuFoodItemWrapInner}>
             <FavoriteButton currentFavorites={this.props.currentFavorites} itemId={item.id} fav={() => this.toggleFavorite(item.id)} />
             <Image source={this.get_item_color(item.chart)} style={styles.imageElement} />
+            <View style={styles.foodNameWrap}>            
             <Text style={styles.menuFoodItem}>{removeQuotes(item.name)}</Text>
+            </View>
             <Text style={styles.menuFoodItemIcon}>{this.state.menuToggle[key].dinner.details[item_key].icon}</Text>
             </View>
             {menu_details_item}
@@ -434,7 +442,9 @@ render() {
             <View style={styles.menuFoodItemWrapInner}>
             <FavoriteButton currentFavorites={this.props.currentFavorites} itemId={item.id} fav={() => this.toggleFavorite(item.id)} />
             <Image source={this.get_item_color(item.chart)} style={styles.imageElement} />
+            <View style={styles.foodNameWrap}>            
             <Text style={styles.menuFoodItem}>{removeQuotes(item.name)}</Text>
+            </View>
             <Text style={styles.menuFoodItemIcon}>{this.state.menuToggle[key].dinner_brunch.details[item_key].icon}</Text>
             </View>
             {menu_details_item}
@@ -463,7 +473,9 @@ render() {
             <View style={styles.menuFoodItemWrapInner}>
             <FavoriteButton currentFavorites={this.props.currentFavorites} itemId={item.id} fav={() => this.toggleFavorite(item.id)} />
             <Image source={this.get_item_color(item.chart)} style={styles.imageElement} />
+            <View style={styles.foodNameWrap}>
             <Text style={styles.menuFoodItem}>{removeQuotes(item.name)}</Text>
+            </View>
             <Text style={styles.menuFoodItemIcon}>{this.state.menuToggle[key].pastry_bar.details[item_key].icon}</Text>
             </View>
             {menu_details_item}
