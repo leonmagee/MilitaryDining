@@ -82,6 +82,12 @@ const styles = StyleSheet.create({
 		flexWrap: 'wrap',
 		flexDirection: 'row',
 	},
+	noFavWrap: {
+		alignItems: 'center',
+	},
+	noFavText: {
+		fontSize: 18,
+	}
 })
 
 class FavoriteFoods extends Component {
@@ -157,6 +163,8 @@ class FavoriteFoods extends Component {
 
 		var favFoodList = <View></View>
 
+		var justOneFavorite = false
+
 		if (this.props.currentFavorites) {
 
 			if (this.props.restData) {
@@ -166,6 +174,8 @@ class FavoriteFoods extends Component {
 				var favFoodList = this.props.restData.map((food, key) => {
 
 					if (this.props.currentFavorites.indexOf(food.id) > -1) {
+
+						justOneFavorite = true
 
 						if (this.checkVisibility(key)) {
 
@@ -241,7 +251,9 @@ class FavoriteFoods extends Component {
 			} 
 		}
 
-
+		if(! justOneFavorite) {
+			favFoodList = <View style={styles.noFavWrap}><Text style={styles.noFavText}>You have no favorites saved.</Text></View>
+		}
 
 		return(
 

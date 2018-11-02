@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import MenuPage from './MenuPage'
 import {variables} from '../Styles/Variables'
+import MessHall from './MessHall'
 //import {defaults} from '../Styles/Defaults'
 import {View, ScrollView, Text, TouchableHighlight, StyleSheet} from 'react-native'
 
@@ -20,17 +21,6 @@ const styles = StyleSheet.create({
   messHallWrap: {
     alignSelf: 'stretch'
   },
-  messHallTitleWrap: {
-    alignItems: 'center',
-    borderBottomWidth: 1,
-    paddingVertical: 13,
-    borderBottomColor: '#DDD'
-  },
-  messHallTitle: {
-    fontSize: 20,
-    color: '#222',
-    fontFamily: 'BlackOpsOne-Regular'
-  }
 })
 
 class MessHalls extends Component {
@@ -50,10 +40,8 @@ class MessHalls extends Component {
         
         const MessHallMenus = this.props.restData.map((data, key) => {
           return (
-            <View key={key} style={styles.messHallTitleWrap}>
-              <TouchableHighlight onPress={() => this.navigateToPage(data)} underlayColor="transparent">
-                <Text style={styles.messHallTitle}>{data.name}</Text>
-              </TouchableHighlight>
+            <View key={key}>
+              <MessHall name={data.name} data={data} navigate={() => this.navigateToPage(data)}/>
             </View>
           )
         })
