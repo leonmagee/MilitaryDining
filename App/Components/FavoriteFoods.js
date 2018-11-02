@@ -9,8 +9,6 @@ import Svg, {
 	Path,
 } from 'react-native-svg';
 
-
-
 import {
 	View,
 	Text,
@@ -128,16 +126,34 @@ class FavoriteFoods extends Component {
 		}
 	}
 
-	removeFavorite(index) {
-		console.log('remote this item: ', index)
+	removeFavorite(id) {
+
+		console.log('remove this item: ', id)
+
+		AsyncStorage.getItem('@FavoritesArray').then((value) => {
+
+			if (value) {
+
+				let currentArray = JSON.parse(value)
+
+				if (currentArray.indexOf(id) > -1) {
+
+					currentArray.splice(currentArray.indexOf(id), 1);
+
+					var reduxArray = currentArray
+					let finalArray = JSON.stringify(currentArray)
+
+					// update storage
+					AsyncStorage.setItem('@FavoritesArray', finalArray)
+
+					// remove current item - update redux
+					this.props.setCurrentFavorites(reduxArray)
+				}
+			}
+		})
 	}
 
 	render() {
-
-		// if (this.state.currentFavorites) {
-		// 	console.log('OK THIS SHIT IS WORKING NOW')
-		// 	console.log(this.state.currentFavorites)
-		// }
 
 		var favFoodList = <View></View>
 
@@ -205,7 +221,7 @@ class FavoriteFoods extends Component {
 							</View>
 							</TouchableHighlight>
 
-							<TouchableHighlight onPress={() => {this.removeFavorite(key)}} underlayColor="transparent">
+							<TouchableHighlight onPress={() => {this.removeFavorite(food.id)}} underlayColor="transparent">
 							<View style={styles.moreInfoWrap}>
 							<Icon name="circle-with-cross" type='entypo' size={16} color="#333"/>
 							<Text style={styles.moreInfoText}>REMOVE</Text>
@@ -249,6 +265,12 @@ class FavoriteFoods extends Component {
 	}
 }
 
+mapActionsToProps = (dispatch) => ({
+  setCurrentFavorites(results) {
+    dispatch({type: 'SET_FAVORITES', payload: results})
+  }
+})
+
 mapStateToProps = (state) => ({restData: state.restMenuItemData, currentFavorites: state.currentFavorites})
 
-module.exports = connect(mapStateToProps)(FavoriteFoods)
+module.exports = connect(mapStateToProps, mapActionsToProps)(FavoriteFoods)
