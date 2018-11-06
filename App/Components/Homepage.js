@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import { Icon } from 'react-native-elements'
 import {StyleSheet, Text, View, Dimensions, Image} from 'react-native';
+import api from '../Utils/api'
+
 
 let {width, height} = Dimensions.get('window')
 height = height - 50; // make space for bottom menu bar
@@ -46,6 +48,15 @@ class Homepage extends Component {
   constructor(props) {
     super(props)
   }
+
+  // componentDidMount() {
+
+  //     api.testPostRequest().then((res) => {
+
+  //         console.log('Post to local testing xxxx')
+  //         console.log(res) 
+  //       })
+  // }
 
   render() {
 
