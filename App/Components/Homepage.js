@@ -51,10 +51,12 @@ class Homepage extends Component {
 
   // componentDidMount() {
 
-  //     api.testPostRequest().then((res) => {
+  //     api.getRatings().then((res) => {
 
-  //         console.log('Post to local testing xxxx')
-  //         console.log(res) 
+  //         console.log('testing ratings endpoint')
+
+  //         console.log('mess hall 70 rating: ' + res[70])
+  //         //console.log(res) 
   //       })
   // }
 

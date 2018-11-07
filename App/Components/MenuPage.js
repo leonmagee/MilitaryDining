@@ -4,6 +4,7 @@ import LinearGradient from 'react-native-linear-gradient'
 import MenuDetails from './MenuDetails'
 import {variables} from '../Styles/Variables'
 import FavoriteButton from './FavoriteButton'
+import EatButton from './EatButton'
 import {removeQuotes} from './HelperFunctions'
 
 import {
@@ -317,6 +318,7 @@ render() {
             <View>
             <View style={styles.menuFoodItemWrapInner}>
             <FavoriteButton currentFavorites={this.props.currentFavorites} itemId={item.id} fav={() => this.toggleFavorite(item.id)} />
+            <EatButton currentFavorites={this.props.currentFavorites} itemId={item.id} fav={() => this.toggleFavorite(item.id)} />
             <Image source={this.get_item_color(item.chart)} style={styles.imageElement} />
             <View style={styles.foodNameWrap}>
             <Text style={styles.menuFoodItem}>{removeQuotes(item.name)}</Text>

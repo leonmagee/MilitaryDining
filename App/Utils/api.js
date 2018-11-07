@@ -13,14 +13,16 @@ var api = {
 		const new_user_url = 'https://militarydining.wpengine.com/wp-json/md/create_user/id-sldfjsdf-skdfjsdf/Corporalz'
 		return fetch(new_user_url, {headers: {'Cache-Control': 'no-cache'}}).then((res) => res.json())
 	},
-	testPostRequest() {
-		const test_url = 'https://militarydining.wpengine.com/wp-json/md/post_tester'
-    	return fetch(test_url, {
+	getRatings() {
+		const ratings_url = 'https://militarydining.wpengine.com/wp-json/md/mess_hall_ratings?sldjf'
+		return fetch(ratings_url, {headers: {'Cache-Control': 'no-cache'}}).then((res) => res.json())
+	},
+   	updateStarRating(user_id, mess_hall_id, rating) {
+		const ratings_url = 'https://militarydining.wpengine.com/wp-json/md/rate_mess_hall'
+    	return fetch(ratings_url, {
     		method: 'POST',
-    		//headers: {'Content-Type': 'x-www-form-urlencoded'},
     		headers: {'Content-Type': 'application/json'},
-    		//header: {}
-    		body: JSON.stringify({key: api_key, title: 'brand new title', body: 'brand new body'})
+    		body: JSON.stringify({key: api_key, user_id: user_id, mess_hall_id: mess_hall_id, rating: rating})
     	}).then((res) => res.json())
     }
 }
