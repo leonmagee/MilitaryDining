@@ -12,7 +12,7 @@ class EatButton extends Component {
 
 		if(this.props.currentFavorites) {
 			if (this.props.currentFavorites.indexOf(this.props.itemId) > -1) {
-				var iconColor = variables.brandSecond
+				var iconColor = variables.brandPrimary
 			} else {
 				var iconColor = '#CCC'
 			} 

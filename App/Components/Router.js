@@ -10,6 +10,7 @@ import MessHalls from './MessHalls'
 import MapPage from './MapPage'
 import MenuPage from './MenuPage'
 import FavoriteFoods from './FavoriteFoods'
+import DailyCalories from './DailyCalories'
 import {variables} from '../Styles/Variables'
 
 const navigationOptions = ({navigation}) => ({title: `${navigation.state.params.name}`})
@@ -90,6 +91,13 @@ export const Tabs = TabNavigator({
         navigationOptions: {
             tabBarLabel: 'MESS HALLS',
             tabBarIcon: ({tintColor}) => <Icon name="restaurant" size={30} color={tintColor}/>
+        }
+    },
+    DailyIntake: {
+        screen: DailyCalories,
+        navigationOptions: {
+            tabBarLabel: 'DAILY',
+            tabBarIcon: ({tintColor}) => <Icon name="calendar-check" type="material-community" size={30} color={tintColor}/>
         }
     },
     Favorites: {

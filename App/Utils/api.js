@@ -24,6 +24,14 @@ var api = {
     		headers: {'Content-Type': 'application/json'},
     		body: JSON.stringify({key: api_key, user_id: user_id, mess_hall_id: mess_hall_id, rating: rating})
     	}).then((res) => res.json())
+    },
+    eatFood(user_id, food_id) {
+    	const eat_url = ''
+    	return fetch(eat_url, {
+    		method: 'POST',
+    		headers: {'Content-Type': 'application/json'},
+    		body: JSON.stringify({key: api_key, user_id: user_id, food_id})
+    	}).then((res) => res.json())
     }
 }
 module.exports = api;
