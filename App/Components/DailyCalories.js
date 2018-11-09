@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {variables} from '../Styles/Variables'
 import {defaults} from '../Styles/Defaults'
+import {dateStringName} from './HelperFunctions'
 
 import {
   View,
@@ -41,32 +42,8 @@ class DailyCalories extends Component {
 
 
   render() {
-
-    /**
-    * @todo I should probably have access to the current date through redux
-    * I also need to save the data with a day_month_year format to describe it for a given day, so whenever 
-    * you consume a food item for a given day it will add to the list of the current day
-    * this will function similar to the favorites feature
-    * do we need to track which meal the food was a part of? We can probably do this, but it might not 
-    * be necessary for right now. 
-    * 
-    */
-
-    const monthNames = ["January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
-    ]
-
-    const currentDate = new Date()
-
-    const currentDay = currentDate.getDate()
     
-    const currentMonth = currentDate.getMonth()
-
-    const currentMonthName = monthNames[currentMonth]
-
-    const currentYear = currentDate.getFullYear()
-
-    const headerDate = currentMonthName + ' ' + currentDay + ' - ' + currentYear;
+    const headerDate = dateStringName()
 
     return (
       <View style={defaults.defaultMainWrap}>
@@ -87,7 +64,6 @@ class DailyCalories extends Component {
           </View>
 
           <Text>Here are you daily calories: {this.state.cals}</Text>
-
 
         </View>
       </View>
