@@ -74,8 +74,15 @@ export const Tabs = TabNavigator({
     Homepage: {
         screen: Homepage,
         navigationOptions: {
-            tabBarLabel: 'MD HOME',
+            tabBarLabel: 'HOME',
             tabBarIcon: ({tintColor}) => <Icon name="home" size={30} color={tintColor}/>
+        }
+    },
+    MessHalls: {
+        screen: MessHallStack,
+        navigationOptions: {
+            tabBarLabel: 'MESS HALLS',
+            tabBarIcon: ({tintColor}) => <Icon name="restaurant" size={30} color={tintColor}/>
         }
     },
     Settings: {
@@ -86,17 +93,10 @@ export const Tabs = TabNavigator({
             tabBarIcon: ({tintColor}) => <Icon name="directions-run" size={30} color={tintColor}/>
         }
     },
-    MessHalls: {
-        screen: MessHallStack,
-        navigationOptions: {
-            tabBarLabel: 'MESS HALLS',
-            tabBarIcon: ({tintColor}) => <Icon name="restaurant" size={30} color={tintColor}/>
-        }
-    },
     DailyIntake: {
         screen: DailyCalories,
         navigationOptions: {
-            tabBarLabel: 'DAILY',
+            tabBarLabel: 'TRACKER',
             tabBarIcon: ({tintColor}) => <Icon name="calendar-check" type="material-community" size={30} color={tintColor}/>
         }
     },

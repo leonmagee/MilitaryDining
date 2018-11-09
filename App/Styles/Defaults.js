@@ -2,7 +2,7 @@ export const defaults = {
 	defaultMainWrap: {
 		display: 'flex',
 		flex: 1,
-		paddingTop: 40,
+		paddingTop: 30,
 	},
 	defaultTitleWrap: {
 		paddingBottom: 15,

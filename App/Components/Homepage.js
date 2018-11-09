@@ -49,32 +49,54 @@ class Homepage extends Component {
     super(props)
   }
 
-  // componentDidMount() {
+  componentDidMount() {
 
-  //     api.getRatings().then((res) => {
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+    ]
 
-  //         console.log('testing ratings endpoint')
+    const d = new Date()
 
-  //         console.log('mess hall 70 rating: ' + res[70])
-  //         //console.log(res) 
-  //       })
-  // }
+    console.log("The current month is " + monthNames[d.getMonth()])
 
-  render() {
 
-    return (
-      <View style={styles.mainOuterWrap}>
-         <View style={styles.homeWrapOuter}>
-          <View style={styles.homeWrap}>
-            <Image source={require('../Assets/Images/justin-tacos.png')} style={styles.imageContainer}></Image>
-            <View style={styles.logoImageWrap}>
-              <Image source={require('../Assets/Images/military-dining-logo-new.png')} style={styles.logoImage}></Image>
-            </View>
-          </View>
-         </View>
-       </View>
-    )
+
+    const currentDate = new Date()
+
+    const currentDay = currentDate.getDate()
+    
+    const currentMonth = currentDate.getMonth()
+
+    const currentYear = currentDate.getFullYear()
+
+    console.log(currentDay + ' - ' + currentMonth + ' ' + currentYear)
+
+
+
+      // api.getRatings().then((res) => {
+
+      //     console.log('testing ratings endpoint')
+
+      //     console.log('mess hall 70 rating: ' + res[70])
+      //     //console.log(res) 
+      //   })
+    }
+
+    render() {
+
+      return (
+        <View style={styles.mainOuterWrap}>
+        <View style={styles.homeWrapOuter}>
+        <View style={styles.homeWrap}>
+        <Image source={require('../Assets/Images/justin-tacos.png')} style={styles.imageContainer}></Image>
+        <View style={styles.logoImageWrap}>
+        <Image source={require('../Assets/Images/military-dining-logo-new.png')} style={styles.logoImage}></Image>
+        </View>
+        </View>
+        </View>
+        </View>
+        )
+    }
   }
-}
 
-module.exports = Homepage
+  module.exports = Homepage

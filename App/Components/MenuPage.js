@@ -255,8 +255,6 @@ toggleFavorite(id) {
 
       let currentArray = JSON.parse(value)
 
-      //console.log(currentArray)
-
       if (currentArray.indexOf(id) > -1) {
 
         currentArray.splice(currentArray.indexOf(id), 1);
@@ -266,8 +264,6 @@ toggleFavorite(id) {
 
         AsyncStorage.setItem('@FavoritesArray', finalArray)
 
-        //console.log('removed item', id)
-
       } else {
 
         currentArray.push(id)
@@ -276,10 +272,7 @@ toggleFavorite(id) {
         let finalArray = JSON.stringify(currentArray)
 
         AsyncStorage.setItem('@FavoritesArray', finalArray)
-
-        //console.log('added item', id) 
       }
-
 
     } else {
 
@@ -291,6 +284,10 @@ toggleFavorite(id) {
 
     this.props.setCurrentFavorites(reduxArray)
   }).done()
+}
+
+toggleEat() {
+  console.log('eating is toggled...')
 }
 
 

@@ -134,7 +134,7 @@ class FavoriteFoods extends Component {
 
 	removeFavorite(id) {
 
-		console.log('remove this item: ', id)
+		//console.log('remove this item: ', id)
 
 		AsyncStorage.getItem('@FavoritesArray').then((value) => {
 

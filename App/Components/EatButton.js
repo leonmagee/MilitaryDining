@@ -10,6 +10,11 @@ class EatButton extends Component {
 
 	render() {
 
+		/**
+		* how do we know if a food item has been eaten?
+		* the most challenging part might be tracking this on a daily basis, and how to keep this storedin the database?
+		* one table for each user?
+		*/
 		if(this.props.currentFavorites) {
 			if (this.props.currentFavorites.indexOf(this.props.itemId) > -1) {
 				var iconColor = variables.brandPrimary
