@@ -107,7 +107,7 @@ class MenuPage extends Component {
       menuToggle: [],
     }
 
-    //AsyncStorage.clear()
+    AsyncStorage.clear()
 
     const menuz = this.props.currentMenu;
 
@@ -289,105 +289,11 @@ toggleFavorite(id) {
   }).done()
 }
 
-// toggleEat(id) {
-
-//   //AsyncStorage.clear()
-
-//   const currentDate = dateString()
-
-//   AsyncStorage.getItem('@CurrentEatsArray').then((value) => {
-
-//     if (value) {
-
-//       console.log('NOW THIS HAS HAPPENED...')
-
-//       var foodIsCurrentlyEaten = false
-
-//       let eatenItems = JSON.parse(value)
-      
-//       console.log(eatenItems)
-
-//       var currentItemCounter = null
-
-//       let counter = 0
-//       eatenItems.map((item) => {
-//         counter++
-//         if (item.id === id) { // also check that date matches... 
-//           console.log('WE HAVE A MATCH!')
-//           foodIsCurrentlyEaten = true
-//           currentItemCounter = counter
-//           //item.delete()
-//         }
-//       })
-
-//       if(currentItemCounter != null) {
-
-//         eatenItems.splice(currentItemCounter, 1)
-//       }
-
-//       const finalEaten = JSON.stringify(eatenItems)
-
-
-//       AsyncStorage.setItem('@CurrentEatsArray', finalEaten)
-
-//       // @todo add item here again if it doesn't exist
-
-
-//       // if (currentArray.indexOf(id) > -1) {
-
-//       //   currentArray.splice(currentArray.indexOf(id), 1);
-
-//       //   var reduxArray = currentArray
-//       //   let finalArray = JSON.stringify(currentArray)
-
-//       //   AsyncStorage.setItem('@FavoritesArray', finalArray)
-
-//       // } else {
-
-//       //   currentArray.push(id)
-
-//       //   var reduxArray = currentArray
-//       //   let finalArray = JSON.stringify(currentArray)
-
-//       //   AsyncStorage.setItem('@CurrentEatsArray', finalArray)
-//       // }
-
-//     } else {
-
-//       console.log('CREATEING ARRAY FOR THE FIRST TIME')
-
-//       const eatenItems = [
-//         {
-//           date: currentDate,
-//           id: id
-//         }
-//       ]
-
-//       // let newArray = [id]
-//       // var reduxArray = newArray
-//       let finalEaten = JSON.stringify(eatenItems)
-//       AsyncStorage.setItem('@CurrentEatsArray', finalEaten)
-//     }
-
-//     //this.props.setCurrentFavorites(reduxArray)
-//   }).done()
-
-
-
-
-
-
-//   /**
-//   * 1. add this item to async storage with date
-//   * 2. push this item to the server with date
-//   */
-
-// }
 
 
 render() {
 
-  const menuz = this.props.currentMenu;
+  const menuz = this.props.currentMenu
 
   const menu_days = menuz.menus.map((menu, key) => {
 
@@ -401,15 +307,13 @@ render() {
               <View></View>
               )
           }
-          // icon url
-          //{'color': this.get_item_color(item.chart)}
 
           return (
             <TouchableHighlight onPress={() => this.toggleMenuDetails(key, item_key, 'breakfast')} style={styles.menuFoodItemWrap} key={item_key} underlayColor="transparent">
             <View>
             <View style={styles.menuFoodItemWrapInner}>
             <FavoriteButton currentFavorites={this.props.currentFavorites} itemId={item.id} fav={() => this.toggleFavorite(item.id)} />
-            <EatButton itemId={item.id} />
+            <EatButton day={menu.day} itemId={item.id} messHallId={this.props.currentMenu.id} messHallName={this.props.currentMenu.name} meal={'Breakfast'}/>
             <Image source={this.get_item_color(item.chart)} style={styles.imageElement} />
             <View style={styles.foodNameWrap}>
             <Text style={styles.menuFoodItem}>{removeQuotes(item.name)}</Text>
@@ -441,6 +345,7 @@ render() {
             <View>
             <View style={styles.menuFoodItemWrapInner}>
             <FavoriteButton currentFavorites={this.props.currentFavorites} itemId={item.id} fav={() => this.toggleFavorite(item.id)} />
+            <EatButton day={menu.day} itemId={item.id} messHallId={this.props.currentMenu.id} messHallName={this.props.currentMenu.name} meal={'Breakfast Brunch'}/>
             <Image source={this.get_item_color(item.chart)} style={styles.imageElement} />
             <View style={styles.foodNameWrap}>
             <Text style={styles.menuFoodItem}>{removeQuotes(item.name)}</Text>
@@ -472,6 +377,7 @@ render() {
             <View>
             <View style={styles.menuFoodItemWrapInner}>
             <FavoriteButton currentFavorites={this.props.currentFavorites} itemId={item.id} fav={() => this.toggleFavorite(item.id)} />
+            <EatButton day={menu.day} itemId={item.id} messHallId={this.props.currentMenu.id} messHallName={this.props.currentMenu.name} meal={'Lunch'}/>
             <Image source={this.get_item_color(item.chart)} style={styles.imageElement} />
             <View style={styles.foodNameWrap}>            
             <Text style={styles.menuFoodItem}>{removeQuotes(item.name)}</Text>
@@ -503,6 +409,7 @@ render() {
             <View>
             <View style={styles.menuFoodItemWrapInner}>
             <FavoriteButton currentFavorites={this.props.currentFavorites} itemId={item.id} fav={() => this.toggleFavorite(item.id)} />
+            <EatButton day={menu.day} itemId={item.id} messHallId={this.props.currentMenu.id} messHallName={this.props.currentMenu.name} meal={'Dinner'}/>
             <Image source={this.get_item_color(item.chart)} style={styles.imageElement} />
             <View style={styles.foodNameWrap}>            
             <Text style={styles.menuFoodItem}>{removeQuotes(item.name)}</Text>
@@ -534,6 +441,7 @@ render() {
             <View>
             <View style={styles.menuFoodItemWrapInner}>
             <FavoriteButton currentFavorites={this.props.currentFavorites} itemId={item.id} fav={() => this.toggleFavorite(item.id)} />
+            <EatButton day={menu.day} itemId={item.id} messHallId={this.props.currentMenu.id} messHallName={this.props.currentMenu.name} meal={'Dinner Brunch'}/>
             <Image source={this.get_item_color(item.chart)} style={styles.imageElement} />
             <View style={styles.foodNameWrap}>            
             <Text style={styles.menuFoodItem}>{removeQuotes(item.name)}</Text>
@@ -565,6 +473,7 @@ render() {
             <View>
             <View style={styles.menuFoodItemWrapInner}>
             <FavoriteButton currentFavorites={this.props.currentFavorites} itemId={item.id} fav={() => this.toggleFavorite(item.id)} />
+            <EatButton day={menu.day} itemId={item.id} messHallId={this.props.currentMenu.id} messHallName={this.props.currentMenu.name} meal={'Pastry Bar'}/>
             <Image source={this.get_item_color(item.chart)} style={styles.imageElement} />
             <View style={styles.foodNameWrap}>
             <Text style={styles.menuFoodItem}>{removeQuotes(item.name)}</Text>

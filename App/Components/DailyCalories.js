@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {variables} from '../Styles/Variables'
 import {defaults} from '../Styles/Defaults'
-import {dateStringName} from './HelperFunctions'
+import {dateString, dateStringName} from './HelperFunctions'
 
 import {
   View,
@@ -35,15 +35,59 @@ class DailyCalories extends Component {
     super(props)
 
     this.state = {
-      cals: 70,
+      totalCals: 0,
+      eatenFoods: []
     }
 
+  }
+
+  componentDidMount() {
+
+    const eatenItemsArray = []
+
+      AsyncStorage.getItem('@CurrentEatsArray').then((value) => {
+
+      if (value) {
+
+        let eatenItems = JSON.parse(value)
+
+        eatenItems.map((item) => {
+
+            const currentDate = dateString()
+
+            if (item.date === currentDate) {
+
+              eatenItemsArray.push({
+                'meal': item.meal,
+                'id' : item.id
+              })
+          }
+        })
+
+        this.setState({
+          eatenFoods: eatenItemsArray
+        })
+
+
+      }
+    })
   }
 
 
   render() {
     
     const headerDate = dateStringName()
+
+    const eatenItemsElement = this.state.eatenFoods.map((item, key) => {
+      return (
+          <View key={key}>
+            <Text>Meal: {item.meal}</Text>
+            <Text>ID: {item.id}</Text>
+            <Text>Day: {item.day}</Text>
+            <Text>Mess Hall: {item.messHallName}</Text>
+          </View>
+        )
+    })
 
     return (
       <View style={defaults.defaultMainWrap}>
@@ -59,11 +103,10 @@ class DailyCalories extends Component {
           </View>
 
           <View>
-            <Text>Item 1</Text>
-            <Text>Item 2</Text>
+          {eatenItemsElement}
           </View>
 
-          <Text>Here are you daily calories: {this.state.cals}</Text>
+          <Text>Here are your total calories: {this.state.totalCals}</Text>
 
         </View>
       </View>

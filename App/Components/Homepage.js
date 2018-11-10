@@ -51,25 +51,25 @@ class Homepage extends Component {
 
   componentDidMount() {
 
-    const monthNames = ["January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
-    ]
+    // const monthNames = ["January", "February", "March", "April", "May", "June",
+    // "July", "August", "September", "October", "November", "December"
+    // ]
 
-    const d = new Date()
+    // const d = new Date()
 
-    console.log("The current month is " + monthNames[d.getMonth()])
+    // console.log("The current month is " + monthNames[d.getMonth()])
 
 
 
-    const currentDate = new Date()
+    // const currentDate = new Date()
 
-    const currentDay = currentDate.getDate()
+    // const currentDay = currentDate.getDate()
     
-    const currentMonth = currentDate.getMonth()
+    // const currentMonth = currentDate.getMonth()
 
-    const currentYear = currentDate.getFullYear()
+    // const currentYear = currentDate.getFullYear()
 
-    console.log(currentDay + ' - ' + currentMonth + ' ' + currentYear)
+    // console.log(currentDay + ' - ' + currentMonth + ' ' + currentYear)
 
 
 

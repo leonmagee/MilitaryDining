@@ -26,130 +26,108 @@ class EatButton extends Component {
 
 				let eatenItems = JSON.parse(value)
 
+				const currentDate = dateString()
+				const id = this.props.itemId
+				const meal = this.props.meal
+				const messHall = this.props.messHallId
+				const day = this.props.day
+
 				eatenItems.map((item) => {
-					if (item.id === this.props.itemId) {
+					if ((item.day === day) && (item.id === id) && (item.date === currentDate) && (item.meal === meal) && (item.messHall === messHall)) {
 
 						this.setState({
-							color: variables.brandSixth
+							active: true
 						})
 					}
 				})
-
 			}
-
 		})
-
-
-
 	}
 
+	toggleEat() {
 
-toggleEat() {
+		if(this.state.active) {
+			this.setState({
+				active: false
+			})
+		} else {
+			this.setState({
+				active: true
+			})
+		}
 
-  //AsyncStorage.clear()
+		const currentDate = dateString()
+		const id = this.props.itemId
+		const meal = this.props.meal
+		const messHall = this.props.messHallId
+		const messHallName = this.props.messHallName
+		const day = this.props.day
 
-  if(this.state.active) {
-  	this.setState({
-  		active: false
-  	})
-  } else {
-  	this.setState({
-  		active: true
-  	})
-  }
+		// console.log('togglez')
+		// console.log(currentDate)
+		// console.log(id)
+		// console.log(meal)
+		// console.log(messHall)
 
-  const id = this.props.itemId
+		AsyncStorage.getItem('@CurrentEatsArray').then((value) => {
 
-  const currentDate = dateString()
+			if (value) {
 
-  AsyncStorage.getItem('@CurrentEatsArray').then((value) => {
+				var foodIsCurrentlyEaten = false
 
-    if (value) {
+				let eatenItems = JSON.parse(value)
 
-      console.log('NOW THIS HAS HAPPENED...')
+				var currentItemCounter = null
 
-      var foodIsCurrentlyEaten = false
+				let counter = 0
+				eatenItems.map((item) => {
 
-      let eatenItems = JSON.parse(value)
-      
-      console.log(eatenItems)
+					// @todo I also need to add a day parameter here... 
+					if ((item.day === day) && (item.id === id) && (item.date === currentDate) && (item.meal === meal) && (item.messHall === messHall)) {
+						foodIsCurrentlyEaten = true
+						currentItemCounter = counter
+					}
+					counter++
+				})
 
-      var currentItemCounter = null
+				if(currentItemCounter != null) {
 
-      let counter = 0
-      eatenItems.map((item) => {
-        counter++
-        if (item.id === id) { // also check that date matches... 
-          console.log('WE HAVE A MATCH!')
-          foodIsCurrentlyEaten = true
-          currentItemCounter = counter
-          //item.delete()
-        }
-      })
+					eatenItems.splice(currentItemCounter, 1)
+				}
 
-      if(currentItemCounter != null) {
+				if(!foodIsCurrentlyEaten) {
+					eatenItems.push({
+						date: currentDate,
+						id: id,
+						meal: meal,
+						messHall: messHall,
+						messHallName: messHallName
+					})
+				}
 
-        eatenItems.splice(currentItemCounter, 1)
-      }
+				const finalEaten = JSON.stringify(eatenItems)
 
-      const finalEaten = JSON.stringify(eatenItems)
+				AsyncStorage.setItem('@CurrentEatsArray', finalEaten)
 
+			} else {
 
-      AsyncStorage.setItem('@CurrentEatsArray', finalEaten)
+				const eatenItems = [
+				{
+					date: currentDate,
+					id: id,
+					meal: meal,
+					messHall: messHall,
+					messHallName: messHallName
+				}
+				]
 
-      // @todo add item here again if it doesn't exist
+				let finalEaten = JSON.stringify(eatenItems)
+				AsyncStorage.setItem('@CurrentEatsArray', finalEaten)
+			}
 
+		}).done()
 
-      // if (currentArray.indexOf(id) > -1) {
-
-      //   currentArray.splice(currentArray.indexOf(id), 1);
-
-      //   var reduxArray = currentArray
-      //   let finalArray = JSON.stringify(currentArray)
-
-      //   AsyncStorage.setItem('@FavoritesArray', finalArray)
-
-      // } else {
-
-      //   currentArray.push(id)
-
-      //   var reduxArray = currentArray
-      //   let finalArray = JSON.stringify(currentArray)
-
-      //   AsyncStorage.setItem('@CurrentEatsArray', finalArray)
-      // }
-
-    } else {
-
-      console.log('CREATEING ARRAY FOR THE FIRST TIME')
-
-      const eatenItems = [
-        {
-          date: currentDate,
-          id: id
-        }
-      ]
-
-      // let newArray = [id]
-      // var reduxArray = newArray
-      let finalEaten = JSON.stringify(eatenItems)
-      AsyncStorage.setItem('@CurrentEatsArray', finalEaten)
-    }
-
-    //this.props.setCurrentFavorites(reduxArray)
-  }).done()
-
-
-
-
-
-
-  /**
-  * 1. add this item to async storage with date
-  * 2. push this item to the server with date
-  */
-
-}
+	}
 
 	render() {
 
@@ -158,28 +136,6 @@ toggleEat() {
 		} else {
 			var iconColor = '#CCC'
 		}
-
-		// eatenItems.map((item) => {
-		// 	if (item.id === id) {
-		// 		console.log('WE HAVE A MATCH!')
-		// 		foodIsCurrentlyEaten = true
-		// 	}
-		// })
-
-		/**
-		* how do we know if a food item has been eaten?
-		* the most challenging part might be tracking this on a daily basis, and how to keep this storedin the database?
-		* one table for each user?
-		*/
-		// if(this.props.currentFavorites) {
-		// 	if (this.props.currentFavorites.indexOf(this.props.itemId) > -1) {
-		// 		var iconColor = variables.brandPrimary
-		// 	} else {
-		// 		var iconColor = '#CCC'
-		// 	} 
-		// } else {
-		// 	var iconColor = '#CCC'
-		// }
 
 		return(
 			<TouchableHighlight style={{marginLeft: 5}} onPress={(id) => this.toggleEat()} underlayColor="transparent">
