@@ -27,7 +27,22 @@ const styles = StyleSheet.create({
     fontSize: 23,
     fontFamily: 'BlackOpsOne-Regular'
   },
+  foodItemWrap: {
+    padding: 10,
+    margin: 10,
+    backgroundColor: '#EEE',
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: '#DDD'
+  }
 })
+
+/**
+* to do
+1. we need the calories added to the array
+2. name of meal added to array
+3. we need to put this data into redux
+*/
 
 class DailyCalories extends Component {
 
@@ -59,7 +74,11 @@ class DailyCalories extends Component {
 
               eatenItemsArray.push({
                 'meal': item.meal,
-                'id' : item.id
+                'id': item.id,
+                'name': item.messHallName,
+                'day': item.day,
+                'foodName': item.name,
+                'cals': item.cals
               })
           }
         })
@@ -80,11 +99,13 @@ class DailyCalories extends Component {
 
     const eatenItemsElement = this.state.eatenFoods.map((item, key) => {
       return (
-          <View key={key}>
+          <View key={key} style={styles.foodItemWrap}>
             <Text>Meal: {item.meal}</Text>
             <Text>ID: {item.id}</Text>
             <Text>Day: {item.day}</Text>
-            <Text>Mess Hall: {item.messHallName}</Text>
+            <Text>Mess Hall: {item.name}</Text>
+            <Text>Name: {item.foodName}</Text>
+            <Text>Cals: {item.cals}</Text>
           </View>
         )
     })

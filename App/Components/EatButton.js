@@ -62,6 +62,8 @@ class EatButton extends Component {
 		const messHall = this.props.messHallId
 		const messHallName = this.props.messHallName
 		const day = this.props.day
+		const cals = this.props.cals
+		const name = this.props.foodName
 
 		// console.log('togglez')
 		// console.log(currentDate)
@@ -101,7 +103,10 @@ class EatButton extends Component {
 						id: id,
 						meal: meal,
 						messHall: messHall,
-						messHallName: messHallName
+						messHallName: messHallName,
+						day: day,
+						cals: cals,
+						name: name
 					})
 				}
 
@@ -117,7 +122,10 @@ class EatButton extends Component {
 					id: id,
 					meal: meal,
 					messHall: messHall,
-					messHallName: messHallName
+					messHallName: messHallName,
+					day: day,
+					cals: cals,
+					name: name
 				}
 				]
 
@@ -130,6 +138,14 @@ class EatButton extends Component {
 	}
 
 	render() {
+
+		// if(this.props.cals) {
+		// 	console.log('CALS', this.props.cals)
+		// }
+
+		// if(this.props.foodName) {
+		// 	console.log('NAME', this.props.foodName)
+		// }
 
 		if(this.state.active) {
 			var iconColor = variables.brandSixth
