@@ -35,6 +35,16 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 1,
     borderColor: '#DDD'
+  },
+  foodHeader: {
+    color: 'green'
+  },
+  foodName: {
+    fontSize: 18,
+    fontFamily: 'BlackOpsOne-Regular'
+  },
+  calories: {
+    color: 'red'
   }
 })
 
@@ -50,52 +60,12 @@ class DailyCalories extends Component {
   constructor(props) {
     super(props)
 
-    this.state = {
-      totalCals: 0,
-      eatenFoods: []
-    }
+    // this.state = {
+    //   totalCals: 0,
+    //   eatenFoods: []
+    // }
 
   }
-
-  // componentDidMount() {
-
-  //   const eatenItemsArray = []
-
-  //     AsyncStorage.getItem('@CurrentEatsArray').then((value) => {
-
-  //     if (value) {
-
-  //       let eatenItems = JSON.parse(value)
-
-  //       eatenItems.map((item) => {
-
-  //           const currentDate = dateString()
-
-  //           if (item.date === currentDate) {
-
-  //             eatenItemsArray.push({
-  //               'meal': item.meal,
-  //               'id': item.id,
-  //               'name': item.messHallName,
-  //               'day': item.day,
-  //               'foodName': item.name,
-  //               'cals': item.cals
-  //             })
-  //         }
-  //       })
-
-  //       this.setState({
-  //         eatenFoods: eatenItemsArray
-  //       })
-
-
-  //     }
-  //   })
-
-
-
-  // }
-
 
   render() {
 
@@ -112,7 +82,7 @@ class DailyCalories extends Component {
               eatenItemsArray.push({
                 'meal': item.meal,
                 'id': item.id,
-                'name': item.messHallName,
+                'messHallName': item.messHallName,
                 'day': item.day,
                 'foodName': item.name,
                 'cals': item.cals
@@ -123,11 +93,9 @@ class DailyCalories extends Component {
         var eatenItemsArray = false
       }
 
-        // this.setState({
-        //   eatenFoods: eatenItemsArray
-        // })
-
-
+      // this.setState({
+      //   eatenFoods: eatenItemsArray
+      // })
 
     const headerDate = dateStringName()
 
@@ -136,12 +104,9 @@ class DailyCalories extends Component {
     var eatenItemsElement = eatenItemsArray.map((item, key) => {
       return (
           <View key={key} style={styles.foodItemWrap}>
-            <Text>Meal: {item.meal}</Text>
-            <Text>ID: {item.id}</Text>
-            <Text>Day: {item.day}</Text>
-            <Text>Mess Hall: {item.name}</Text>
-            <Text>Name: {removeQuotes(item.foodName)}</Text>
-            <Text>Cals: {item.cals}</Text>
+            <Text style={styles.foodHeader}>{item.messHallName} > {item.meal}</Text>
+            <Text style={styles.foodName}>{removeQuotes(item.foodName)}</Text>
+            <Text style={styles.calories}>Calories: {item.cals}</Text>
           </View>
         )
     })
@@ -166,20 +131,13 @@ class DailyCalories extends Component {
           {eatenItemsElement}
           </View>
 
-          <Text>Here are your total calories: {this.state.totalCals}</Text>
+          <Text>Here are your total calories: </Text>
 
         </ScrollView>
       </View>
     )
   }
 }
-
-// might need action to remove food?
-// mapActionsToProps = (dispatch) => ({
-//   setCurrentFavorites(results) {
-//     dispatch({type: 'SET_MEALS', payload: results})
-//   }
-// })
 
 mapStateToProps = (state) => ({currentMeals: state.currentMeals})
 
