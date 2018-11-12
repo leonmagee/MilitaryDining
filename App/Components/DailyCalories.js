@@ -29,22 +29,66 @@ const styles = StyleSheet.create({
     fontFamily: 'BlackOpsOne-Regular'
   },
   foodItemWrap: {
-    padding: 10,
-    margin: 10,
-    backgroundColor: '#EEE',
-    borderRadius: 5,
-    borderWidth: 1,
-    borderColor: '#DDD'
+    display: 'flex',
+    flexDirection: 'row',
+    paddingVertical: 10,
   },
-  foodHeader: {
-    color: 'green'
+  foodItem: {
+    flex: 1,
+    fontSize: 13,
+    fontFamily: 'BlackOpsOne-Regular',
+    paddingRight: 5,
   },
   foodName: {
-    fontSize: 18,
-    fontFamily: 'BlackOpsOne-Regular'
+    flex: 4,
+  },
+  messHallName: {
+    flex: 2,
+    //color: 'orange'
+  },
+  mealName: {
+    flex: 2,
+    //color: 'pink'
   },
   calories: {
-    color: 'red'
+    color: variables.brandSecond,
+    fontSize: 18,
+  },
+  tableWrap: {
+    paddingTop: 30,
+  },
+  tableHeader: {
+    display: 'flex',
+    flexDirection: 'row',
+    borderBottomWidth: 1,
+    borderBottomColor: '#DDD',
+  },
+  tableHeaderText: {
+    flex: 1,
+    paddingVertical: 5,
+    paddingRight: 5,
+    fontSize: 12,
+    fontFamily: 'BlackOpsOne-Regular',
+  },
+  tableHeader1: {
+    flex: 4,
+  },
+  tableHeader2: {
+    flex: 2,
+  },
+  tableHeader3: {
+    flex: 2,
+  },
+  totalCalsWrap: {
+    backgroundColor: variables.brandPrimary,
+    paddingVertical: 5,
+    marginTop: 15,
+  },
+  totalCalsText: {
+    fontSize: 30,
+    color: '#FFF',
+    textAlign: 'center',
+    fontFamily: 'BlackOpsOne-Regular',
   }
 })
 
@@ -71,71 +115,64 @@ class DailyCalories extends Component {
 
     if(this.props.currentMeals) {
 
-        var eatenItemsArray = []
+      var totalCals = 0
 
-        this.props.currentMeals.map((item) => {
+      var eatenItemsElement = this.props.currentMeals.map((item, key) => {
 
-            const currentDate = dateString()
+        const currentDate = dateString()
 
-            if (item.date === currentDate) {
+        if (item.date === currentDate) {
 
-              eatenItemsArray.push({
-                'meal': item.meal,
-                'id': item.id,
-                'messHallName': item.messHallName,
-                'day': item.day,
-                'foodName': item.name,
-                'cals': item.cals
-              })
-          }
-        })
-      } else {
-        var eatenItemsArray = false
-      }
+              totalCals = (parseInt(totalCals) + parseInt(item.cals))
 
-      // this.setState({
-      //   eatenFoods: eatenItemsArray
-      // })
+              //item.id //item.day
+              return (
+                <View key={key} style={styles.foodItemWrap}>
+                <Text style={[styles.foodItem, styles.foodName]}>{removeQuotes(item.name)}</Text>
+                <Text style={[styles.foodItem, styles.messHallName]}>{item.messHallName}</Text>
+                <Text style={[styles.foodItem, styles.mealName]}>{item.meal}</Text>
+                <Text style={[styles.foodItem, styles.calories]}>{item.cals}</Text>
+                </View>
+                )
+            }
+          })
+    } else {
+
+      var eatenItemsElement = <View></View>
+    }
 
     const headerDate = dateStringName()
-
-    if (eatenItemsArray) {
-
-    var eatenItemsElement = eatenItemsArray.map((item, key) => {
-      return (
-          <View key={key} style={styles.foodItemWrap}>
-            <Text style={styles.foodHeader}>{item.messHallName} > {item.meal}</Text>
-            <Text style={styles.foodName}>{removeQuotes(item.foodName)}</Text>
-            <Text style={styles.calories}>Calories: {item.cals}</Text>
-          </View>
-        )
-    })
-  } else {
-    var eatenItemsElement = <View></View>
-  }
 
     return (
       <View style={defaults.defaultMainWrap}>
 
-        <View style={defaults.defaultTitleWrap}>
-          <Text style={defaults.defaultTitle}>Daily Calorie Intake</Text>
-        </View>
-
-        <ScrollView style={styles.innerWrap}>
-
-          <View style={styles.dateTitleWrap}>
-            <Text style={styles.dateTitle}>{headerDate}</Text>
-          </View>
-
-          <View>
-          {eatenItemsElement}
-          </View>
-
-          <Text>Here are your total calories: </Text>
-
-        </ScrollView>
+      <View style={defaults.defaultTitleWrap}>
+      <Text style={defaults.defaultTitle}>Daily Calorie Intake</Text>
       </View>
-    )
+
+      <ScrollView style={styles.innerWrap}>
+
+      <View style={styles.dateTitleWrap}>
+        <Text style={styles.dateTitle}>{headerDate}</Text>
+      </View>
+
+      <View style={styles.tableWrap}>
+        <View style={styles.tableHeader}>
+          <Text style={[styles.tableHeaderText, styles.tableHeader1]}>Food Choice</Text>
+          <Text style={[styles.tableHeaderText, styles.tableHeader2]}>Mess Hall</Text>
+          <Text style={[styles.tableHeaderText, styles.tableHeader3]}>Meal</Text>
+          <Text style={[styles.tableHeaderText, styles.tableHeader4]}>Cals</Text>
+        </View>
+      {eatenItemsElement}
+      </View>
+
+      <View style={styles.totalCalsWrap}>
+        <Text style={styles.totalCalsText}>{totalCals} Calories</Text>
+      </View>
+
+      </ScrollView>
+      </View>
+      )
   }
 }
 
