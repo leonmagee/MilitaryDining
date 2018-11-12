@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import connect from 'react-redux'
 import {
 	View,
 	TouchableHighlight,
@@ -65,19 +66,13 @@ class EatButton extends Component {
 		const cals = this.props.cals
 		const name = this.props.foodName
 
-		// console.log('togglez')
-		// console.log(currentDate)
-		// console.log(id)
-		// console.log(meal)
-		// console.log(messHall)
-
 		AsyncStorage.getItem('@CurrentEatsArray').then((value) => {
 
 			if (value) {
 
 				var foodIsCurrentlyEaten = false
 
-				let eatenItems = JSON.parse(value)
+				var eatenItems = JSON.parse(value)
 
 				var currentItemCounter = null
 
@@ -110,13 +105,13 @@ class EatButton extends Component {
 					})
 				}
 
-				const finalEaten = JSON.stringify(eatenItems)
+				var finalEaten = JSON.stringify(eatenItems)
 
 				AsyncStorage.setItem('@CurrentEatsArray', finalEaten)
 
 			} else {
 
-				const eatenItems = [
+				var eatenItems = [
 				{
 					date: currentDate,
 					id: id,
@@ -128,9 +123,14 @@ class EatButton extends Component {
 					name: name
 				}
 				]
-
-				let finalEaten = JSON.stringify(eatenItems)
+				
+				var finalEaten = JSON.stringify(eatenItems)
 				AsyncStorage.setItem('@CurrentEatsArray', finalEaten)
+			}
+
+			if(this.props.reduxCallback) {
+				const reduxCallback = this.props.reduxCallback
+				reduxCallback(eatenItems)
 			}
 
 		}).done()
@@ -138,14 +138,6 @@ class EatButton extends Component {
 	}
 
 	render() {
-
-		// if(this.props.cals) {
-		// 	console.log('CALS', this.props.cals)
-		// }
-
-		// if(this.props.foodName) {
-		// 	console.log('NAME', this.props.foodName)
-		// }
 
 		if(this.state.active) {
 			var iconColor = variables.brandSixth

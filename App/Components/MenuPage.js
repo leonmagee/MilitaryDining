@@ -289,6 +289,12 @@ toggleFavorite(id) {
   }).done()
 }
 
+dailyMealRedux(data) {
+
+  console.log(data)
+  this.props.setCurrentMeals(data)
+}
+
 
 
 render() {
@@ -315,7 +321,7 @@ render() {
             <View>
             <View style={styles.menuFoodItemWrapInner}>
             <FavoriteButton currentFavorites={this.props.currentFavorites} itemId={item.id} fav={() => this.toggleFavorite(item.id)} />
-            <EatButton day={menu.day} itemId={item.id} messHallId={this.props.currentMenu.id} messHallName={this.props.currentMenu.name} meal={'Breakfast'} foodName={item.name} cals={item.cal}/>
+            <EatButton day={menu.day} itemId={item.id} messHallId={this.props.currentMenu.id} reduxCallback={(data) => this.dailyMealRedux(data)} messHallName={this.props.currentMenu.name} meal={'Breakfast'} foodName={item.name} cals={item.cal}/>
             <Image source={this.get_item_color(item.chart)} style={styles.imageElement} />
             <View style={styles.foodNameWrap}>
             <Text style={styles.menuFoodItem}>{removeQuotes(item.name)}</Text>
@@ -347,7 +353,7 @@ render() {
             <View>
             <View style={styles.menuFoodItemWrapInner}>
             <FavoriteButton currentFavorites={this.props.currentFavorites} itemId={item.id} fav={() => this.toggleFavorite(item.id)} />
-            <EatButton day={menu.day} itemId={item.id} messHallId={this.props.currentMenu.id} messHallName={this.props.currentMenu.name} meal={'Breakfast Brunch'} foodName={item.name} cals={item.cal}/>
+            <EatButton day={menu.day} itemId={item.id} messHallId={this.props.currentMenu.id} reduxCallback={(data) => this.dailyMealRedux(data)} messHallName={this.props.currentMenu.name} meal={'Breakfast Brunch'} foodName={item.name} cals={item.cal}/>
             <Image source={this.get_item_color(item.chart)} style={styles.imageElement} />
             <View style={styles.foodNameWrap}>
             <Text style={styles.menuFoodItem}>{removeQuotes(item.name)}</Text>
@@ -379,7 +385,7 @@ render() {
             <View>
             <View style={styles.menuFoodItemWrapInner}>
             <FavoriteButton currentFavorites={this.props.currentFavorites} itemId={item.id} fav={() => this.toggleFavorite(item.id)} />
-            <EatButton day={menu.day} itemId={item.id} messHallId={this.props.currentMenu.id} messHallName={this.props.currentMenu.name} meal={'Lunch'} foodName={item.name} cals={item.cal}/>
+            <EatButton day={menu.day} itemId={item.id} messHallId={this.props.currentMenu.id} reduxCallback={(data) => this.dailyMealRedux(data)} messHallName={this.props.currentMenu.name} meal={'Lunch'} foodName={item.name} cals={item.cal}/>
             <Image source={this.get_item_color(item.chart)} style={styles.imageElement} />
             <View style={styles.foodNameWrap}>            
             <Text style={styles.menuFoodItem}>{removeQuotes(item.name)}</Text>
@@ -411,7 +417,7 @@ render() {
             <View>
             <View style={styles.menuFoodItemWrapInner}>
             <FavoriteButton currentFavorites={this.props.currentFavorites} itemId={item.id} fav={() => this.toggleFavorite(item.id)} />
-            <EatButton day={menu.day} itemId={item.id} messHallId={this.props.currentMenu.id} messHallName={this.props.currentMenu.name} meal={'Dinner'} foodName={item.name} cals={item.cal}/>
+            <EatButton day={menu.day} itemId={item.id} messHallId={this.props.currentMenu.id} reduxCallback={(data) => this.dailyMealRedux(data)} messHallName={this.props.currentMenu.name} meal={'Dinner'} foodName={item.name} cals={item.cal}/>
             <Image source={this.get_item_color(item.chart)} style={styles.imageElement} />
             <View style={styles.foodNameWrap}>            
             <Text style={styles.menuFoodItem}>{removeQuotes(item.name)}</Text>
@@ -443,7 +449,7 @@ render() {
             <View>
             <View style={styles.menuFoodItemWrapInner}>
             <FavoriteButton currentFavorites={this.props.currentFavorites} itemId={item.id} fav={() => this.toggleFavorite(item.id)} />
-            <EatButton day={menu.day} itemId={item.id} messHallId={this.props.currentMenu.id} messHallName={this.props.currentMenu.name} meal={'Dinner Brunch'} foodName={item.name} cals={item.cal}/>
+            <EatButton day={menu.day} itemId={item.id} messHallId={this.props.currentMenu.id} reduxCallback={(data) => this.dailyMealRedux(data)} messHallName={this.props.currentMenu.name} meal={'Dinner Brunch'} foodName={item.name} cals={item.cal}/>
             <Image source={this.get_item_color(item.chart)} style={styles.imageElement} />
             <View style={styles.foodNameWrap}>            
             <Text style={styles.menuFoodItem}>{removeQuotes(item.name)}</Text>
@@ -475,7 +481,7 @@ render() {
             <View>
             <View style={styles.menuFoodItemWrapInner}>
             <FavoriteButton currentFavorites={this.props.currentFavorites} itemId={item.id} fav={() => this.toggleFavorite(item.id)} />
-            <EatButton day={menu.day} itemId={item.id} messHallId={this.props.currentMenu.id} messHallName={this.props.currentMenu.name} meal={'Pastry Bar'} foodName={item.name} cals={item.cal}/>
+            <EatButton day={menu.day} itemId={item.id} messHallId={this.props.currentMenu.id} reduxCallback={(data) => this.dailyMealRedux(data)} messHallName={this.props.currentMenu.name} meal={'Pastry Bar'} foodName={item.name} cals={item.cal}/>
             <Image source={this.get_item_color(item.chart)} style={styles.imageElement} />
             <View style={styles.foodNameWrap}>
             <Text style={styles.menuFoodItem}>{removeQuotes(item.name)}</Text>
@@ -695,9 +701,12 @@ return (
 mapActionsToProps = (dispatch) => ({
   setCurrentFavorites(results) {
     dispatch({type: 'SET_FAVORITES', payload: results})
+  },
+  setCurrentMeals(results) {
+    dispatch({type: 'SET_MEALS', payload: results})
   }
 })
 
-mapStateToProps = (state) => ({currentMenu: state.currentMenu, currentFavorites: state.currentFavorites, currentEaten: state.currentEaten})
+mapStateToProps = (state) => ({currentMenu: state.currentMenu, currentFavorites: state.currentFavorites})
 
 module.exports = connect(mapStateToProps, mapActionsToProps)(MenuPage)

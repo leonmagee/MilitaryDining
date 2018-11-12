@@ -85,6 +85,28 @@ class BackgroundGeofences extends Component {
       this.props.setCurrentFavorites(currentArray)
 
     })
+
+
+    // get initia favorite menu items
+    AsyncStorage.getItem('@CurrentEatsArray').then((value) => {
+
+      if (value) {
+
+        var currentArray = JSON.parse(value)
+
+      } else {
+
+        var currentArray = []
+      }
+
+      this.props.setCurrentMeals(currentArray)
+
+    })
+
+
+
+
+
   }
 
   componentWillUnmount() {
@@ -164,6 +186,9 @@ mapActionsToProps = (dispatch) => ({
   },
   setCurrentFavorites(results) {
     dispatch({type: 'SET_FAVORITES', payload: results})
+  },
+  setCurrentMeals(results) {
+    dispatch({type: 'SET_MEALS', payload: results})
   }
 })
 

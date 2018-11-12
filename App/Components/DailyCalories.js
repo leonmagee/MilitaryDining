@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {variables} from '../Styles/Variables'
 import {defaults} from '../Styles/Defaults'
-import {dateString, dateStringName} from './HelperFunctions'
+import {dateString, dateStringName, removeQuotes} from './HelperFunctions'
 
 import {
   View,
@@ -12,6 +12,7 @@ import {
   TouchableHighlight,
   AsyncStorage,
   Animated,
+  ScrollView
 } from 'react-native'
 
 const styles = StyleSheet.create({
@@ -56,17 +57,53 @@ class DailyCalories extends Component {
 
   }
 
-  componentDidMount() {
+  // componentDidMount() {
 
-    const eatenItemsArray = []
+  //   const eatenItemsArray = []
 
-      AsyncStorage.getItem('@CurrentEatsArray').then((value) => {
+  //     AsyncStorage.getItem('@CurrentEatsArray').then((value) => {
 
-      if (value) {
+  //     if (value) {
 
-        let eatenItems = JSON.parse(value)
+  //       let eatenItems = JSON.parse(value)
 
-        eatenItems.map((item) => {
+  //       eatenItems.map((item) => {
+
+  //           const currentDate = dateString()
+
+  //           if (item.date === currentDate) {
+
+  //             eatenItemsArray.push({
+  //               'meal': item.meal,
+  //               'id': item.id,
+  //               'name': item.messHallName,
+  //               'day': item.day,
+  //               'foodName': item.name,
+  //               'cals': item.cals
+  //             })
+  //         }
+  //       })
+
+  //       this.setState({
+  //         eatenFoods: eatenItemsArray
+  //       })
+
+
+  //     }
+  //   })
+
+
+
+  // }
+
+
+  render() {
+
+    if(this.props.currentMeals) {
+
+        var eatenItemsArray = []
+
+        this.props.currentMeals.map((item) => {
 
             const currentDate = dateString()
 
@@ -82,33 +119,35 @@ class DailyCalories extends Component {
               })
           }
         })
-
-        this.setState({
-          eatenFoods: eatenItemsArray
-        })
-
-
+      } else {
+        var eatenItemsArray = false
       }
-    })
-  }
+
+        // this.setState({
+        //   eatenFoods: eatenItemsArray
+        // })
 
 
-  render() {
-    
+
     const headerDate = dateStringName()
 
-    const eatenItemsElement = this.state.eatenFoods.map((item, key) => {
+    if (eatenItemsArray) {
+
+    var eatenItemsElement = eatenItemsArray.map((item, key) => {
       return (
           <View key={key} style={styles.foodItemWrap}>
             <Text>Meal: {item.meal}</Text>
             <Text>ID: {item.id}</Text>
             <Text>Day: {item.day}</Text>
             <Text>Mess Hall: {item.name}</Text>
-            <Text>Name: {item.foodName}</Text>
+            <Text>Name: {removeQuotes(item.foodName)}</Text>
             <Text>Cals: {item.cals}</Text>
           </View>
         )
     })
+  } else {
+    var eatenItemsElement = <View></View>
+  }
 
     return (
       <View style={defaults.defaultMainWrap}>
@@ -117,7 +156,7 @@ class DailyCalories extends Component {
           <Text style={defaults.defaultTitle}>Daily Calorie Intake</Text>
         </View>
 
-        <View style={styles.innerWrap}>
+        <ScrollView style={styles.innerWrap}>
 
           <View style={styles.dateTitleWrap}>
             <Text style={styles.dateTitle}>{headerDate}</Text>
@@ -129,7 +168,7 @@ class DailyCalories extends Component {
 
           <Text>Here are your total calories: {this.state.totalCals}</Text>
 
-        </View>
+        </ScrollView>
       </View>
     )
   }
@@ -138,12 +177,10 @@ class DailyCalories extends Component {
 // might need action to remove food?
 // mapActionsToProps = (dispatch) => ({
 //   setCurrentFavorites(results) {
-//     dispatch({type: 'SET_FAVORITES', payload: results})
+//     dispatch({type: 'SET_MEALS', payload: results})
 //   }
 // })
 
-mapStateToProps = (state) => ({restData: state.restMenuItemData, currentFavorites: state.currentFavorites})
+mapStateToProps = (state) => ({currentMeals: state.currentMeals})
 
 module.exports = connect(mapStateToProps)(DailyCalories)
-
-//module.exports = DailyCalories
