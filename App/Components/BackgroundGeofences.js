@@ -104,6 +104,25 @@ class BackgroundGeofences extends Component {
     })
 
 
+    AsyncStorage.getItem('@UserDailyCalories').then((value) => {
+
+      if (value) {
+
+        var currentValue = parseInt(value)
+
+      } else {
+
+        var currentValue = '. . .'
+      }
+
+      this.props.setDailyCalories(currentValue)
+
+    })
+
+
+    
+
+
 
 
 
@@ -189,7 +208,10 @@ mapActionsToProps = (dispatch) => ({
   },
   setCurrentMeals(results) {
     dispatch({type: 'SET_MEALS', payload: results})
-  }
+  },
+  setDailyCalories(results) {
+    dispatch({type: 'SET_DAILY_CALORIES', payload: results})
+  },
 })
 
 module.exports = connect(null, mapActionsToProps)(BackgroundGeofences)

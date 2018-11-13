@@ -10,6 +10,7 @@ import {restDataReducer} from './restDataReducer'
 import {restMenuItemDataReducer} from './restMenuItemDataReducer'
 import {currentFavoritesReducer} from './currentFavoritesReducer'
 import {currentMealsReducer} from './currentMealsReducer'
+import {dailyCaloriesReducer} from './dailyCaloriesReducer'
 
 /**
  * Combine Reducers
@@ -21,4 +22,5 @@ export const reducer = combineReducers({
     restMenuItemData: restMenuItemDataReducer,
     currentFavorites: currentFavoritesReducer,
     currentMeals: currentMealsReducer,
+    dailyCalories: dailyCaloriesReducer,
 })

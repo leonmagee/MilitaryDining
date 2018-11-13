@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {connect} from 'react-redux'
 import {Dropdown} from 'react-native-material-dropdown'
 import {CalorieCounter} from '../Math/Calculator'
 import {variables} from '../Styles/Variables'
@@ -137,6 +138,9 @@ class Settings extends Component {
       updatedOpacity: new Animated.Value(0)
     }
 
+    console.log('PROPZ')
+    console.log(props)
+
     //AsyncStorage.clear()
 
     this.getUserName()
@@ -150,6 +154,12 @@ class Settings extends Component {
   }
 
   processUpdate() {
+
+    /**
+    * get the current daily calories to consume here and add it into redux
+    * use that value to output
+    */
+
     this.saveUserName(this.state.name)
     this.saveUserRank(this.state.rank)
     this.saveUserWeight(this.state.weight)
@@ -172,6 +182,29 @@ class Settings extends Component {
         }).start()
       }, 1300)
     })
+
+
+    if (this.state.weight && this.state.height_feet && this.state.height_inches && this.state.gender && this.state.age && this.state.activity) {
+
+      const currentAge = parseInt(this.state.age)
+      const currentHeightFeet = parseInt(this.state.height_feet)
+      const currentHeightInches = parseInt(this.state.height_inches)
+      const currentWeight = parseInt(this.state.weight)
+      const currentGender = this.state.gender
+      const currentActivity = this.state.activity
+
+      var dailyCalories = CalorieCounter(currentAge, currentHeightFeet, currentHeightInches, currentWeight, currentGender, currentActivity)
+    
+      this.props.setDailyCalories(dailyCalories)
+      const dailyCaloriesString = dailyCalories.toString()
+      this.saveDailyCalories(dailyCaloriesString)
+      //console.log('new calz tester')
+      //console.log(dailyCalories)
+    }
+
+
+
+
   }
 
   saveUserName(value) {
@@ -197,6 +230,9 @@ class Settings extends Component {
   }
   saveUserActivity(value) {
     AsyncStorage.setItem('@UserActivity', value)
+  }
+  saveDailyCalories(value) {
+    AsyncStorage.setItem('@UserDailyCalories', value)
   }
 
   getUserName() {
@@ -258,18 +294,20 @@ class Settings extends Component {
 
   render() {
 
-    var dailyCalories = '. . .'
-    if (this.state.weight && this.state.height_feet && this.state.height_inches && this.state.gender && this.state.age && this.state.activity) {
+    // var dailyCalories = '. . .'
+    // if (this.state.weight && this.state.height_feet && this.state.height_inches && this.state.gender && this.state.age && this.state.activity) {
 
-      const currentAge = parseInt(this.state.age)
-      const currentHeightFeet = parseInt(this.state.height_feet)
-      const currentHeightInches = parseInt(this.state.height_inches)
-      const currentWeight = parseInt(this.state.weight)
-      const currentGender = this.state.gender
-      const currentActivity = this.state.activity
+    //   const currentAge = parseInt(this.state.age)
+    //   const currentHeightFeet = parseInt(this.state.height_feet)
+    //   const currentHeightInches = parseInt(this.state.height_inches)
+    //   const currentWeight = parseInt(this.state.weight)
+    //   const currentGender = this.state.gender
+    //   const currentActivity = this.state.activity
 
-      var dailyCalories = CalorieCounter(currentAge, currentHeightFeet, currentHeightInches, currentWeight, currentGender, currentActivity)
-    }
+    //   var dailyCalories = CalorieCounter(currentAge, currentHeightFeet, currentHeightInches, currentWeight, currentGender, currentActivity)
+    // }
+
+    //dailyCalories
 
     let height_feet = [
       {
@@ -407,7 +445,7 @@ class Settings extends Component {
 
         <View style={styles.caloriesWrap}>
           <Text style={styles.inputLabel}>Recommended Daily Calorie Intake</Text>
-          <Text style={styles.caloriesText}>{dailyCalories}</Text>
+          <Text style={styles.caloriesText}>{this.props.dailyCalories}</Text>
         </View>
 
         <View style={styles.multipleInputWrap}>
@@ -473,4 +511,18 @@ class Settings extends Component {
   }
 }
 
-module.exports = Settings
+//module.exports = Settings
+
+mapActionsToProps = (dispatch) => ({
+  setDailyCalories(results) {
+    dispatch({type: 'SET_DAILY_CALORIES', payload: results})
+  },
+})
+
+mapStateToProps = (state) => ({dailyCalories: state.dailyCaloriess})
+
+module.exports = connect(mapStateToProps, mapActionsToProps)(Settings)
+
+
+
+
