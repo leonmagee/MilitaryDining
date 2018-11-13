@@ -519,7 +519,7 @@ mapActionsToProps = (dispatch) => ({
   },
 })
 
-mapStateToProps = (state) => ({dailyCalories: state.dailyCaloriess})
+mapStateToProps = (state) => ({dailyCalories: state.dailyCalories})
 
 module.exports = connect(mapStateToProps, mapActionsToProps)(Settings)
 

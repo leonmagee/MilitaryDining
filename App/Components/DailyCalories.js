@@ -170,12 +170,16 @@ class DailyCalories extends Component {
         <Text style={styles.totalCalsText}>{totalCals} Calories</Text>
       </View>
 
+      <View>
+        <Text>Total Daily Calories: {this.props.dailyCalories}</Text>
+      </View>
+
       </ScrollView>
       </View>
       )
   }
 }
 
-mapStateToProps = (state) => ({currentMeals: state.currentMeals})
+mapStateToProps = (state) => ({currentMeals: state.currentMeals, dailyCalories: state.dailyCalories})
 
 module.exports = connect(mapStateToProps)(DailyCalories)
