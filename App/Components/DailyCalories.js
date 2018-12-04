@@ -18,14 +18,16 @@ import {
 const styles = StyleSheet.create({
   innerWrap: {
     backgroundColor: variables.backgroundWhite,
-    padding: 10,
+    paddingHorizontal: 10,
+    paddingBottom: 10,
+    paddingTop: 13, 
     flex: 1,
   },
   dateTitleWrap: {
     alignItems: 'center',
   },
   dateTitle: {
-    fontSize: 23,
+    fontSize: 19,
     fontFamily: 'BlackOpsOne-Regular'
   },
   foodItemWrap: {
@@ -55,7 +57,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   tableWrap: {
-    paddingTop: 30,
+    paddingTop: 17,
   },
   tableHeader: {
     display: 'flex',
@@ -65,7 +67,7 @@ const styles = StyleSheet.create({
   },
   tableHeaderText: {
     flex: 1,
-    paddingVertical: 5,
+    paddingBottom: 5,
     paddingRight: 5,
     fontSize: 12,
     fontFamily: 'BlackOpsOne-Regular',
@@ -79,16 +81,35 @@ const styles = StyleSheet.create({
   tableHeader3: {
     flex: 2,
   },
-  totalCalsWrap: {
-    backgroundColor: variables.brandPrimary,
-    paddingVertical: 5,
+  recommendedCalsWrap: {
+    backgroundColor: '#333',
+    paddingVertical: 10,
     marginTop: 15,
+    borderTopWidth: 1,
+    borderTopColor: '#2E2E2E',
+    borderBottomWidth: 1,
+    borderBottomColor: '#2E2E2E',
+  },
+  recommendedCalsText: {
+    fontSize: 14,
+    color: '#FFF',
+    textAlign: 'center',
+    fontFamily: 'BlackOpsOne-Regular',
+    textShadowColor: 'rgba(0, 0, 0, 0.05)',
+    textShadowOffset: {width: -1, height: 1},
+    textShadowRadius: 1
+  },
+  totalCalsWrap: {
+    paddingVertical: 5,
   },
   totalCalsText: {
     fontSize: 30,
     color: '#FFF',
     textAlign: 'center',
     fontFamily: 'BlackOpsOne-Regular',
+    textShadowColor: 'rgba(0, 0, 0, 0.05)',
+    textShadowOffset: {width: -1, height: 1},
+    textShadowRadius: 1
   }
 })
 
@@ -136,9 +157,21 @@ class DailyCalories extends Component {
                 )
             }
           })
+
+      if(totalCals > this.props.dailyCalories) {
+        var calsBackgroundColor = variables.brandSecond
+      } else if (totalCals > (this.props.dailyCalories - 500)) {
+        var calsBackgroundColor = variables.brandSeventh
+      } else {
+        var calsBackgroundColor = variables.brandPrimary
+      }
+
+
+
     } else {
 
       var eatenItemsElement = <View></View>
+      var calsBackgroundColor = variables.brandPrimary
     }
 
     const headerDate = dateStringName()
@@ -148,6 +181,13 @@ class DailyCalories extends Component {
 
       <View style={defaults.defaultTitleWrap}>
       <Text style={defaults.defaultTitle}>Daily Calorie Intake</Text>
+      </View>
+
+            <View style={styles.recommendedCalsWrap}>
+        <Text style={styles.recommendedCalsText}>Recommended Daily Calories: {this.props.dailyCalories}</Text>
+      </View>
+      <View style={[styles.totalCalsWrap, {backgroundColor: calsBackgroundColor}]}>
+        <Text style={styles.totalCalsText}>{totalCals} Calories</Text>
       </View>
 
       <ScrollView style={styles.innerWrap}>
@@ -166,13 +206,8 @@ class DailyCalories extends Component {
       {eatenItemsElement}
       </View>
 
-      <View style={styles.totalCalsWrap}>
-        <Text style={styles.totalCalsText}>{totalCals} Calories</Text>
-      </View>
 
-      <View>
-        <Text>Total Daily Calories: {this.props.dailyCalories}</Text>
-      </View>
+
 
       </ScrollView>
       </View>

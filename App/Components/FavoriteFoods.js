@@ -181,7 +181,7 @@ class FavoriteFoods extends Component {
 
 							var detailSection = 
 							<View style={styles.foodDetais}>
-							<FoodDetail label="Calories" value={food.cal} bg={variables.brandPrimary}/>
+							<FoodDetail label="Calories" value={food.cal} bg={'red'}/>
 							<FoodDetail label="Carbs" value={food.carb} bg={variables.brandPrimary}/>
 							<FoodDetail label="Fat" value={food.fat} bg={variables.brandPrimary}/>
 							<FoodDetail label="Protein" value={food.pro} bg={variables.brandPrimary}/>

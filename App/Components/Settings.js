@@ -403,6 +403,7 @@ class Settings extends Component {
       }
     ]
 
+    // this should be globally accessible? we need to access rank on other parts of the site?
     let rank = [
       {
         value: '1',

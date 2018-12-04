@@ -136,7 +136,6 @@ class MessHall extends Component {
           console.log(res) 
       })
 
-
       // console.log('rating info')
       // console.log(rating)
       // console.log(id)
