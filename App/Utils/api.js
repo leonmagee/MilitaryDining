@@ -9,6 +9,10 @@ var api = {
 		const menu_items_url = 'https://militarydining.wpengine.com/wp-json/md/menu_items'
 		return fetch(menu_items_url, {headers: {'Cache-Control': 'no-cache'}}).then((res) => res.json())
 	},
+	getRankStats() {
+		const rank_stats_url = 'https://militarydining.wpengine.com/wp-json/md/rank_stats'
+		return fetch(rank_stats_url, {headers: {'Cache-Control': 'no-cache'}}).then((res) => res.json())
+	},
 	// createNewUser() {
 	// 	const new_user_url = 'https://militarydining.wpengine.com/wp-json/md/create_user/id-sldfjsdf-skdfjsdf/Corporalz'
 	// 	return fetch(new_user_url, {headers: {'Cache-Control': 'no-cache'}}).then((res) => res.json())
