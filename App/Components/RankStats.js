@@ -4,13 +4,19 @@ import {
 	Text,
 	StyleSheet,
 	TouchableHighlight,
-	AsyncStorage
+	AsyncStorage,
+	Animated,
+	Easing,
+	Dimensions
 } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 import {defaults} from '../Styles/Defaults'
 import {variables} from '../Styles/Variables'
 import api from '../Utils/api'
 import uniqueId from 'react-native-unique-id'
+
+let {width, height} = Dimensions.get('window')
+//height = height - 50; // make space for bottom menu bar?
 
 
 const styles = StyleSheet.create({
@@ -51,72 +57,98 @@ const styles = StyleSheet.create({
 	},
 	barItem: {
 		width: 80,
-		height: 300,
+		//height: 300,
 		backgroundColor: 'rgba(255,255,255,0.7)',
 		marginHorizontal: 15,	
+	},
+	buttonWrap: {
+		height: 60,
+		alignItems: 'center',
+		justifyContent: 'center',
+		backgroundColor: 'tomato'
+	},
+	buttonText: {
+		fontSize: 35,
+		fontWeight: 'bold',
+		color: '#FFF'
 	}
 })
 
 class RankStats extends Component {
 
-	constructor(props) {
-		super(props)
+	constructor() {
+		super()
 
 		this.state = {
-			rankStats: []
+			//rankStats: [],
+			barHeight: new Animated.Value(0)
 		}
 	}
 
-	componentWillMount() {
-		api.getRankStats().then(response => {
-			console.log('will mount', response)
-			this.setState({
-				rankStats: response
-			})
-		})
-	}
+	// componentWillMount() {
+	// 	api.getRankStats().then(response => {
+	// 		console.log('will mount', response)
+	// 		this.setState({
+	// 			rankStats: response
+	// 		})
+	// 	})
+	// }
 
-	testMethod() {
-		// get current user id and rank? From async storage?
-		//console.log('button was pressed')
-		/**
-		* Should we pass rank ID or rank string to api? I suppose I could have the same array of
-		* rank values on the WP site and inside the app? Or I could be pulling all possible
-		* ranks from the WP site? It probably doesn't matter - I think having matching arrays
-		* is fine for now
-		*/
+	// componentDidMount() {
 
-		AsyncStorage.getItem('@UserRank').then((rank) => {
-			if (rank) {
-				uniqueId((error, id) => {
-					if (error) return console.error(error)
-						console.log(id)
-					api.createNewUser(id, rank)
-				})
-			}
-		}).done()
+	// 	Animated.timing(this.state.barHeight, {
+	//       toValue: 300,
+	//       duration: 1300, // use timing for animation
+	//       easing: Easing.linear
+	//     }).start()
+	// }
 
-		
-	}
+	// triggerAnimation() {
 
-	getRankStats() {
+	// }
 
+	// getUserRank() {
+
+	// 	AsyncStorage.getItem('@UserRank').then((rank) => {
+	// 		if (rank) {
+	// 			uniqueId((error, id) => {
+	// 				if (error) return console.error(error)
+	// 					console.log(id)
+	// 				api.createNewUser(id, rank)
+	// 			})
+	// 		}
+	// 	}).done()
+	// }
+
+	callAnimation() {
+		console.log('button pressed')
+		Animated.timing(this.state.barHeight, {
+	      toValue: 300,
+	      duration: 500, // use timing for animation
+	      easing: Easing.linear
+	    }).start()
 	}
 
 	render() {
 
-		const rankStats = this.state.rankStats.map((item, key) => {
-			return(
-				<Text key={key}>Rank: {item.rank} - Average: {item.average}</Text>
-				)
-		})
+		let {barHeight} = this.state
 
+		// const rankStats = this.state.rankStats.map((item, key) => {
+		// 	return(
+		// 		<Text key={key}>Rank: {item.rank} - Average: {item.average}</Text>
+		// 		)
+		// })
 
 		return(
 
 			<View style={defaults.defaultMainWrap}>
 				<View style={defaults.defaultTitleWrap}>
 					<Text style={defaults.defaultTitle}>Ranked Stats</Text>
+				</View>
+				<View style={styles.buttonWrap}>
+					<TouchableHighlight onPress={() => this.callAnimation()}>
+						<Text>Press Me</Text>
+					</TouchableHighlight>
 				</View>
 				<View style={styles.innerWrap}>
 {/*					<Text style={styles.textItem}>Rank Stats</Text>
@@ -145,9 +177,9 @@ class RankStats extends Component {
 							<Text style={styles.sidebarText}>10%</Text>
 						</View>
 						<View style={styles.barWrap}>
-							<View style={styles.barItem}></View>
-							<View style={styles.barItem}></View>
-							<View style={styles.barItem}></View>
+							<Animated.View style={[styles.barItem, {height: barHeight}]}></Animated.View>
+							<Animated.View style={styles.barItem}></Animated.View>
+							<Animated.View style={styles.barItem}></Animated.View>
 						</View>
 						</LinearGradient>
 					</View>

@@ -12,7 +12,8 @@ import MenuPage from './MenuPage'
 import FavoriteFoods from './FavoriteFoods'
 import DailyCalories from './DailyCalories'
 import RankStats from './RankStats'
-import ApiTester from './ApiTester'
+//import ApiTester from './ApiTester'
+//import App from './AnimationTest'
 //import AreaChart from './AreaChart'
 import {variables} from '../Styles/Variables'
 
@@ -91,6 +92,7 @@ export const Tabs = TabNavigator({
     Settings: {
         //screen: Settings,
         screen: RankStats,
+        //screen: App,
         navigationOptions: {
             tabBarLabel: 'PROFILE',
             tabBarIcon: ({tintColor}) => <Icon name="directions-run" size={30} color={tintColor}/>

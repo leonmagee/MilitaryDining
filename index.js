@@ -4,6 +4,8 @@ import {Provider} from 'react-redux'
 import store from './App/Redux/store'
 import {Tabs} from './App/Components/Router'
 import BackgroundGeofences from './App/Components/BackgroundGeofences'
+//import RankStats from './App/Components/RankStats'
+//import App from './App/Components/AnimationTest'
 //import uniqueId from 'react-native-unique-id'
 
 export default class MilitaryDining extends Component {
