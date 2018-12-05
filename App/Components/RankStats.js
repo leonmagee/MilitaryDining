@@ -6,20 +6,54 @@ import {
 	TouchableHighlight,
 	AsyncStorage
 } from 'react-native'
+import LinearGradient from 'react-native-linear-gradient'
+import {defaults} from '../Styles/Defaults'
+import {variables} from '../Styles/Variables'
 import api from '../Utils/api'
 import uniqueId from 'react-native-unique-id'
 
 
 const styles = StyleSheet.create({
-	mainWrap: {
-		backgroundColor: '#FFF',
+	innerWrap: {
+		backgroundColor: variables.backgroundWhite,
 		alignItems: 'center',
-		paddingVertical: 40,
+		flex: 1,
+		flexDirection: 'row',
+		flexWrap: 'wrap',
 	},
-	textItem: {
-		fontSize: 28,
+	gradientWrap: {
+		flex: 1,
+		backgroundColor: 'transparent',
+		//alignItems: 'center',
+	},
+	gradientElement: {
+		flex: 1,
+		flexDirection: 'row'
+	},
+	sidebar: {
+		//width: 300,
+		width: 60,
+		alignItems: 'center',
+		justifyContent: 'flex-end',
+		paddingVertical: 30,
+		//backgroundColor: 'blue',
+	},
+	sidebarText: {
+		color: '#FFF',
 		fontWeight: 'bold',
-		color: 'darkred'
+		marginVertical: 10,
+	},
+	barWrap: {
+		flex: 1,
+		flexDirection: 'row',
+		alignItems: 'flex-end',
+		justifyContent: 'center',
+	},
+	barItem: {
+		width: 80,
+		height: 300,
+		backgroundColor: 'rgba(255,255,255,0.7)',
+		marginHorizontal: 15,	
 	}
 })
 
@@ -79,14 +113,45 @@ class RankStats extends Component {
 
 
 		return(
-			<View style={styles.mainWrap}>
-			<Text style={styles.textItem}>Rank Stats</Text>
-			<TouchableHighlight onPress={() => this.testMethod()}>
-			<Text>Button Name</Text>
-			</TouchableHighlight>
-			<View>
-				{rankStats}
-			</View>
+
+			<View style={defaults.defaultMainWrap}>
+				<View style={defaults.defaultTitleWrap}>
+					<Text style={defaults.defaultTitle}>Ranked Stats</Text>
+				</View>
+				<View style={styles.innerWrap}>
+{/*					<Text style={styles.textItem}>Rank Stats</Text>
+					<TouchableHighlight onPress={() => this.testMethod()}>
+						<Text>Button Name</Text>
+					</TouchableHighlight>
+					<View>
+					{rankStats}
+					</View>*/}
+					<View style={styles.gradientWrap}>
+						<LinearGradient 
+						start={{x: 0.0, y: 0.10}} end={{x: 0.6, y: 1.0}}
+						colors={[variables.brandSecond, variables.brandEighth]} 
+						style={styles.gradientElement}
+						>
+						<View style={styles.sidebar}>
+							<Text style={styles.sidebarText}>100%</Text>
+							<Text style={styles.sidebarText}>90%</Text>
+							<Text style={styles.sidebarText}>80%</Text>
+							<Text style={styles.sidebarText}>70%</Text>
+							<Text style={styles.sidebarText}>60%</Text>
+							<Text style={styles.sidebarText}>50%</Text>
+							<Text style={styles.sidebarText}>40%</Text>
+							<Text style={styles.sidebarText}>30%</Text>
+							<Text style={styles.sidebarText}>20%</Text>
+							<Text style={styles.sidebarText}>10%</Text>
+						</View>
+						<View style={styles.barWrap}>
+							<View style={styles.barItem}></View>
+							<View style={styles.barItem}></View>
+							<View style={styles.barItem}></View>
+						</View>
+						</LinearGradient>
+					</View>
+				</View>
 			</View>
 			)
 	}

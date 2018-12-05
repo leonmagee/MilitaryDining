@@ -13,6 +13,7 @@ import FavoriteFoods from './FavoriteFoods'
 import DailyCalories from './DailyCalories'
 import RankStats from './RankStats'
 import ApiTester from './ApiTester'
+//import AreaChart from './AreaChart'
 import {variables} from '../Styles/Variables'
 
 const navigationOptions = ({navigation}) => ({title: `${navigation.state.params.name}`})

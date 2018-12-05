@@ -46,7 +46,7 @@
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>We will let you know when you are close to a mess hall, and show your position on a map.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>NSMotionUsageDescription</key>
 	<string>This app will function in the background to monitor your proximity to mess halls. </string>
 	<key>UIAppFonts</key>

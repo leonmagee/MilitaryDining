@@ -7,6 +7,7 @@ export const variables = {
   brandFifth: '#0A100D', //dark
   brandSixth: '#22AAA1', //aqua blue
   brandSeventh: '#E8C547', // gold
+  brandEighth: '#76A678', // lighter green
   // healthGreen: '#A6C36F',
   // healthYellow: '#A6C36F',
   // healthRed: '#A6C36F',
