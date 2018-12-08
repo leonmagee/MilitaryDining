@@ -1,3 +1,34 @@
+export const rank = [
+  {
+    value: '1',
+    label: 'N/A'
+  },
+  {
+    value: '2',
+    label: 'Private'
+  },
+  {
+    value: '3',
+    label: 'Corporal'
+  },
+  {
+    value: '4',
+    label: 'Major'
+  },
+  {
+    value: '5',
+    label: 'Captain'
+  },
+  {
+    value: '6',
+    label: 'General'
+  },
+
+]
+
+
+
+
 // const SampleData = [
 //   {
 //     name: 'H 3120 Male Recruit',

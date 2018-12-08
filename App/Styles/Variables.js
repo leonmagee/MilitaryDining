@@ -12,5 +12,6 @@ export const variables = {
   // healthYellow: '#A6C36F',
   // healthRed: '#A6C36F',
   backgroundWhite: '#F4F4F4',
+  mainFont: 'BlackOpsOne-Regular',
   //gradient: ['#56CCF2','#2F80ED'],
 }

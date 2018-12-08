@@ -4,6 +4,7 @@ import {Dropdown} from 'react-native-material-dropdown'
 import {CalorieCounter} from '../Math/Calculator'
 import {variables} from '../Styles/Variables'
 import {defaults} from '../Styles/Defaults'
+import {rank} from '../Data/Data'
 
 import {
   View,
@@ -404,28 +405,28 @@ class Settings extends Component {
     ]
 
     // this should be globally accessible? we need to access rank on other parts of the site?
-    let rank = [
-      {
-        value: '1',
-        label: 'N/A'
-      },
-      {
-        value: '2',
-        label: 'Private'
-      },
-      {
-        value: '3',
-        label: 'Corporal'
-      },
-      {
-        value: '4',
-        label: 'Major'
-      },
-      {
-        value: '5',
-        label: 'Captain'
-      },
-    ]
+    // let rank = [
+    //   {
+    //     value: '1',
+    //     label: 'N/A'
+    //   },
+    //   {
+    //     value: '2',
+    //     label: 'Private'
+    //   },
+    //   {
+    //     value: '3',
+    //     label: 'Corporal'
+    //   },
+    //   {
+    //     value: '4',
+    //     label: 'Major'
+    //   },
+    //   {
+    //     value: '5',
+    //     label: 'Captain'
+    //   },
+    // ]
 
     if (this.state.updated === true) {
       var settingsUpdated = <Animated.View style={[styles.settingsUpdatedWrap, {opacity: this.state.updatedOpacity}]}>

@@ -14,120 +14,75 @@ import {defaults} from '../Styles/Defaults'
 import {variables} from '../Styles/Variables'
 import api from '../Utils/api'
 import uniqueId from 'react-native-unique-id'
-import {rank} from '../Data/Data'
-
-const LinearAnimate = Animated.createAnimatedComponent(LinearGradient)
 
 let {width, height} = Dimensions.get('window')
 let boxHeight = (height/23)
 let barHeight = (boxHeight * 10)
-
-const greenGradient = [variables.brandEighth, variables.brandPrimary]
-const redGradient = [variables.brandSecond, variables.brandSecond]
-const yellowGradient = [variables.brandSeventh, variables.brandSeventh]
-//console.log(boxHeight)
+console.log(boxHeight)
 //height = height - 50; // make space for bottom menu bar?
 
 
 const styles = StyleSheet.create({
 	innerWrap: {
 		backgroundColor: variables.backgroundWhite,
-		alignItems: 'flex-end',
-		//justifyContent: 'flex-end',
+		alignItems: 'center',
 		flex: 1,
 		flexDirection: 'row',
 		flexWrap: 'wrap',
-		borderBottomColor: '#444',
-		borderBottomWidth: 1,
 	},
-	mainTextWrap: {
-		backgroundColor: variables.backgroundWhite,
-		paddingVertical: 30,
-		alignItems: 'center',
+	gradientWrap: {
+		flex: 1,
+		backgroundColor: 'transparent',
+		//alignItems: 'center',
 	},
-	mainText: {
-		fontSize: 29,
-		color: '#333',
-		fontFamily: variables.mainFont,
-		textAlign: 'center'
+	gradientElement: {
+		flex: 1,
+		flexDirection: 'row'
 	},
-	gradientText: {
-		color: '#FFF',
-		//fontWeight: 'bold',
-		fontFamily: variables.mainFont,
-		marginTop: 15,
-		fontSize: 16,
-		textAlign: 'center',
-	},
-	// gradientWrap: {
-	// 	flex: 1,
-	// 	backgroundColor: 'transparent',
-	// 	//alignItems: 'center',
-	// },
-	// gradientElement: {
-	// 	flex: 1,
-	// 	flexDirection: 'row'
-	// },
 	sidebar: {
 		//width: 300,
-		width: (width / 7),
+		width: 60,
 		alignItems: 'center',
 		justifyContent: 'flex-end',
-		marginBottom: 30,
 		//paddingVertical: 30,
 		//backgroundColor: 'blue',
 	},
 	sidebarBox: {
 		height: boxHeight,
-		//width: 80,
-		//marginLeft: 20,
+		width: 40,
+		marginLeft: 20,
 		alignItems: 'center',
 		justifyContent: 'center',
-		borderTopWidth: 1,
-		//borderTopColor: 'rgba(255,255,255,0.7)',
-		borderTopColor: '#AAA',
+		borderTopWidth: 2,
+		borderTopColor: 'rgba(255,255,255,0.7)',
 	},
 	sidebarText: {
-		color: '#444',
+		color: '#FFF',
 		fontWeight: 'bold',
 		//marginVertical: 10,
 	},
 	barWrap: {
 		flex: 1,
-		width: ( (width / 7 ) * 6 ),
 		flexDirection: 'row',
 		alignItems: 'flex-end',
-		justifyContent: 'space-around',
+		justifyContent: 'center',
 	},
 	barItem: {
-		width: ( width / 5 ),
+		width: 80,
 		//height: 300,
 		backgroundColor: 'rgba(255,22,255,0.7)',
-		//marginHorizontal: 15,	
+		marginHorizontal: 15,	
 	},
 	buttonWrap: {
 		height: 60,
 		alignItems: 'center',
 		justifyContent: 'center',
-		backgroundColor: 'tomato',
+		backgroundColor: 'tomato'
 	},
 	buttonText: {
 		fontSize: 35,
 		fontWeight: 'bold',
-		color: '#FFF',
-	},
-	graphFooter: {
-		flexDirection: 'row',
-		justifyContent: 'space-around',
-	},
-	graphFooterItem: {
-		//paddingVertical: 5,
-		height: 30,
-		justifyContent: 'center',
-	},
-	graphFooterText: {
-		fontFamily: variables.mainFont,
-		color: '#333',
+		color: '#FFF'
 	}
 })
 
@@ -138,25 +93,9 @@ class RankStats extends Component {
 
 		this.state = {
 			//rankStats: [],
-			barHeight: new Animated.Value(0),
-			rank: '- - -'
+			barHeight: new Animated.Value(0)
 		}
 	}
-
-  componentDidMount() {
-    AsyncStorage.getItem('@UserRank').then((value) => {
-      if (value) {
-      	const newRank = rank[value - 1].label
-        this.setState({rank: newRank})
-      }
-    }).done()
-	api.getRankStats().then(response => {
-		console.log('will mount', response)
-		this.setState({
-			rankStats: response
-		})
-	})
-  }
 
 	// componentWillMount() {
 	// 	api.getRankStats().then(response => {
@@ -223,19 +162,20 @@ class RankStats extends Component {
 						<Text>Press Me</Text>
 					</TouchableHighlight>
 				</View>
-				<View style={styles.mainTextWrap}>
-					<Text style={styles.mainText}>
-					Recommended Daily Calories Percent
-					</Text>
-				</View>
 				<View style={styles.innerWrap}>
-	{/*					<Text style={styles.textItem}>Rank Stats</Text>
+{/*					<Text style={styles.textItem}>Rank Stats</Text>
 					<TouchableHighlight onPress={() => this.testMethod()}>
 						<Text>Button Name</Text>
 					</TouchableHighlight>
 					<View>
 					{rankStats}
 					</View>*/}
+					<View style={styles.gradientWrap}>
+						<LinearGradient 
+						start={{x: 0.0, y: 0.10}} end={{x: 0.6, y: 1.0}}
+						colors={[variables.brandSecond, variables.brandEighth]} 
+						style={styles.gradientElement}
+						>
 						<View style={styles.sidebar}>
 							<View style={styles.sidebarBox}>
 								<Text style={styles.sidebarText}>100%</Text>
@@ -268,30 +208,13 @@ class RankStats extends Component {
 								<Text style={styles.sidebarText}>10%</Text>
 							</View>
 						</View>
-						<View style={styles.barWrapOuter}>
-							<View style={styles.barWrap}>
-								<LinearAnimate colors={greenGradient} style={[styles.barItem, {height: barHeight}]}>
-									<Text style={styles.gradientText}>100%</Text>
-								</LinearAnimate>
-								<LinearAnimate colors={yellowGradient} style={[styles.barItem, {height: barHeight}]}>
-									<Text style={styles.gradientText}>100%</Text>
-								</LinearAnimate>
-								<LinearAnimate colors={redGradient} style={[styles.barItem, {height: barHeight}]}>
-									<Text style={styles.gradientText}>100%</Text>
-								</LinearAnimate>
-							</View>
-							<View style={styles.graphFooter}>
-								<View style={styles.graphFooterItem}>
-									<Text style={styles.graphFooterText}>Your Stats</Text>
-								</View>
-								<View style={styles.graphFooterItem}>
-									<Text style={styles.graphFooterText}>All {this.state.rank}s</Text>
-								</View>
-								<View style={styles.graphFooterItem}>
-									<Text style={styles.graphFooterText}>All Soldiers</Text>
-								</View>
-							</View>
+						<View style={styles.barWrap}>
+							<Animated.View style={[styles.barItem, {height: barHeight}]}></Animated.View>
+							<Animated.View style={styles.barItem}></Animated.View>
+							<Animated.View style={styles.barItem}></Animated.View>
 						</View>
+						</LinearGradient>
+					</View>
 				</View>
 			</View>
 			)

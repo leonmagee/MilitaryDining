@@ -90,8 +90,8 @@ export const Tabs = TabNavigator({
         }
     },
     Settings: {
-        //screen: Settings,
-        screen: RankStats,
+        screen: Settings,
+        //screen: RankStats,
         //screen: App,
         navigationOptions: {
             tabBarLabel: 'PROFILE',
@@ -106,7 +106,8 @@ export const Tabs = TabNavigator({
         }
     },
     Favorites: {
-        screen: FavoriteFoods,
+        //screen: FavoriteFoods,
+        screen: RankStats,
         navigationOptions: {
             tabBarLabel: 'FAVORITES',
             tabBarIcon: ({tintColor}) => <Icon name="heart-outline" type="material-community" size={30} color={tintColor}/>
