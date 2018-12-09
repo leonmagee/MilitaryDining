@@ -20,7 +20,7 @@ const LinearAnimate = Animated.createAnimatedComponent(LinearGradient)
 
 let {width, height} = Dimensions.get('window')
 let boxHeight = (height/23)
-let barHeight = (boxHeight * 10)
+let barHeightOneHundred = (boxHeight * 10)
 
 const greenGradient = [variables.brandEighth, variables.brandPrimary]
 const redGradient = [variables.brandSecond, variables.brandSecond]
@@ -137,9 +137,14 @@ class RankStats extends Component {
 		super()
 
 		this.state = {
-			//rankStats: [],
-			barHeight: new Animated.Value(0),
-			rank: '- - -'
+			rankStats: [],
+			barHeightUser: new Animated.Value(0),
+			barHeightRank: new Animated.Value(0),
+			barHeightAll: new Animated.Value(0),
+			rank: '- - -',
+			userPercent: 0.88,
+			rankPercent: 0.77,
+			allPercent: 0,
 		}
 	}
 
@@ -155,7 +160,13 @@ class RankStats extends Component {
 		this.setState({
 			rankStats: response
 		})
-	})
+	}).done()
+	api.getTotalStats().then(response => {
+		console.log('total stats', response)
+		this.setState({
+			allPercent: response
+		})
+	}).done()
   }
 
 	// componentWillMount() {
@@ -193,10 +204,20 @@ class RankStats extends Component {
 	// 	}).done()
 	// }
 
-	callAnimation() {
+	callAnimation() { // we need different animation for each
 		console.log('button pressed')
-		Animated.timing(this.state.barHeight, {
-	      toValue: barHeight,
+		Animated.timing(this.state.barHeightUser, {
+	      toValue: barHeightOneHundred * this.state.userPercent,
+	      duration: 500, // use timing for animation
+	      easing: Easing.linear
+	    }).start()
+	    Animated.timing(this.state.barHeightRank, {
+	      toValue: barHeightOneHundred * this.state.rankPercent,
+	      duration: 500, // use timing for animation
+	      easing: Easing.linear
+	    }).start()
+	    Animated.timing(this.state.barHeightAll, {
+	      toValue: barHeightOneHundred * this.state.allPercent,
 	      duration: 500, // use timing for animation
 	      easing: Easing.linear
 	    }).start()
@@ -204,7 +225,7 @@ class RankStats extends Component {
 
 	render() {
 
-		let {barHeight} = this.state
+		let {barHeightUser, barHeightRank, barHeightAll} = this.state
 
 		// const rankStats = this.state.rankStats.map((item, key) => {
 		// 	return(
@@ -270,14 +291,14 @@ class RankStats extends Component {
 						</View>
 						<View style={styles.barWrapOuter}>
 							<View style={styles.barWrap}>
-								<LinearAnimate colors={greenGradient} style={[styles.barItem, {height: barHeight}]}>
+								<LinearAnimate colors={greenGradient} style={[styles.barItem, {height: barHeightUser}]}>
 									<Text style={styles.gradientText}>100%</Text>
 								</LinearAnimate>
-								<LinearAnimate colors={yellowGradient} style={[styles.barItem, {height: barHeight}]}>
+								<LinearAnimate colors={yellowGradient} style={[styles.barItem, {height: barHeightRank}]}>
 									<Text style={styles.gradientText}>100%</Text>
 								</LinearAnimate>
-								<LinearAnimate colors={redGradient} style={[styles.barItem, {height: barHeight}]}>
-									<Text style={styles.gradientText}>100%</Text>
+								<LinearAnimate colors={redGradient} style={[styles.barItem, {height: barHeightAll}]}>
+									<Text style={styles.gradientText}>{parseInt(this.state.allPercent * 100)}%</Text>
 								</LinearAnimate>
 							</View>
 							<View style={styles.graphFooter}>
