@@ -13,6 +13,10 @@ var api = {
 		const rank_stats_url = 'https://militarydining.wpengine.com/wp-json/md/rank_stats'
 		return fetch(rank_stats_url, {headers: {'Cache-Control': 'no-cache'}}).then((res) => res.json())
 	},
+	getRankStatsId(id) {
+		const rank_stats_url = 'https://militarydining.wpengine.com/wp-json/md/rank_stats/' + id
+		return fetch(rank_stats_url, {headers: {'Cache-Control': 'no-cache'}}).then((res) => res.json())
+	},
 	getTotalStats() {
 		const rank_stats_url = 'https://militarydining.wpengine.com/wp-json/md/total_stats'
 		return fetch(rank_stats_url, {headers: {'Cache-Control': 'no-cache'}}).then((res) => res.json())

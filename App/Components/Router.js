@@ -64,6 +64,7 @@ const MessHallStack = StackNavigator({
             // right: 0,
             height: 93,
         },
+        //animationEnabled: false,
         headerTransparent: true,
         headerTitleStyle: {
             color: '#FFF',

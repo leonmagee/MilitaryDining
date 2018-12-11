@@ -10,6 +10,7 @@ import {
 	Dimensions
 } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
+//import Transition from 'react-transition-group/Transition'
 import {defaults} from '../Styles/Defaults'
 import {variables} from '../Styles/Variables'
 import api from '../Utils/api'
@@ -22,9 +23,10 @@ let {width, height} = Dimensions.get('window')
 let boxHeight = (height/23)
 let barHeightOneHundred = (boxHeight * 10)
 
-const greenGradient = [variables.brandEighth, variables.brandPrimary]
-const redGradient = [variables.brandSecond, variables.brandSecond]
-const yellowGradient = [variables.brandSeventh, variables.brandSeventh]
+const greenGradient = [variables.brandEighth, variables.brandTwelth]
+const redGradient = [variables.brandSixth, variables.brandEleventh]
+const tomatoGradient = ['#ff7559', '#FC644D']
+const yellowGradient = [variables.brandSeventh, variables.brandTenth]
 //console.log(boxHeight)
 //height = height - 50; // make space for bottom menu bar?
 
@@ -94,13 +96,14 @@ const styles = StyleSheet.create({
 	},
 	barWrap: {
 		flex: 1,
-		width: ( (width / 7 ) * 6 ),
+		width: ( (width / 7 ) * 5 ),
+		marginLeft: ( width / 20 ),
 		flexDirection: 'row',
 		alignItems: 'flex-end',
 		justifyContent: 'space-around',
 	},
 	barItem: {
-		width: ( width / 5 ),
+		width: ( width / 5.5 ),
 		//height: 300,
 		backgroundColor: 'rgba(255,22,255,0.7)',
 		//marginHorizontal: 15,	
@@ -119,6 +122,7 @@ const styles = StyleSheet.create({
 	graphFooter: {
 		flexDirection: 'row',
 		justifyContent: 'space-around',
+		marginLeft: ( width / 20 ),
 	},
 	graphFooterItem: {
 		//paddingVertical: 5,
@@ -143,30 +147,35 @@ class RankStats extends Component {
 			barHeightAll: new Animated.Value(0),
 			rank: '- - -',
 			userPercent: 0.88,
-			rankPercent: 0.77,
+			rankPercent: 0,
 			allPercent: 0,
 		}
 	}
 
   componentDidMount() {
     AsyncStorage.getItem('@UserRank').then((value) => {
-      if (value) {
-      	const newRank = rank[value - 1].label
-        this.setState({rank: newRank})
-      }
+    	if (value) {
+      		const newRank = rank[value - 1].label
+        	this.setState({rank: newRank})
+	        api.getRankStatsId(value).then(response => {
+				this.setState({
+					rankPercent: response
+				})
+			}).done()
+    	}
     }).done()
 	api.getRankStats().then(response => {
-		console.log('will mount', response)
 		this.setState({
 			rankStats: response
 		})
 	}).done()
 	api.getTotalStats().then(response => {
-		console.log('total stats', response)
 		this.setState({
 			allPercent: response
 		})
 	}).done()
+
+	this.callAnimation()
   }
 
 	// componentWillMount() {
@@ -292,13 +301,13 @@ class RankStats extends Component {
 						<View style={styles.barWrapOuter}>
 							<View style={styles.barWrap}>
 								<LinearAnimate colors={greenGradient} style={[styles.barItem, {height: barHeightUser}]}>
-									<Text style={styles.gradientText}>100%</Text>
+									<Text style={styles.gradientText}>{(this.state.userPercent * 100).toFixed(0)}%</Text>
 								</LinearAnimate>
-								<LinearAnimate colors={yellowGradient} style={[styles.barItem, {height: barHeightRank}]}>
-									<Text style={styles.gradientText}>100%</Text>
+								<LinearAnimate colors={tomatoGradient} style={[styles.barItem, {height: barHeightRank}]}>
+									<Text style={styles.gradientText}>{(this.state.rankPercent * 100).toFixed(0)}%</Text>
 								</LinearAnimate>
 								<LinearAnimate colors={redGradient} style={[styles.barItem, {height: barHeightAll}]}>
-									<Text style={styles.gradientText}>{parseInt(this.state.allPercent * 100)}%</Text>
+									<Text style={styles.gradientText}>{(this.state.allPercent * 100).toFixed(0)}%</Text>
 								</LinearAnimate>
 							</View>
 							<View style={styles.graphFooter}>
