@@ -21,8 +21,13 @@ import RankStats from './RankStats'
 //import AreaChart from './AreaChart'
 import {variables} from '../Styles/Variables'
 
+
+
+
+
+
+
 const navigationOptions = ({navigation}) => ({title: `${navigation.state.params.name}`})
-//const navigationOptions = ({navigation}) => ({title: 'titlz?'})
 
 const MessHallStack = createStackNavigator({
     MessHalls: {
@@ -57,25 +62,18 @@ const MessHallStack = createStackNavigator({
     }
 }, {
     // Default Options
-    defaultNavigationOptions: {
+    navigationOptions: {
         headerStyle: {
             //backgroundColor: variables.brandPrimary,
-            //backgroundColor: 'transparent',
-            backgroundColor: 'red',
-            position: 'absolute', 
-            //position: 'relative', 
-            backgroundColor: 'transparent', 
-            zIndex: 100, 
-            top: 0, 
-            left: 0, 
-            right: 0,
-            height: 193,
+            backgroundColor: 'transparent',
+            //position: 'absolute', 
+            //backgroundColor: 'transparent', 
+            // zIndex: 100, 
+            // top: 0, 
+            // left: 0, 
+            // right: 0,
+            height: 93,
         },
-        // header: {
-        //     style: {
-        //         backgroundColor: 'transparent',
-        //     }
-        // },
         //animationEnabled: false,
         headerTransparent: true,
         headerTitleStyle: {
@@ -93,33 +91,60 @@ const MessHallStack = createStackNavigator({
 
 
 
-// import React from "react";
-// import { View, Text } from "react-native";
-// import { createStackNavigator, createAppContainer } from "react-navigation";
+class HomeScreen extends React.Component {
+  render() {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text>Home!</Text>
+      </View>
+    );
+  }
+}
 
-// class HomeScreen extends Component {
-//   render() {
-//     return (
-//       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-//         <Text>Home Screen</Text>
-//       </View>
-//     );
-//   }
-// }
+class SettingsScreen extends React.Component {
+    //   Homepage: {
+    //     screen: Homepage,
+    //     navigationOptions: {
+    //         tabBarLabel: 'HOME',
+    //         tabBarIcon: ({tintColor}) => <Icon name="home" size={30} color={tintColor}/>
+    //     }
+    // },
+  render() {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text>Homepage</Text>
+      </View>
+    );
+  }
+}
 
-const AppNavigator = createBottomTabNavigator({
+const TabNavigator = createBottomTabNavigator({
+  Home: HomeScreen,
+  Settings: SettingsScreen,
+});
+
+export default createAppContainer(TabNavigator);
+
+
+
+
+
+
+
+
+export const Tabs = createBottomTabNavigator({
     Homepage: {
         screen: Homepage,
         navigationOptions: {
             tabBarLabel: 'HOME',
-            tabBarIcon: ({tintColor}) => <Icon name="home" size={28} color={tintColor}/>
+            tabBarIcon: ({tintColor}) => <Icon name="home" size={30} color={tintColor}/>
         }
     },
     MessHalls: {
         screen: MessHallStack,
         navigationOptions: {
             tabBarLabel: 'MESS HALLS',
-            tabBarIcon: ({tintColor}) => <Icon name="restaurant" size={28} color={tintColor}/>
+            tabBarIcon: ({tintColor}) => <Icon name="restaurant" size={30} color={tintColor}/>
         }
     },
     Settings: {
@@ -128,14 +153,14 @@ const AppNavigator = createBottomTabNavigator({
         //screen: App,
         navigationOptions: {
             tabBarLabel: 'PROFILE',
-            tabBarIcon: ({tintColor}) => <Icon name="directions-run" size={28} color={tintColor}/>
+            tabBarIcon: ({tintColor}) => <Icon name="directions-run" size={30} color={tintColor}/>
         }
     },
     DailyIntake: {
         screen: DailyCalories,
         navigationOptions: {
             tabBarLabel: 'TRACKER',
-            tabBarIcon: ({tintColor}) => <Icon name="calendar-check" type="material-community" size={28} color={tintColor}/>
+            tabBarIcon: ({tintColor}) => <Icon name="calendar-check" type="material-community" size={30} color={tintColor}/>
         }
     },
     Favorites: {
@@ -143,21 +168,20 @@ const AppNavigator = createBottomTabNavigator({
         screen: RankStats,
         navigationOptions: {
             tabBarLabel: 'FAVORITES',
-            tabBarIcon: ({tintColor}) => <Icon name="heart-outline" type="material-community" size={28} color={tintColor}/>
+            tabBarIcon: ({tintColor}) => <Icon name="heart-outline" type="material-community" size={30} color={tintColor}/>
         },
     },
     Map: {
         screen: MapPage,
         navigationOptions: {
             tabBarLabel: 'AREA MAP',
-            tabBarIcon: ({tintColor}) => <Icon name="person-pin-circle" size={28} color={tintColor}/>
+            tabBarIcon: ({tintColor}) => <Icon name="person-pin-circle" size={30} color={tintColor}/>
         },
     }
 }, {
-
     //lazy: false,
     tabBarOptions: {
-        //tabBarPosition: 'bottom',
+        tabBarPosition: 'bottom',
         activeTintColor: '#FFF',
         inactiveTintColor: '#CCC',
         indicatorStyle: {
@@ -171,10 +195,10 @@ const AppNavigator = createBottomTabNavigator({
         style: {
             //backgroundColor: variables.brandPrimary,
             backgroundColor: 'transparent',
-            height: 75,
-            // //paddingTop: 40,
+            height: 100,
+            //paddingTop: 40,
             paddingTop: 15,
-            // paddingBottom: 30,
+            paddingBottom: 30,
             borderTopColor: '#222',
             borderTopWidth: 1,
             //paddingTop: 65,
@@ -190,11 +214,4 @@ const AppNavigator = createBottomTabNavigator({
         })
       }
     }
-});
-
-export default createAppContainer(AppNavigator);
-
-
-
-
-
+})

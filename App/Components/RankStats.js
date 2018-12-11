@@ -108,17 +108,17 @@ const styles = StyleSheet.create({
 		backgroundColor: 'rgba(255,22,255,0.7)',
 		//marginHorizontal: 15,	
 	},
-	buttonWrap: {
-		height: 60,
-		alignItems: 'center',
-		justifyContent: 'center',
-		backgroundColor: 'tomato',
-	},
-	buttonText: {
-		fontSize: 35,
-		fontWeight: 'bold',
-		color: '#FFF',
-	},
+	// buttonWrap: {
+	// 	height: 60,
+	// 	alignItems: 'center',
+	// 	justifyContent: 'center',
+	// 	backgroundColor: 'tomato',
+	// },
+	// buttonText: {
+	// 	fontSize: 35,
+	// 	fontWeight: 'bold',
+	// 	color: '#FFF',
+	// },
 	graphFooter: {
 		flexDirection: 'row',
 		justifyContent: 'space-around',
@@ -137,8 +137,10 @@ const styles = StyleSheet.create({
 
 class RankStats extends Component {
 
-	constructor() {
-		super()
+	constructor(props) {
+		super(props)
+
+		console.log('sdlfjsdlfsjdflsdjfsdfj')
 
 		this.state = {
 			rankStats: [],
@@ -150,10 +152,26 @@ class RankStats extends Component {
 			rankPercent: 0,
 			allPercent: 0,
 		}
+
+
 	}
 
+	// static navigationOptions = () => {
+	//     return {
+	//       tabBarOnPress({ jumpToIndex, scene }) {
+	//         // perform your logic here
+	//         // this is mandatory to perform the actual switch
+	//         // you can omit this if you want to prevent it
+	//         console.log('this new shit is working?')
+	//         jumpToIndex(scene.index);
+	//       }
+	//     }
+ //  }
+
   componentDidMount() {
+	
     AsyncStorage.getItem('@UserRank').then((value) => {
+    	console.log('valzzzzz', value)
     	if (value) {
       		const newRank = rank[value - 1].label
         	this.setState({rank: newRank})
@@ -163,19 +181,31 @@ class RankStats extends Component {
 				})
 			}).done()
     	}
-    }).done()
-	api.getRankStats().then(response => {
-		this.setState({
-			rankStats: response
-		})
-	}).done()
-	api.getTotalStats().then(response => {
-		this.setState({
-			allPercent: response
-		})
-	}).done()
+	    api.getRankStats().then(response => {
+			this.setState({
+				rankStats: response
+			})
 
-	this.callAnimation()
+			api.getTotalStats().then(response => {
+			this.setState({
+				allPercent: response
+			})
+			this.callAnimation()
+	}).done()
+		}).done()
+    }).done()
+
+
+
+		// console.log('routzzzzz?')
+		// console.log(this.props.navigation.state.routeName)
+
+		// if(this.props.navigation.state.routeName === 'Favorites') {
+		// 	console.log('working so farz???')
+		// 	this.callAnimation()
+		// }
+
+
   }
 
 	// componentWillMount() {
@@ -214,25 +244,27 @@ class RankStats extends Component {
 	// }
 
 	callAnimation() { // we need different animation for each
-		console.log('button pressed')
 		Animated.timing(this.state.barHeightUser, {
 	      toValue: barHeightOneHundred * this.state.userPercent,
 	      duration: 500, // use timing for animation
 	      easing: Easing.linear
-	    }).start()
+	    }).start(),
 	    Animated.timing(this.state.barHeightRank, {
 	      toValue: barHeightOneHundred * this.state.rankPercent,
 	      duration: 500, // use timing for animation
 	      easing: Easing.linear
-	    }).start()
+	    }).start(),
 	    Animated.timing(this.state.barHeightAll, {
 	      toValue: barHeightOneHundred * this.state.allPercent,
 	      duration: 500, // use timing for animation
 	      easing: Easing.linear
 	    }).start()
+	    
 	}
 
 	render() {
+
+
 
 		let {barHeightUser, barHeightRank, barHeightAll} = this.state
 
@@ -248,14 +280,9 @@ class RankStats extends Component {
 				<View style={defaults.defaultTitleWrap}>
 					<Text style={defaults.defaultTitle}>Ranked Stats</Text>
 				</View>
-				<View style={styles.buttonWrap}>
-					<TouchableHighlight onPress={() => this.callAnimation()}>
-						<Text>Press Me</Text>
-					</TouchableHighlight>
-				</View>
 				<View style={styles.mainTextWrap}>
 					<Text style={styles.mainText}>
-					Recommended Daily Calories Percent
+					Recommended Daily Calories Percents
 					</Text>
 				</View>
 				<View style={styles.innerWrap}>
@@ -312,13 +339,13 @@ class RankStats extends Component {
 							</View>
 							<View style={styles.graphFooter}>
 								<View style={styles.graphFooterItem}>
-									<Text style={styles.graphFooterText}>Your Stats</Text>
+									<Text style={styles.graphFooterText}>You</Text>
 								</View>
 								<View style={styles.graphFooterItem}>
-									<Text style={styles.graphFooterText}>All {this.state.rank}s</Text>
+									<Text style={styles.graphFooterText}>{this.state.rank}s</Text>
 								</View>
 								<View style={styles.graphFooterItem}>
-									<Text style={styles.graphFooterText}>All Soldiers</Text>
+									<Text style={styles.graphFooterText}>Soldiers</Text>
 								</View>
 							</View>
 						</View>
