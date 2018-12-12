@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
   mainOuterWrap: {
     flex: 1,
     alignSelf: 'stretch',
+    marginTop: 100,
   },
   scrollViewWrap: {
     marginBottom: 45

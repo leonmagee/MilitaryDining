@@ -24,6 +24,25 @@ import {variables} from '../Styles/Variables'
 const navigationOptions = ({navigation}) => ({title: `${navigation.state.params.name}`})
 //const navigationOptions = ({navigation}) => ({title: 'titlz?'})
 
+class ModalScreen extends React.Component {
+  static navigationOptions = ({ navigation }) => {
+    const params = navigation.state.params || {};
+
+    return {
+      headerLeft: (
+        <Button
+          onPress={() => navigation.navigate('MyModal')}
+          title="Info"
+          color="#fff"
+        />
+      ),
+      /* the rest of this config is unchanged */
+    };
+  };
+
+  /* render function, etc */
+}
+
 const MessHallStack = createStackNavigator({
     MessHalls: {
         screen: MessHalls,
@@ -48,7 +67,11 @@ const MessHallStack = createStackNavigator({
                 fontSize: 30,
                 //marginBottom: 15,
                 fontWeight: 'normal',
-            }
+            },
+            // headerStyle: {
+            //     backgroundColor: 'blue',
+            //     height: 300
+            // }
         }
     },
     MenuPage: {
@@ -58,18 +81,22 @@ const MessHallStack = createStackNavigator({
 }, {
     // Default Options
     defaultNavigationOptions: {
+        //headerMode: 'float',
+        headerTransparent: true,
         headerStyle: {
-            //backgroundColor: variables.brandPrimary,
+            backgroundColor: variables.brandPrimary,
             //backgroundColor: 'transparent',
-            backgroundColor: 'red',
-            position: 'absolute', 
+            //backgroundColor: 'red',
+            //position: 'absolute', 
             //position: 'relative', 
-            backgroundColor: 'transparent', 
-            zIndex: 100, 
-            top: 0, 
-            left: 0, 
-            right: 0,
-            height: 193,
+            //backgroundColor: 'transparent', 
+            // zIndex: 100, 
+            // top: 0, 
+            // left: 0, 
+            // right: 0,
+            height: 57,
+            paddingTop: 0,
+            paddingBottom: 15,
         },
         // header: {
         //     style: {

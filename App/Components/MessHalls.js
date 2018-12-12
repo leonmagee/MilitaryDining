@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     flex: 1,
+    marginTop: 100,
   },
   mainWrap: {
     display: 'flex',

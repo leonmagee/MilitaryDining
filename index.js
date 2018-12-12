@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {AppRegistry, View, StatusBar, ImageBackground} from 'react-native'
+import {AppRegistry, View, Text, StatusBar, ImageBackground, Modal, TouchableHighlight, StyleSheet} from 'react-native'
 import {Provider} from 'react-redux'
 import store from './App/Redux/store'
 import Tabs from './App/Components/Router'
@@ -8,7 +8,32 @@ import BackgroundGeofences from './App/Components/BackgroundGeofences'
 //import App from './App/Components/AnimationTest'
 //import uniqueId from 'react-native-unique-id'
 
+// const styles = StyleSheet.create({
+//   modalWrap: {
+//     backgroundColor: '#222',
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//     flex: 1
+//   },
+//   modalText: {
+//     color: '#FFF'
+//   }
+// })
+
 export default class MilitaryDining extends Component {
+
+  // constructor() {
+  //   super()
+  //   this.state = {
+  //     modalVisible: true,
+  //   }
+  // }
+
+
+
+  // setModalVisible(visible) {
+  //   this.setState({modalVisible: visible});
+  // }
 
   componentDidMount() {
 

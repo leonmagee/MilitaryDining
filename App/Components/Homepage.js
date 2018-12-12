@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import { Icon } from 'react-native-elements'
-import {StyleSheet, Text, View, Dimensions, Image} from 'react-native';
+import {StyleSheet, Text, View, Dimensions, Image, Modal, TouchableHighlight} from 'react-native';
 import api from '../Utils/api'
 
 
@@ -41,12 +41,34 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     backgroundColor: 'transparent'
   },
+  modalWrap: {
+    backgroundColor: '#222',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1
+  },
+  modalText: {
+    color: '#FFF'
+  }
 });
 
 class Homepage extends Component {
 
   constructor(props) {
     super(props)
+    
+    this.state = {
+      modalVisible: true,
+    }
+  }
+
+  setModalVisible(visible) {
+    this.setState({modalVisible: visible});
+  }
+
+  modalNav() {
+    this.setState({modalVisible: visible});
+    this.props.navigation.navigate('Favorites')
   }
 
   componentDidMount() {
@@ -94,6 +116,33 @@ class Homepage extends Component {
         </View>
         </View>
         </View>
+        <Modal
+            animationType="slide"
+            transparent={false}
+            visible={this.state.modalVisible}
+            onRequestClose={() => {
+              Alert.alert('Modal has been closed.');
+            }}>
+            <View style={styles.modalWrap}>
+              <View>
+                <Text style={styles.modalText}>Hello World!</Text>
+                <TouchableHighlight
+                  onPress={() => {
+                    this.setModalVisible(!this.state.modalVisible);
+                  }}>
+                  <Text style={styles.modalText}>Hide Modal xxx</Text>
+                </TouchableHighlight>
+                <TouchableHighlight
+                  onPress={() => {
+                    this.props.navigation.navigate('Favorites')
+                    this.setModalVisible(!this.state.modalVisible)
+                  }}
+                >
+                <Text style={styles.modalText}>Text Navigator...</Text>
+                </TouchableHighlight>
+              </View>
+            </View>
+          </Modal>
         </View>
         )
     }
