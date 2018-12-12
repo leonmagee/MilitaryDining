@@ -11,9 +11,10 @@ import Footer from './Footer'
 const styles = StyleSheet.create({
   mainWrapOuter: {
     display: 'flex',
-    alignItems: 'center',
+    //alignItems: 'center',
     flex: 1,
-    marginTop: 100,
+    //marginBottom: 100,
+    //marginTop: 100,
   },
   mainWrap: {
     display: 'flex',

@@ -1,11 +1,16 @@
 import React, {Component} from 'react'
 import {View, Text, TouchableHighlight, StyleSheet} from 'react-native'
+import {Icon} from 'react-native-elements'
 
 const styles = StyleSheet.create({
   footerWrap: {
     height: 80,
     alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingHorizontal: 15,
+    //backgroundColor: 'green',
+    //flex: 1,
   },
   footerText: {
     color: '#FFF',
@@ -19,22 +24,40 @@ export default class Footer extends Component {
     super(props)
   }
 
-  openDrawer() {
-    console.log('OPENZZZZZZZZ')
-    this.props.navigation.openDrawer()
+  goToHome() {
+    this.props.navigation.navigate('Home')
   }
 
+  goToMessHalls() {
+      this.props.navigation.navigate('MessHalls')
+  }
+
+  goToSettings() {
+    this.props.navigation.navigate('Settings')
+  }
+
+  openDrawer() {
+    this.props.navigation.openDrawer()
+  }
 
   render() {
 
     return (
 
         <View style={styles.footerWrap}>
+          <TouchableHighlight onPress={() => this.goToHome()}>
+            <Icon name="home" type="material-community" size={30} color={'#FFF'}/>
+          </TouchableHighlight>
+          <TouchableHighlight onPress={() => this.goToMessHalls()}>
+            <Icon name="restaurant" size={30} color={'#FFF'}/>
+          </TouchableHighlight>
+          <TouchableHighlight onPress={() => this.goToSettings()}>
+            <Icon name="directions-run" size={30} color={'#FFF'}/>
+          </TouchableHighlight>
           <TouchableHighlight onPress={() => this.openDrawer()}>
-            <Text style={styles.footerText}>Open Drawer</Text>
+            <Icon name="menu" size={30} color={'#FFF'}/>
           </TouchableHighlight>
         </View>
-
     )
   }
 }

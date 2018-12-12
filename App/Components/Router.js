@@ -35,29 +35,32 @@ const MessHallStack = createStackNavigator({
     }
 }, {
     defaultNavigationOptions: {
-        headerTransparent: true,
+        //headerTransparent: true, // this add some margin???
         transparentCard: true,
+        //mode: 'modal',
         headerStyle: {
-            //backgroundColor: variables.brandPrimary,
+            backgroundColor: variables.brandPrimary,
+            //backgroundColor: 'transparent',
+            //headerTransparent: true,
             height: 57,
             paddingTop: 0,
             paddingBottom: 15,
         },
-        headerTransparent: true,
+        //headerTransparent: true,
         headerTitleStyle: {
             color: '#FFF',
             fontFamily: 'BlackOpsOne-Regular'
         },
         headerTintColor: '#FFF',
-          cardStyle: {
-        backgroundColor: 'transparent',
-        opacity: 1,
-      },
-      transitionConfig: () => ({
-        containerStyle: {
-          backgroundColor: 'transparent',
-        },
-      })
+      //     cardStyle: {
+      //   backgroundColor: 'transparent',
+      //   opacity: 1,
+      // },
+      // transitionConfig: () => ({
+      //   containerStyle: {
+      //     backgroundColor: 'transparent',
+      //   },
+      // })
     }
 })
 
@@ -67,7 +70,7 @@ const DrawerNavigator = createDrawerNavigator(
         screen: Homepage,
         navigationOptions: {
             drawerLabel: 'HOME',
-            drawerIcon: ({tintColor}) => <Icon name="home" size={28} color={tintColor}/>,
+            drawerIcon: ({tintColor}) => <Icon name="home" type="material-community" size={28} color={tintColor}/>,
         }
     },
     MessHalls: {
