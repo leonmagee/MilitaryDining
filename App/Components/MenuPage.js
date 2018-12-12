@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
   mainOuterWrap: {
     flex: 1,
     alignSelf: 'stretch',
+    backgroundColor: variables.backgroundWhite,
     //marginTop: 100,
   },
   scrollViewWrap: {
@@ -40,12 +41,15 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch'
   },
   dayWrap: {
-    backgroundColor: '#111',
+    //backgroundColor: '#111',
+    backgroundColor: 'red',
     paddingVertical: 10,
     paddingHorizontal: 15,
     alignItems: 'center',
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    borderTopColor: 'blue',
+    borderTopWidth: 2,
   },
   dayText: {
     fontFamily: 'BlackOpsOne-Regular',

@@ -34,16 +34,19 @@ const MessHallStack = createStackNavigator({
         navigationOptions: navigationOptions
     }
 }, {
+    //mode: 'modal',
+    transitionConfig: () => ({
+       containerStyle: {
+           backgroundColor: 'transparent',
+       }
+   }),
+    transparentCard: true,
     defaultNavigationOptions: {
-        //headerTransparent: true, // this add some margin???
-        transparentCard: true,
-        //mode: 'modal',
         headerStyle: {
-            backgroundColor: variables.brandPrimary,
-            //backgroundColor: 'transparent',
+            backgroundColor: 'transparent',
             //headerTransparent: true,
-            height: 57,
-            paddingTop: 0,
+            // height: 57,
+            // paddingTop: 0,
             paddingBottom: 15,
         },
         //headerTransparent: true,
@@ -61,7 +64,8 @@ const MessHallStack = createStackNavigator({
       //     backgroundColor: 'transparent',
       //   },
       // })
-    }
+    },
+
 })
 
 const DrawerNavigator = createDrawerNavigator(

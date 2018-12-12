@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     flex: 1,
     backgroundColor: variables.backgroundWhite,
+    //backgroundColor: 'blue',
   },
   messHallWrap: {
     alignSelf: 'stretch'
