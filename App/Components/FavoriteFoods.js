@@ -5,6 +5,7 @@ import {defaults} from '../Styles/Defaults'
 import {Icon} from 'react-native-elements'
 import {removeQuotes} from './HelperFunctions'
 import FoodDetail from './FoodDetail'
+import Footer from './Footer'
 import Svg, {
 	Path,
 } from 'react-native-svg';
@@ -270,6 +271,8 @@ class FavoriteFoods extends Component {
 			{favFoodList}
 
 			</ScrollView>
+
+        	<Footer navigation={this.props.navigation} />
 
 			</View>
 

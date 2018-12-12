@@ -16,6 +16,7 @@ import {variables} from '../Styles/Variables'
 import api from '../Utils/api'
 import uniqueId from 'react-native-unique-id'
 import {rank} from '../Data/Data'
+import Footer from './Footer'
 
 const LinearAnimate = Animated.createAnimatedComponent(LinearGradient)
 
@@ -350,6 +351,7 @@ class RankStats extends Component {
 							</View>
 						</View>
 				</View>
+				<Footer navigation={this.props.navigation} />
 			</View>
 			)
 	}

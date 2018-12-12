@@ -10,6 +10,7 @@ import MapView from 'react-native-maps'
 import SvgElement from './SvgElement'
 import {ForkIcon} from '../SVG/SvgIcons'
 import {variables} from '../Styles/Variables'
+import Footer from './Footer'
 
 const styles = StyleSheet.create({
   container: {
@@ -190,7 +191,7 @@ class MapPage extends Component {
     }
 
     if (this.state.initalPosition.latitude > 0) {
-      return (
+      var FinalMapArea =  (
         <View style={styles.container}>
           <MapView style={styles.map} initialRegion={this.state.initalPosition}>
             {user_location_marker}
@@ -199,7 +200,7 @@ class MapPage extends Component {
         </View>
       )
     } else {
-      return (
+      var FinalMapArea = (
         <View style={styles.container}>
           <View style={styles.indicatorWrap}>
             <ActivityIndicator animating={this.state.isLoading} color="#FFF" size="large"></ActivityIndicator>
@@ -207,6 +208,12 @@ class MapPage extends Component {
         </View>
       )
     }
+
+    return (<View style={{flex: 1}}>
+        {FinalMapArea}
+        <Footer navigation={this.props.navigation} />
+      </View>
+      )
   }
 }
 

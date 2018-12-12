@@ -5,6 +5,7 @@ import {CalorieCounter} from '../Math/Calculator'
 import {variables} from '../Styles/Variables'
 import {defaults} from '../Styles/Defaults'
 import {rank} from '../Data/Data'
+import Footer from './Footer'
 
 import {
   View,
@@ -508,6 +509,8 @@ class Settings extends Component {
         {settingsUpdated}
 
         </View>
+                <Footer navigation={this.props.navigation} />
+
       </View>
     )
   }

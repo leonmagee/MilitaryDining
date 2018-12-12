@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {variables} from '../Styles/Variables'
 import {defaults} from '../Styles/Defaults'
 import {dateString, dateStringName, removeQuotes} from './HelperFunctions'
+import Footer from './Footer'
 
 import {
   View,
@@ -210,6 +211,8 @@ class DailyCalories extends Component {
 
 
       </ScrollView>
+              <Footer navigation={this.props.navigation} />
+
       </View>
       )
   }

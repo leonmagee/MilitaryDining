@@ -5,6 +5,8 @@ import {variables} from '../Styles/Variables'
 import MessHall from './MessHall'
 //import {defaults} from '../Styles/Defaults'
 import {View, ScrollView, Text, TouchableHighlight, StyleSheet} from 'react-native'
+import Footer from './Footer'
+
 
 const styles = StyleSheet.create({
   mainWrapOuter: {
@@ -61,6 +63,7 @@ class MessHalls extends Component {
     return (
       <View style={styles.mainWrapOuter}>
         {currentActivePage}
+        <Footer navigation={this.props.navigation} />
       </View>
     )
   }
