@@ -40,7 +40,6 @@ export default class MilitaryDining extends Component {
     this.props.navigation.openDrawer()
   }
 
-
   componentDidMount() {
 
       //const uniqueId = require('react-native-unique-id')
@@ -54,6 +53,7 @@ export default class MilitaryDining extends Component {
       //   if (error) return console.error(error)
       //   console.log(id)
       // })
+      //setRootViewBackgroundColor('red')
   }
 
   render() {

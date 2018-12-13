@@ -522,6 +522,9 @@ mapActionsToProps = (dispatch) => ({
   setDailyCalories(results) {
     dispatch({type: 'SET_DAILY_CALORIES', payload: results})
   },
+  setCurrentRank(results) { // not sure if this is necesary
+    dispatch({type: 'SET_CURRENT_RANK', payload: results})
+  }
 })
 
 mapStateToProps = (state) => ({dailyCalories: state.dailyCalories})
