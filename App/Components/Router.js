@@ -58,17 +58,16 @@ const MessHallStack = createStackNavigator({
             fontFamily: 'BlackOpsOne-Regular'
         },
         headerTintColor: '#FFF',
-      //     cardStyle: {
-      //   backgroundColor: 'transparent',
-      //   opacity: 1,
-      // },
-      // transitionConfig: () => ({
-      //   containerStyle: {
-      //     backgroundColor: 'transparent',
-      //   },
-      // })
+        //     cardStyle: {
+        //   backgroundColor: 'transparent',
+        //   opacity: 1,
+        // },
+        // transitionConfig: () => ({
+        //   containerStyle: {
+        //     backgroundColor: 'transparent',
+        //   },
+        // })
     },
-
 })
 
 const DrawerNavigator = createDrawerNavigator(
@@ -77,49 +76,49 @@ const DrawerNavigator = createDrawerNavigator(
         screen: Homepage,
         navigationOptions: {
             drawerLabel: 'HOME',
-            drawerIcon: ({tintColor}) => <Icon name="home" type="material-community" size={28} color={tintColor}/>,
+            drawerIcon: ({tintColor}) => <Icon name="home" type="material-community" size={26} color={tintColor}/>,
         }
     },
     MessHalls: {
         screen: MessHallStack,
         navigationOptions: {
             drawerLabel: 'MESS HALLS',
-            drawerIcon: ({tintColor}) => <Icon name="restaurant" size={28} color={tintColor}/>
+            drawerIcon: ({tintColor}) => <Icon name="restaurant" size={26} color={tintColor}/>
         }
     },
     Settings: {
         screen: Settings,
         navigationOptions: {
             drawerLabel: 'PROFILE SETTINGS',
-            drawerIcon: ({tintColor}) => <Icon name="directions-run" size={28} color={tintColor}/>
+            drawerIcon: ({tintColor}) => <Icon name="directions-run" size={26} color={tintColor}/>
         }
     },
     DailyIntake: {
         screen: DailyCalories,
         navigationOptions: {
             drawerLabel: 'CALORIE TRACKER',
-            drawerIcon: ({tintColor}) => <Icon name="calendar-check" type="material-community" size={28} color={tintColor}/>
+            drawerIcon: ({tintColor}) => <Icon name="calendar-check" type="material-community" size={26} color={tintColor}/>
         }
     },
     Favorites: {
         screen: FavoriteFoods,
         navigationOptions: {
             drawerLabel: 'FAVORITES',
-            drawerIcon: ({tintColor}) => <Icon name="heart-outline" type="material-community" size={28} color={tintColor}/>
+            drawerIcon: ({tintColor}) => <Icon name="heart-outline" type="material-community" size={26} color={tintColor}/>
         },
     },
     Stats: {
         screen: RankStats,
         navigationOptions: {
             drawerLabel: 'YOUR STATS',
-            drawerIcon: ({tintColor}) => <Icon name="chart-bar" type="material-community" size={28} color={tintColor}/>
+            drawerIcon: ({tintColor}) => <Icon name="chart-bar" type="material-community" size={26} color={tintColor}/>
         },
     },
     Map: {
         screen: MapPage,
         navigationOptions: {
             drawerLabel: 'AREA MAP',
-            drawerIcon: ({tintColor}) => <Icon name="person-pin-circle" size={28} color={tintColor}/>
+            drawerIcon: ({tintColor}) => <Icon name="person-pin-circle" size={26} color={tintColor}/>
         },
     }
   },

@@ -9,7 +9,7 @@ export const defaults = {
 		//alignSelf: 'stretch',
 		alignItems: 'center',
 		justifyContent: 'flex-end',
-		height: 73,
+		height: 50,
 		paddingBottom: 10,
 		//marginHorizontal: 30
 	},
