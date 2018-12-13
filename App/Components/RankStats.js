@@ -10,7 +10,6 @@ import {
 	Dimensions
 } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
-//import Transition from 'react-transition-group/Transition'
 import {defaults} from '../Styles/Defaults'
 import {variables} from '../Styles/Variables'
 import api from '../Utils/api'
@@ -28,15 +27,11 @@ const greenGradient = [variables.brandEighth, variables.brandTwelth]
 const redGradient = [variables.brandSixth, variables.brandEleventh]
 const tomatoGradient = ['#ff7559', '#FC644D']
 const yellowGradient = [variables.brandSeventh, variables.brandTenth]
-//console.log(boxHeight)
-//height = height - 50; // make space for bottom menu bar?
-
 
 const styles = StyleSheet.create({
 	innerWrap: {
 		backgroundColor: variables.backgroundWhite,
 		alignItems: 'flex-end',
-		//justifyContent: 'flex-end',
 		flex: 1,
 		flexDirection: 'row',
 		flexWrap: 'wrap',
@@ -49,90 +44,70 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 	},
 	mainText: {
-		fontSize: 29,
+		fontSize: 23,
 		color: '#333',
 		fontFamily: variables.mainFont,
 		textAlign: 'center'
 	},
 	gradientText: {
 		color: '#FFF',
-		//fontWeight: 'bold',
 		fontFamily: variables.mainFont,
 		marginTop: 15,
 		fontSize: 16,
 		textAlign: 'center',
 	},
-	// gradientWrap: {
-	// 	flex: 1,
-	// 	backgroundColor: 'transparent',
-	// 	//alignItems: 'center',
-	// },
-	// gradientElement: {
-	// 	flex: 1,
-	// 	flexDirection: 'row'
-	// },
 	sidebar: {
-		//width: 300,
-		width: (width / 7),
-		alignItems: 'center',
+		width: (width),
+		//backgroundColor: 'red',
+		alignItems: 'flex-start',
 		justifyContent: 'flex-end',
-		marginBottom: 30,
-		//paddingVertical: 30,
-		//backgroundColor: 'blue',
+		position: 'absolute',
+		bottom: 30,
 	},
 	sidebarBox: {
 		height: boxHeight,
-		//width: 80,
-		//marginLeft: 20,
-		alignItems: 'center',
+		flex: 1,
+		width: width,
+		paddingHorizontal: 8,
+		alignItems: 'flex-start',
 		justifyContent: 'center',
 		borderTopWidth: 1,
-		//borderTopColor: 'rgba(255,255,255,0.7)',
-		borderTopColor: '#AAA',
+		borderTopColor: '#DDD',
 	},
 	sidebarText: {
-		color: '#444',
+		color: '#777',
 		fontWeight: 'bold',
-		//marginVertical: 10,
 	},
 	barWrap: {
 		flex: 1,
-		width: ( (width / 7 ) * 5 ),
-		marginLeft: ( width / 20 ),
+		width: width, 
 		flexDirection: 'row',
 		alignItems: 'flex-end',
-		justifyContent: 'space-around',
+		justifyContent: 'flex-end',
+		paddingRight: 7,
 	},
 	barItem: {
-		width: ( width / 5.5 ),
-		//height: 300,
+		width: ( width / 4.2 ),
 		backgroundColor: 'rgba(255,22,255,0.7)',
-		//marginHorizontal: 15,	
+		marginHorizontal: 7,
+		opacity: 0.7,
 	},
-	// buttonWrap: {
-	// 	height: 60,
-	// 	alignItems: 'center',
-	// 	justifyContent: 'center',
-	// 	backgroundColor: 'tomato',
-	// },
-	// buttonText: {
-	// 	fontSize: 35,
-	// 	fontWeight: 'bold',
-	// 	color: '#FFF',
-	// },
 	graphFooter: {
 		flexDirection: 'row',
-		justifyContent: 'space-around',
-		marginLeft: ( width / 20 ),
+		justifyContent: 'flex-end',
+		paddingRight: 7,
+		//marginLeft: ( width / 20 ),
 	},
 	graphFooterItem: {
-		//paddingVertical: 5,
 		height: 30,
 		justifyContent: 'center',
+		width: ( width / 4.2 ),
+		marginHorizontal: 7,
 	},
 	graphFooterText: {
 		fontFamily: variables.mainFont,
 		color: '#333',
+		textAlign: 'center',
 	}
 })
 
@@ -153,26 +128,11 @@ class RankStats extends Component {
 			rankPercent: 0,
 			allPercent: 0,
 		}
-
-
 	}
-
-	// static navigationOptions = () => {
-	//     return {
-	//       tabBarOnPress({ jumpToIndex, scene }) {
-	//         // perform your logic here
-	//         // this is mandatory to perform the actual switch
-	//         // you can omit this if you want to prevent it
-	//         console.log('this new shit is working?')
-	//         jumpToIndex(scene.index);
-	//       }
-	//     }
- //  }
 
   componentDidMount() {
 	
     AsyncStorage.getItem('@UserRank').then((value) => {
-    	console.log('valzzzzz', value)
     	if (value) {
       		const newRank = rank[value - 1].label
         	this.setState({rank: newRank})
@@ -195,54 +155,7 @@ class RankStats extends Component {
 	}).done()
 		}).done()
     }).done()
-
-
-
-		// console.log('routzzzzz?')
-		// console.log(this.props.navigation.state.routeName)
-
-		// if(this.props.navigation.state.routeName === 'Favorites') {
-		// 	console.log('working so farz???')
-		// 	this.callAnimation()
-		// }
-
-
   }
-
-	// componentWillMount() {
-	// 	api.getRankStats().then(response => {
-	// 		console.log('will mount', response)
-	// 		this.setState({
-	// 			rankStats: response
-	// 		})
-	// 	})
-	// }
-
-	// componentDidMount() {
-
-	// 	Animated.timing(this.state.barHeight, {
-	//       toValue: 300,
-	//       duration: 1300, // use timing for animation
-	//       easing: Easing.linear
-	//     }).start()
-	// }
-
-	// triggerAnimation() {
-
-	// }
-
-	// getUserRank() {
-
-	// 	AsyncStorage.getItem('@UserRank').then((rank) => {
-	// 		if (rank) {
-	// 			uniqueId((error, id) => {
-	// 				if (error) return console.error(error)
-	// 					console.log(id)
-	// 				api.createNewUser(id, rank)
-	// 			})
-	// 		}
-	// 	}).done()
-	// }
 
 	callAnimation() { // we need different animation for each
 		Animated.timing(this.state.barHeightUser, {
@@ -265,15 +178,7 @@ class RankStats extends Component {
 
 	render() {
 
-
-
 		let {barHeightUser, barHeightRank, barHeightAll} = this.state
-
-		// const rankStats = this.state.rankStats.map((item, key) => {
-		// 	return(
-		// 		<Text key={key}>Rank: {item.rank} - Average: {item.average}</Text>
-		// 		)
-		// })
 
 		return(
 
@@ -283,21 +188,24 @@ class RankStats extends Component {
 				</View>
 				<View style={styles.mainTextWrap}>
 					<Text style={styles.mainText}>
-					Recommended Daily Calories Percents
+					Percent of Recommended Daily Calorie Intake
 					</Text>
 				</View>
 				<View style={styles.innerWrap}>
-	{/*					<Text style={styles.textItem}>Rank Stats</Text>
-					<TouchableHighlight onPress={() => this.testMethod()}>
-						<Text>Button Name</Text>
-					</TouchableHighlight>
-					<View>
-					{rankStats}
-					</View>*/}
 						<View style={styles.sidebar}>
+							<View style={styles.sidebarBox}>
+								<Text style={styles.sidebarText}>130%</Text>
+							</View>
+														<View style={styles.sidebarBox}>
+								<Text style={styles.sidebarText}>120%</Text>
+							</View>
+							<View style={styles.sidebarBox}>
+								<Text style={styles.sidebarText}>110%</Text>
+							</View>
 							<View style={styles.sidebarBox}>
 								<Text style={styles.sidebarText}>100%</Text>
 							</View>
+
 							<View style={styles.sidebarBox}>
 								<Text style={styles.sidebarText}>90%</Text>
 							</View>
@@ -340,7 +248,7 @@ class RankStats extends Component {
 							</View>
 							<View style={styles.graphFooter}>
 								<View style={styles.graphFooterItem}>
-									<Text style={styles.graphFooterText}>You</Text>
+									<Text style={styles.graphFooterText}>Your Data</Text>
 								</View>
 								<View style={styles.graphFooterItem}>
 									<Text style={styles.graphFooterText}>{this.state.rank}s</Text>
