@@ -6,14 +6,18 @@ export const defaults = {
 	},
 	defaultTitleWrap: {
 		//paddingBottom: 5,
-		alignSelf: 'stretch',
+		//alignSelf: 'stretch',
 		alignItems: 'center',
-		height: 58,
+		justifyContent: 'flex-end',
+		height: 73,
+		paddingBottom: 10,
 		//marginHorizontal: 30
 	},
 	defaultTitle: {
 		fontSize: 30,
-		marginTop: 15,
+		margin: 0,
+		padding: 0,
+		//marginTop: 15,
 		color: '#EEE',
 		backgroundColor: 'transparent',
 		fontFamily: 'BlackOpsOne-Regular'

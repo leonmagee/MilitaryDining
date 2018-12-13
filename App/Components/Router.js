@@ -23,6 +23,8 @@ const MessHallStack = createStackNavigator({
             title: 'Mess Halls',
             headerTitleStyle: {
                 color: '#FFF',
+                padding: 0,
+                margin: 0,
                 fontFamily: 'BlackOpsOne-Regular',
                 fontSize: 30,
                 fontWeight: 'normal',
@@ -45,9 +47,10 @@ const MessHallStack = createStackNavigator({
         headerStyle: {
             backgroundColor: 'transparent',
             //headerTransparent: true,
-            // height: 57,
+            //height: 57,
             // paddingTop: 0,
-            paddingBottom: 15,
+            //paddingBottom: 15,
+            height: 60,
         },
         //headerTransparent: true,
         headerTitleStyle: {
