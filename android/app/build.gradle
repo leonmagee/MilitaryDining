@@ -143,6 +143,7 @@ repositories {
 }
 
 dependencies {
+    compile project(':react-native-splash-screen')
     compile project(':react-native-gesture-handler')
     // compile ('com.google.android.gms:play-services-gcm:10.2.0') {
     //     force = true;

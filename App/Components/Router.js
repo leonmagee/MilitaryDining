@@ -10,6 +10,7 @@ import MenuPage from './MenuPage'
 import FavoriteFoods from './FavoriteFoods'
 import DailyCalories from './DailyCalories'
 import RankStats from './RankStats'
+//import MessHallLogin from './MessHallLogin'
 import {variables} from '../Styles/Variables'
 
 const navigationOptions = ({navigation}) => ({title: `${navigation.state.params.name}`})
@@ -114,6 +115,13 @@ const DrawerNavigator = createDrawerNavigator(
             drawerIcon: ({tintColor}) => <Icon name="chart-bar" type="material-community" size={26} color={tintColor}/>
         },
     },
+    // MessHallLogin: {
+    //     screen: MessHallLogin,
+    //     navigationOptions: {
+    //         drawerLabel: 'MESS HALL LOGIN',
+    //         drawerIcon: ({tintColor}) => <Icon name="chart-bar" type="material-community" size={26} color={tintColor}/>
+    //     },
+    // },
     Map: {
         screen: MapPage,
         navigationOptions: {

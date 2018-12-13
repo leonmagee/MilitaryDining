@@ -4,15 +4,13 @@ import {Provider} from 'react-redux'
 import store from './App/Redux/store'
 import {Drawer} from './App/Components/Router'
 import BackgroundGeofences from './App/Components/BackgroundGeofences'
-//import App from './App/Components/AnimationTest'
-//import uniqueId from 'react-native-unique-id'
+import SplashScreen from 'react-native-splash-screen'
 
 const styles = StyleSheet.create({
   footerWrap: {
     height: 80,
     alignItems: 'center',
     justifyContent: 'center',
-    //flex: 1
   },
   footerText: {
     color: '#FFF',
@@ -22,62 +20,13 @@ const styles = StyleSheet.create({
 
 export default class MilitaryDining extends Component {
 
-  // constructor() {
-  //   super()
-  //   this.state = {
-  //     modalVisible: true,
-  //   }
-  // }
-
-
-
-  // setModalVisible(visible) {
-  //   this.setState({modalVisible: visible});
-  // }
-
-  openDrawer() {
-    console.log('OPENZZZZZZZZ')
-    this.props.navigation.openDrawer()
-  }
-
   componentDidMount() {
-
-      //const uniqueId = require('react-native-unique-id')
-   
-      // uniqueId()
-      //   .then(id => console.log(id))
-      //   .catch(error => console.error(error))
-       
-      // or callback style
-      // uniqueId((error, id) => {
-      //   if (error) return console.error(error)
-      //   console.log(id)
-      // })
-      //setRootViewBackgroundColor('red')
+    // disable or enable this AppDelegate.m - having this active might
+    // prevent debug info from showing...
+    SplashScreen.hide()
   }
 
   render() {
-
-//   const DrawerButton = (props) => {
-//   return (
-//     <View>
-//       <TouchableOpacity onPress={() => {props.navigation.navigate('DrawerOpen')}}>
-//         <Text>Open Drawer!</Text> 
-//       </TouchableOpacity>
-//     </View>
-//   );
-// };
-
-// const main_stack_nav = StackNavigator({
-//   CategoryList: {
-//     screen: RecipesCategoryList,
-//     navigationOptions: ({navigation}) => ({
-//       title: "Category List",
-//       headerLeft: <DrawerButton navigation={navigation}  />
-//     }),
-//   }
-// });
-
 
     return (
       <Provider store={store}>

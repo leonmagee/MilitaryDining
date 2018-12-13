@@ -3,6 +3,7 @@ package com.militarydining;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
@@ -34,6 +35,7 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new RNBackgroundGeolocation(),
           new MainReactPackage(),
+            new SplashScreenReactPackage(),
             new RNGestureHandlerPackage(),
             new VectorIconsPackage(),
             new ReactNativePushNotificationPackage(),
