@@ -4,7 +4,7 @@ import {Provider} from 'react-redux'
 import store from './App/Redux/store'
 import {Drawer} from './App/Components/Router'
 import BackgroundGeofences from './App/Components/BackgroundGeofences'
-import SplashScreen from 'react-native-splash-screen'
+//import SplashScreen from 'react-native-splash-screen'
 
 const styles = StyleSheet.create({
   footerWrap: {
@@ -20,11 +20,11 @@ const styles = StyleSheet.create({
 
 export default class MilitaryDining extends Component {
 
-  componentDidMount() {
-    // disable or enable this AppDelegate.m - having this active might
-    // prevent debug info from showing...
-    SplashScreen.hide()
-  }
+  // componentDidMount() {
+  //   // disable or enable this AppDelegate.m - having this active might
+  //   // prevent debug info from showing...
+  //   SplashScreen.hide()
+  // }
 
   render() {
 
