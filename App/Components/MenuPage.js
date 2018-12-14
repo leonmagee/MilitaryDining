@@ -5,8 +5,8 @@ import MenuDetails from './MenuDetails'
 import {variables} from '../Styles/Variables'
 import FavoriteButton from './FavoriteButton'
 import EatButton from './EatButton'
-import {removeQuotes} from './HelperFunctions'
-import {dateString} from './HelperFunctions'
+import {removeQuotes, dateString} from './HelperFunctions'
+import Footer from './Footer'
 
 import {
   View,
@@ -22,12 +22,12 @@ import {
 const styles = StyleSheet.create({
   mainOuterWrap: {
     flex: 1,
-    alignSelf: 'stretch',
+    //alignSelf: 'stretch',
     backgroundColor: variables.backgroundWhite,
     marginTop: 0,
   },
   scrollViewWrap: {
-    marginBottom: 45,
+    //marginBottom: 45,
   },
   mainWrap: {
     display: 'flex',
@@ -688,13 +688,13 @@ render() {
 
 return (
   <View style={styles.mainOuterWrap}>
-  <ScrollView style={styles.scrollViewWrap}>
-  <View style={styles.mainWrap}>
-  <View style={styles.messHallWrap}>
-  {menu_days}
-  </View>
-  </View>
-  </ScrollView>
+    <ScrollView style={styles.scrollViewWrap}>
+      <View style={styles.mainWrap}>
+        <View style={styles.messHallWrap}>
+        {menu_days}
+        </View>
+      </View>
+    </ScrollView>
   </View>
   )
 }
