@@ -509,8 +509,7 @@ class Settings extends Component {
         {settingsUpdated}
 
         </View>
-                <Footer navigation={this.props.navigation} />
-
+        <Footer navigation={this.props.navigation} />
       </View>
     )
   }

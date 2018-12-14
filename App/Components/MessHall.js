@@ -5,9 +5,9 @@ import uniqueId from 'react-native-unique-id'
 import api from '../Utils/api'
 
 import {
-  View, 
-  Text, 
-  TouchableHighlight, 
+  View,
+  Text,
+  TouchableHighlight,
   StyleSheet,
   AsyncStorage
 } from 'react-native'

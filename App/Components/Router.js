@@ -10,6 +10,7 @@ import MenuPage from './MenuPage'
 import FavoriteFoods from './FavoriteFoods'
 import DailyCalories from './DailyCalories'
 import RankStats from './RankStats'
+import ManagerLogin from './ManagerLogin'
 import {variables} from '../Styles/Variables'
 
 const navigationOptions = ({navigation}) => ({title: `${navigation.state.params.name}`})
@@ -112,6 +113,13 @@ const DrawerNavigator = createDrawerNavigator(
         navigationOptions: {
             drawerLabel: 'YOUR STATS',
             drawerIcon: ({tintColor}) => <Icon name="chart-bar" type="material-community" size={26} color={tintColor}/>
+        },
+    },
+    MessHallLogin: {
+        screen: ManagerLogin,
+        navigationOptions: {
+            drawerLabel: 'MANAGER ACCESS',
+            drawerIcon: ({tintColor}) => <Icon name="account-circle" size={26} color={tintColor}/>
         },
     },
     Map: {
