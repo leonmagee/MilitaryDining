@@ -17,6 +17,7 @@ import {
   StyleSheet,
   AsyncStorage,
   Image,
+  Modal
 } from 'react-native'
 
 const styles = StyleSheet.create({
@@ -98,6 +99,20 @@ const styles = StyleSheet.create({
     height: 40,
     marginLeft: 15,
   },
+  modalOuter: {
+    margin: 30,
+    padding: 20,
+    backgroundColor: variables.backgroundWhite,
+    flex: 1,
+    borderColor: '#BBB',
+    borderWidth: 1,
+  },
+  modalText: {
+    color: '#222',
+    textAlign: 'center',
+    fontFamily: 'BlackOpsOne-Regular',
+    fontSize: 28,
+  }
 })
 
 class MenuPage extends Component {
@@ -107,6 +122,7 @@ class MenuPage extends Component {
 
     this.state = {
       menuToggle: [],
+      modalVisible: true,
     }
 
     //AsyncStorage.clear()
@@ -185,6 +201,10 @@ class MenuPage extends Component {
         }
       }
     })
+  }
+
+  setModalVisible(visible) {
+    this.setState({modalVisible: visible});
   }
 
   // update this to use icons
@@ -686,6 +706,27 @@ render() {
     }
   })
 
+const dailySpecialModal = <Modal
+          animationType="slide"
+          transparent={true}
+          visible={this.state.modalVisible}
+          onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+          }}>
+          <View style={styles.modalOuter}>
+            <View>
+              <Text style={styles.modalText}>Current Specials</Text>
+
+              <TouchableHighlight
+                onPress={() => {
+                  this.setModalVisible(!this.state.modalVisible)
+                }}>
+                <Text>Hide Modal</Text>
+              </TouchableHighlight>
+            </View>
+          </View>
+        </Modal>
+
 return (
   <View style={styles.mainOuterWrap}>
     <ScrollView style={styles.scrollViewWrap}>
@@ -695,6 +736,7 @@ return (
         </View>
       </View>
     </ScrollView>
+    {dailySpecialModal}
   </View>
   )
 }
