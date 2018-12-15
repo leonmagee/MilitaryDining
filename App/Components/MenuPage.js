@@ -7,6 +7,7 @@ import FavoriteButton from './FavoriteButton'
 import EatButton from './EatButton'
 import {removeQuotes, dateString} from './HelperFunctions'
 import Footer from './Footer'
+import DailySpecialModal from './DailySpecialModal'
 
 import {
   View,
@@ -99,20 +100,20 @@ const styles = StyleSheet.create({
     height: 40,
     marginLeft: 15,
   },
-  modalOuter: {
-    margin: 30,
-    padding: 20,
-    backgroundColor: variables.backgroundWhite,
-    flex: 1,
-    borderColor: '#BBB',
-    borderWidth: 1,
-  },
-  modalText: {
-    color: '#222',
-    textAlign: 'center',
-    fontFamily: 'BlackOpsOne-Regular',
-    fontSize: 28,
-  }
+  // modalOuter: {
+  //   margin: 30,
+  //   padding: 20,
+  //   backgroundColor: variables.backgroundWhite,
+  //   flex: 1,
+  //   borderColor: '#BBB',
+  //   borderWidth: 1,
+  // },
+  // modalText: {
+  //   color: '#222',
+  //   textAlign: 'center',
+  //   fontFamily: 'BlackOpsOne-Regular',
+  //   fontSize: 28,
+  // }
 })
 
 class MenuPage extends Component {
@@ -706,27 +707,6 @@ render() {
     }
   })
 
-const dailySpecialModal = <Modal
-          animationType="slide"
-          transparent={true}
-          visible={this.state.modalVisible}
-          onRequestClose={() => {
-            Alert.alert('Modal has been closed.');
-          }}>
-          <View style={styles.modalOuter}>
-            <View>
-              <Text style={styles.modalText}>Current Specials</Text>
-
-              <TouchableHighlight
-                onPress={() => {
-                  this.setModalVisible(!this.state.modalVisible)
-                }}>
-                <Text>Hide Modal</Text>
-              </TouchableHighlight>
-            </View>
-          </View>
-        </Modal>
-
 return (
   <View style={styles.mainOuterWrap}>
     <ScrollView style={styles.scrollViewWrap}>
@@ -736,7 +716,7 @@ return (
         </View>
       </View>
     </ScrollView>
-    {dailySpecialModal}
+    <DailySpecialModal dailySpecial="here is some info" />
   </View>
   )
 }

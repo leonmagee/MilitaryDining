@@ -121,6 +121,11 @@ class ManagerLogin extends Component {
     	})
 	}
 
+	updateSpecial() {
+		const message = this.state.message
+		console.log('message: ', message)
+	}
+
 	componentDidMount() {
 		AsyncStorage.getItem('@LoginUserEmail').then((email) => {
 	      if (email) {
@@ -152,6 +157,12 @@ class ManagerLogin extends Component {
 					    onChangeText={(message) => this.setState({message})}
 					    value={this.state.message} />
 				</View>
+				<TouchableHighlight 
+	  				style={styles.updateButton} 
+	  				underlayColor={variables.brandPrimary} 
+	  				onPress={() => this.updateSpecial()}>
+	  				<Text style={styles.updateButtonText}>UPDATE</Text>
+				</TouchableHighlight>
 	  			<TouchableHighlight 
 	  				style={[styles.updateButton, styles.logOut]} 
 	  				underlayColor={variables.brandPrimary} 
