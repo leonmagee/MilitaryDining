@@ -1,5 +1,12 @@
 import React, {Component} from 'react'
-import {View, Text, StyleSheet, TouchableHighlight, Modal} from 'react-native'
+import {
+	View, 
+	Text, 
+	StyleSheet, 
+	TouchableHighlight, 
+	Modal,
+	AsyncStorage
+} from 'react-native'
 import {variables} from '../Styles/Variables'
 import {Icon} from 'react-native-elements'
 
@@ -7,27 +14,38 @@ const styles = StyleSheet.create({
   modalOuter: {
     margin: 30,
     padding: 20,
-    backgroundColor: variables.backgroundWhite,
+    //backgroundColor: variables.backgroundWhite,
+    backgroundColor: variables.brandSecond,
     flex: 1,
-    borderColor: '#BBB',
+    borderColor: 'rgba(0,0,0,0.2)',
     borderWidth: 1,
     justifyContent: 'space-between',
   },
   modalTitle: {
     color: '#222',
+    color: '#FFF',
     textAlign: 'center',
     fontFamily: 'BlackOpsOne-Regular',
     fontSize: 28,
+    marginBottom: 20,
   },
   specialsText: {
-  	fontSize: 20,
+  	fontSize: 23,
   	paddingVertical: 15,
   	paddingHorizontal: 10,
+  	fontWeight: 'bold',
+  	color: '#FFF'
+  },
+  iconWrap: {
+  	flexDirection: 'row',
+  	justifyContent: 'space-around'
   },
   closeButton: {
   	alignSelf: 'flex-end',
   }
 })
+
+const iconSize = 55
 
 class DailySpecialModal extends Component {
 
@@ -35,8 +53,30 @@ class DailySpecialModal extends Component {
 		super(props)
 
 		this.state = {
-			modalVisible: true
+			modalVisible: false,
+			message: ''
 		}
+	}
+
+	componentDidMount() {
+		AsyncStorage.getItem('@CurrentSpecialMessage').then((messageArray) => {
+
+	    	const messages = JSON.parse(messageArray)
+	    	//this.setState({messageArray: messages})
+
+	    	messages.map((item) => {
+	    		if (item.messHallId === this.props.currentMessHall) {
+	    			if(item.message) {
+	    				this.setState({message: item.message, modalVisible: true})
+	    			}
+	    		}
+	    	})
+
+	    }).done()
+
+		// AsyncStorage.getItem('@CurrentSpecialMessage').then((message) => {
+	 //    	this.setState({message})
+	 //    }).done()
 	}
 
 	setModalVisible(visible) {
@@ -55,14 +95,19 @@ class DailySpecialModal extends Component {
 	          <View style={styles.modalOuter}>
 	          	<View>
 	              <Text style={styles.modalTitle}>Current Specials</Text>
-	              <Text style={styles.specialsText}>{this.props.dailySpecial}</Text>
+	              <View style={styles.iconWrap}>
+	              	<Icon name="food" type="material-community" size={iconSize} color={'#FFF'} />
+	              	<Icon name="silverware-variant" type="material-community" size={iconSize} color={'#FFF'} />
+	              	<Icon name="food-apple" type="material-community" size={iconSize} color={'#FFF'} />
+	              </View>
+	              <Text style={styles.specialsText}>{this.state.message}</Text>
 	            </View>
 	              <TouchableHighlight
 	              	style={styles.closeButton}
 	                onPress={() => {
 	                  this.setModalVisible(!this.state.modalVisible)
 	                }}>
-	                <Icon name="close-circle" type="material-community" size={40} color={variables.brandSecond}/>
+	                <Icon name="close-circle" type="material-community" size={40} color={'#FFF'}/>
 	              </TouchableHighlight>
 	            </View>
 	        </Modal>

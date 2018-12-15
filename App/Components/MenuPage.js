@@ -313,7 +313,6 @@ toggleFavorite(id) {
 }
 
 dailyMealRedux(data) {
-
   console.log(data)
   this.props.setCurrentMeals(data)
 }
@@ -328,8 +327,6 @@ render() {
 
     if (menu.breakfast) {
       var breakfast = menu.breakfast.map((item, item_key) => {
-        console.log('itemzzzzz')
-        console.log(item)
         if (item.id) {
           if (this.state.menuToggle[key].breakfast.details[item_key].visible) {
             var menu_details_item = (<MenuDetails portion={item.portion} cal={item.cal} fat={item.fat} pro={item.pro} carb={item.carb} reference={item.ref}/>)
@@ -716,7 +713,7 @@ return (
         </View>
       </View>
     </ScrollView>
-    <DailySpecialModal dailySpecial="here is some info" />
+    <DailySpecialModal currentMessHall={this.props.currentMenu.id} />
   </View>
   )
 }

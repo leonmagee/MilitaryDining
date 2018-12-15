@@ -28,6 +28,14 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 30,
 		textAlign: 'center',
 	},
+	messHallName: {
+		fontSize: 20,
+		paddingHorizontal: 20,
+		textAlign: 'center',
+		marginBottom: 20,
+		fontWeight: 'bold',
+		color: variables.brandSecond
+	},
 	inputWrap: {
 	    paddingHorizontal: 60,
 	    marginBottom: 40,
@@ -94,7 +102,10 @@ class ManagerLogin extends Component {
 			isLoggedIn: false,
 			correct_email: 'leonmagee33@gmail.com',
 			correct_password: '1111',
+			messHall: 56,
+			messHallName: 'Camp Devil Dog',
 			message: '',
+			messageArray: false,
 		}
 	}
 
@@ -122,8 +133,38 @@ class ManagerLogin extends Component {
 	}
 
 	updateSpecial() {
-		const message = this.state.message
-		console.log('message: ', message)
+		if (this.state.messageArray) {
+			let existingEntry = false
+			this.state.messageArray.map((item) => {
+				if (item.messHallId === this.state.messHall) {
+	    			item.message = this.state.message
+	    			existingEntry = true
+	    		}
+			})
+			if (!existingEntry) {
+				this.state.messageArray.push({
+					messHallId: this.state.messHall,
+					message: this.state.message
+				})
+			}
+			console.log('aaa', this.state.messageArray)
+			const newMessageSave = JSON.stringify(this.state.messageArray)
+
+			AsyncStorage.setItem('@CurrentSpecialMessage', newMessageSave)
+
+		} else {
+			const messageArray = [
+				{
+					messHallId: this.state.messHall,
+					message: this.state.message
+				}
+			]
+			const messageArraySave = JSON.stringify(messageArray)
+			AsyncStorage.setItem('@CurrentSpecialMessage', messageArraySave)
+		}
+
+		//const message = this.state.message
+		//console.log('message: ', message)
 	}
 
 	componentDidMount() {
@@ -139,6 +180,19 @@ class ManagerLogin extends Component {
 		    }).done()
 	      }
 	    }).done()
+
+	    AsyncStorage.getItem('@CurrentSpecialMessage').then((messageArray) => {
+
+	    	const messages = JSON.parse(messageArray)
+	    	this.setState({messageArray: messages})
+
+	    	messages.map((item) => {
+	    		if (item.messHallId === this.state.messHall) {
+	    			this.setState({message: item.message})
+	    		}
+	    	})
+
+	    }).done()
 	}
 
 	render() {
@@ -147,6 +201,8 @@ class ManagerLogin extends Component {
 			var pageContent = 
 			<View style={styles.mainWrap}>
 		  		<Text style={styles.headerText}>Set Message for Current Manager's Special</Text>
+				
+		  		<Text style={styles.messHallName}>Mess Hall: {this.state.messHallName}</Text>
 				<View style={styles.inputWrap}>
 	            	<Text style={styles.inputLabel}>Current Special</Text>
 			  		<TextInput

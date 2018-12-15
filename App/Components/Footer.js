@@ -45,16 +45,16 @@ export default class Footer extends Component {
     return (
 
         <View style={styles.footerWrap}>
-          <TouchableHighlight onPress={() => this.goToHome()}>
+          <TouchableHighlight onPress={() => this.goToHome()} underlayColor="transparent">
             <Icon name="home" type="material-community" size={30} color={'#FFF'}/>
           </TouchableHighlight>
-          <TouchableHighlight onPress={() => this.goToMessHalls()}>
+          <TouchableHighlight onPress={() => this.goToMessHalls()} underlayColor="transparent">
             <Icon name="restaurant" size={30} color={'#FFF'}/>
           </TouchableHighlight>
-          <TouchableHighlight onPress={() => this.goToSettings()}>
+          <TouchableHighlight onPress={() => this.goToSettings()} underlayColor="transparent">
             <Icon name="directions-run" size={30} color={'#FFF'}/>
           </TouchableHighlight>
-          <TouchableHighlight onPress={() => this.openDrawer()}>
+          <TouchableHighlight onPress={() => this.openDrawer()} underlayColor="transparent">
             <Icon name="menu" size={30} color={'#FFF'}/>
           </TouchableHighlight>
         </View>
