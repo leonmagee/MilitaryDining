@@ -123,7 +123,7 @@ class RankStats extends Component {
 			barHeightUser: new Animated.Value(0),
 			barHeightRank: new Animated.Value(0),
 			barHeightAll: new Animated.Value(0),
-			rank: '- - -',
+			rank: '',
 			userPercent: 0.88,
 			rankPercent: 0,
 			allPercent: 0,
@@ -133,7 +133,8 @@ class RankStats extends Component {
   componentDidMount() {
 	
     AsyncStorage.getItem('@UserRank').then((value) => {
-    	if (value) {
+    	//console.log('VVVVVV', value)
+    	if (value && (value != 'N/A')) {
       		const newRank = rank[value - 1].label
         	this.setState({rank: newRank})
 	        api.getRankStatsId(value).then(response => {
@@ -179,6 +180,8 @@ class RankStats extends Component {
 	render() {
 
 		let {barHeightUser, barHeightRank, barHeightAll} = this.state
+
+		let RankName = this.state.rank ? this.state.rank + 's' : ''
 
 		return(
 
@@ -251,7 +254,7 @@ class RankStats extends Component {
 									<Text style={styles.graphFooterText}>Your Data</Text>
 								</View>
 								<View style={styles.graphFooterItem}>
-									<Text style={styles.graphFooterText}>{this.state.rank}s</Text>
+									<Text style={styles.graphFooterText}>{RankName}</Text>
 								</View>
 								<View style={styles.graphFooterItem}>
 									<Text style={styles.graphFooterText}>Soldiers</Text>

@@ -1,21 +1,21 @@
 import React, {Component} from 'react'
+import {connect} from 'react-redux'
 import {
 	View, 
 	Text, 
 	StyleSheet,
 	TextInput,
 	TouchableHighlight,
-	AsyncStorage
+	AsyncStorage,
+	Animated
 } from 'react-native'
 import {variables} from '../Styles/Variables'
 import {defaults} from '../Styles/Defaults'
 import Footer from './Footer'
-
+import api from '../Utils/api'
 
 const styles = StyleSheet.create({
 	mainWrap: {
-		//justifyContent: 'center',
-		//alignItems: 'center',
 		paddingTop: 30,
 		backgroundColor: variables.backgroundWhite,
 		flex: 1,
@@ -76,20 +76,21 @@ const styles = StyleSheet.create({
 	    color: '#FFF',
 	    fontSize: 20
     },
+    badCredsWrap: {
+    	backgroundColor: variables.brandSecond,
+    	padding: 10,
+    	marginHorizontal: 50,
+    	marginVertical: 20,
+    	borderWidth: 1,
+    	borderColor: 'rgba(0,0,0,0.2)'
+    },
+    badCredsText: {
+    	color: '#FFF',
+    	textAlign: 'center',
+		fontFamily: 'BlackOpsOne-Regular',
+		fontSize: 21
+    }
 })
-
-/**
-* I should check to see if there is an authenticated user, and if so, then I
-* can display the form to add specials. So an authenticated user can be linked
-* to one or more mess halls, and then be able to promote specials for that mess
-* hall - so maybe have it be just a 'current special' - which does not denote
-* a date, adn when that mess hall is viewed there will be a modal that pops up
-* listing the special for that mess hall. I don't think we really need to have
-* notifications for this... I should just get this aspect of it done and then
-* I can extend the functionality further. If the user is logged in, and has a
-* user id key, then this can be combined with the unique user device id to send
-* api requests to verify that the user is logged in... 
-*/
 
 class ManagerLogin extends Component {
 
@@ -100,99 +101,163 @@ class ManagerLogin extends Component {
 			email:'',
 			password: '',
 			isLoggedIn: false,
-			correct_email: 'leonmagee33@gmail.com',
-			correct_password: '1111',
-			messHall: 56,
-			messHallName: 'Camp Devil Dog',
+			messHallId: '',
+			messHallName: '',
 			message: '',
-			messageArray: false,
+			//messageArray: false,
+			managerData: false,
+			badCredentialsOpacity: new Animated.Value(0)
 		}
+
+		//AsyncStorage.clear()
 	}
 
-	loginUserInfo(email, password) {
-    	AsyncStorage.setItem('@LoginUserEmail', email)
-    	AsyncStorage.setItem('@LoginUserPassword', password)
+	saveLoginUserInfo(id, name) {
+    	//AsyncStorage.setItem('@LoginUserEmail', email)
+    	//AsyncStorage.setItem('@LoginUserPassword', password)
+    	const mess_hall_id = id.toString()
+    	AsyncStorage.setItem('@LoginUserMessHallId', mess_hall_id)
+    	AsyncStorage.setItem('@LoginUserMessHallName', name)
+  	}
+
+  	credentialsDontMatch() {
+  		    Animated.timing(this.state.badCredentialsOpacity, {
+		      toValue: 1,
+		      duration: 500, // use timing for animation
+		    }).start(() => {
+		      setTimeout(() => {
+		        Animated.timing(this.state.badCredentialsOpacity, {
+		          toValue: 0,
+		          duration: 500, // use timing for animation
+		        }).start()
+		      }, 1300)
+		    })
   	}
 
 	loginManager() {
-		//console.log('email: ', this.state.email, 'password: ', this.state.password)
-		this.loginUserInfo(this.state.email, this.state.password)
-		if ((this.state.email == this.state.correct_email) && (this.state.password == this.state.correct_password)) {
-      		this.setState({isLoggedIn: true})
-      	}
+		
+		if (this.state.managerData) {
+			let loginFailed = true
+			this.state.managerData.map((item) => {
+				if((item.manager_email == this.state.email) && (item.manager_password == this.state.password) ) {
+					
+					loginFailed = false
+					this.saveLoginUserInfo(item.mess_hall, item.mess_hall_name)
+					this.setState({
+						isLoggedIn: true, 
+						messHallId: item.mess_hall, 
+						message: '',
+						messHallName: item.mess_hall_name
+					})
+				if (this.props.restData) {
+					this.props.restData.map((rest_item) => {
+						if(rest_item.id == item.mess_hall) {
+							this.setState({
+								message: rest_item.message
+							})
+						}
+					})
+				}
+				}
+				if (loginFailed) {
+					this.credentialsDontMatch()
+				}
+			})
+		}
 	}
 
 	logOutManager() {
-		AsyncStorage.setItem('@LoginUserEmail', '')
-    	AsyncStorage.setItem('@LoginUserPassword', '')
+    	AsyncStorage.setItem('@LoginUserMessHallId', '')
     	this.setState({
-    		email: '',
-    		password: '',
     		isLoggedIn: false,
     	})
 	}
 
 	updateSpecial() {
-		if (this.state.messageArray) {
-			let existingEntry = false
-			this.state.messageArray.map((item) => {
-				if (item.messHallId === this.state.messHall) {
-	    			item.message = this.state.message
-	    			existingEntry = true
-	    		}
-			})
-			if (!existingEntry) {
-				this.state.messageArray.push({
-					messHallId: this.state.messHall,
-					message: this.state.message
-				})
-			}
-			console.log('aaa', this.state.messageArray)
-			const newMessageSave = JSON.stringify(this.state.messageArray)
 
-			AsyncStorage.setItem('@CurrentSpecialMessage', newMessageSave)
+		api.setMessHallMessage(this.state.messHallId, this.state.message).then((response) => {
+    		console.log(response)
+    	})
 
-		} else {
-			const messageArray = [
-				{
-					messHallId: this.state.messHall,
-					message: this.state.message
-				}
-			]
-			const messageArraySave = JSON.stringify(messageArray)
-			AsyncStorage.setItem('@CurrentSpecialMessage', messageArraySave)
-		}
+		// if (this.state.messageArray) {
+		// 	let existingEntry = false
+		// 	console.log('workingzzzzz', this.state.messageArray)
+		// 	this.state.messageArray.map((item) => {
+		// 		if (item.messHallId === this.state.messHallId) {
+	 //    			item.message = this.state.message
+	 //    			existingEntry = true
+	 //    		}
+		// 	})
+		// 	if (!existingEntry) {
+		// 		this.state.messageArray.push({
+		// 			messHallId: this.state.messHallId,
+		// 			message: this.state.message
+		// 		})
+		// 	}
+		// 	//console.log('aaa', this.state.messageArray)
+		// 	const newMessageSave = JSON.stringify(this.state.messageArray)
 
-		//const message = this.state.message
-		//console.log('message: ', message)
+		// 	AsyncStorage.setItem('@CurrentSpecialMessage', newMessageSave)
+
+		// } else {
+		// 	console.log('mo message array?')
+		// 	const messageArray = [
+		// 		{
+		// 			messHallId: this.state.messHallId,
+		// 			message: this.state.message
+		// 		}
+		// 	]
+		// 	const messageArraySave = JSON.stringify(messageArray)
+		// 	AsyncStorage.setItem('@CurrentSpecialMessage', messageArraySave)
+		// }
+
+
+
 	}
 
 	componentDidMount() {
-		AsyncStorage.getItem('@LoginUserEmail').then((email) => {
-	      if (email) {
-			AsyncStorage.getItem('@LoginUserPassword').then((password) => {
-		      if (password) {
-		      	console.log('set pass', password, 'set email', email)
-		      	if ((email == this.state.correct_email) && (password == this.state.correct_password)) {
-		      		this.setState({isLoggedIn: true})
-		      	}
-		      }
-		    }).done()
-	      }
-	    }).done()
 
-	    AsyncStorage.getItem('@CurrentSpecialMessage').then((messageArray) => {
+        api.getManagers().then(response => {
+			this.setState({
+				managerData: response
+			})
+		}).done()
 
-	    	const messages = JSON.parse(messageArray)
-	    	this.setState({messageArray: messages})
+		AsyncStorage.getItem('@LoginUserMessHallId').then((id) => {
+			if (id) {
+				AsyncStorage.getItem('@LoginUserMessHallName').then((name) => {
+						this.setState({
+							messHallId: id,
+							messHallName: name,
+							isLoggedIn: true,
+						})
+				}).done()
+				if (this.props.restData) {
+					this.props.restData.map((item) => {
+						if(item.id == id) {
+							this.setState({
+								message: item.message
+							})
+						}
+					})
+				}
+			}
+		}).done()
 
-	    	messages.map((item) => {
-	    		if (item.messHallId === this.state.messHall) {
-	    			this.setState({message: item.message})
-	    		}
-	    	})
+	    // AsyncStorage.getItem('@CurrentSpecialMessage').then((messageArray) => {
 
-	    }).done()
+	    // 	if(messageArray) {
+		   //  	const messages = JSON.parse(messageArray)
+		   //  	this.setState({messageArray: messages})
+
+		   //  	messages.map((item) => {
+		   //  		if (item.messHallId === this.state.messHallId) {
+		   //  			this.setState({message: item.message})
+		   //  		}
+		   //  	})
+		   //  }
+
+	    // }).done()
 	}
 
 	render() {
@@ -256,6 +321,9 @@ class ManagerLogin extends Component {
           				onPress={() => this.loginManager()}>
           				<Text style={styles.updateButtonText}>LOG IN</Text>
         			</TouchableHighlight>
+        			<Animated.View style={[styles.badCredsWrap, {opacity: this.state.badCredentialsOpacity}]}>
+        				<Text style={styles.badCredsText}>Wrong Login Info</Text>
+        			</Animated.View>
 				</View>
 		}
 		return(
@@ -271,3 +339,13 @@ class ManagerLogin extends Component {
 }
 
 module.exports = ManagerLogin
+
+mapStateToProps = (state) => ({restData: state.restData})
+
+// mapActionsToProps = (dispatch) => ({
+//   goToMenuPage(data) {
+//     dispatch({type: 'MESS_HALL_MENU', payload: data})
+//    }
+// })
+
+module.exports = connect(mapStateToProps)(ManagerLogin)

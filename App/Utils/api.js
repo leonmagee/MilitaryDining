@@ -1,9 +1,17 @@
 var api_key = '37scOPgDvdP62PmXvMrjVjN'
 
 var api = {
+	getManagers() {
+		const managers_url = 'https://militarydining.wpengine.com/wp-json/md/mess_hall_managers?sdf'
+		return fetch(managers_url, {headers: {'Cache-Control': 'no-cache'}}).then((res) => res.json())
+	},
 	getMenus() {
-		const menus_url = 'https://militarydining.wpengine.com/wp-json/md/menus'
-		return fetch(menus_url, {headers: {'Cache-Control': 'no-cache'}}).then((res) => res.json())
+		const menus_url = 'https://militarydining.wpengine.com/wp-json/md/menus?random_number=' + new Date().getTime()
+		return fetch(menus_url, {headers: {
+			'Cache-Control': 'no-cache, no-store, must-revalidate', 
+			'Pragma': 'no-cache',
+			'Expires': 0
+		}}).then((res) => res.json())
 	},
 	getMenuItems() {
 		const menu_items_url = 'https://militarydining.wpengine.com/wp-json/md/menu_items'
@@ -32,6 +40,15 @@ var api = {
     		method: 'POST',
     		headers: {'Content-Type': 'application/json'},
     		body: JSON.stringify({key: api_key, user_id: user_id, user_rank: rank})
+    	}).then((res) => res.json())
+    },
+   	setMessHallMessage(mess_hall_id, message) {
+		console.log('working here?', mess_hall_id, message)
+    	const message_url = 'https://militarydining.wpengine.com/wp-json/md/set_mess_hall_message'
+    	return fetch(message_url, {
+    		method: 'POST',
+    		headers: {'Content-Type': 'application/json'},
+    		body: JSON.stringify({key: api_key, mess_hall_id: mess_hall_id, message: message})
     	}).then((res) => res.json())
     },
 	getRatings() {
