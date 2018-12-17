@@ -5,7 +5,7 @@ import {
 	StyleSheet, 
 	TouchableHighlight, 
 	Modal,
-	AsyncStorage
+	//AsyncStorage
 } from 'react-native'
 import {variables} from '../Styles/Variables'
 import {Icon} from 'react-native-elements'
@@ -59,24 +59,11 @@ class DailySpecialModal extends Component {
 	}
 
 	componentDidMount() {
-		AsyncStorage.getItem('@CurrentSpecialMessage').then((messageArray) => {
 
-	    	const messages = JSON.parse(messageArray)
-	    	//this.setState({messageArray: messages})
+		if(this.props.message) {
+			this.setState({message: this.props.message, modalVisible: true})
+		}
 
-	    	messages.map((item) => {
-	    		if (item.messHallId === this.props.currentMessHall) {
-	    			if(item.message) {
-	    				this.setState({message: item.message, modalVisible: true})
-	    			}
-	    		}
-	    	})
-
-	    }).done()
-
-		// AsyncStorage.getItem('@CurrentSpecialMessage').then((message) => {
-	 //    	this.setState({message})
-	 //    }).done()
 	}
 
 	setModalVisible(visible) {

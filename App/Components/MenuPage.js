@@ -713,7 +713,7 @@ return (
         </View>
       </View>
     </ScrollView>
-    <DailySpecialModal currentMessHall={this.props.currentMenu.id} />
+    <DailySpecialModal message={this.props.currentMenu.message} currentMessHall={this.props.currentMenu.id} />
   </View>
   )
 }
