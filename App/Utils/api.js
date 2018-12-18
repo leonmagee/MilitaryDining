@@ -2,8 +2,12 @@ var api_key = '37scOPgDvdP62PmXvMrjVjN'
 
 var api = {
 	getManagers() {
-		const managers_url = 'https://militarydining.wpengine.com/wp-json/md/mess_hall_managers?sdf'
+		const managers_url = 'https://militarydining.wpengine.com/wp-json/md/mess_hall_managers'
 		return fetch(managers_url, {headers: {'Cache-Control': 'no-cache'}}).then((res) => res.json())
+	},
+	getHealthVideos() {
+		const health_videos_url = 'https://militarydining.wpengine.com/wp-json/md/health_videos?sldfj'
+		return fetch(health_videos_url, {headers: {'Cache-Control': 'no-cache'}}).then((res) => res.json())
 	},
 	getMenus() {
 		const menus_url = 'https://militarydining.wpengine.com/wp-json/md/menus?random_number=' + new Date().getTime()

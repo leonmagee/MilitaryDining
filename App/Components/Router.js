@@ -11,6 +11,7 @@ import FavoriteFoods from './FavoriteFoods'
 import DailyCalories from './DailyCalories'
 import RankStats from './RankStats'
 import ManagerLogin from './ManagerLogin'
+import HealthVideos from './HealthVideos'
 import {variables} from '../Styles/Variables'
 
 const navigationOptions = ({navigation}) => ({title: `${navigation.state.params.name}`})
@@ -122,6 +123,13 @@ const DrawerNavigator = createDrawerNavigator(
             drawerIcon: ({tintColor}) => <Icon name="account-circle" size={26} color={tintColor}/>
         },
     },
+    HealthVideos: {
+        screen: HealthVideos,
+        navigationOptions: {
+            drawerLabel: 'HEALTH VIDEOS',
+            drawerIcon: ({tintColor}) => <Icon name="youtube" type="entypo" size={26} color={tintColor}/>
+        },
+    },
     Map: {
         screen: MapPage,
         navigationOptions: {
@@ -140,9 +148,11 @@ const DrawerNavigator = createDrawerNavigator(
         activeBackgroundColor: '#FFF',
         inactiveTintColor: '#777',
         iconContainerStyle: {
-        opacity: 0.9
-      }
+            opacity: 0.9,
+            width: 35,
+        }
     }
+
   }
 );
 
