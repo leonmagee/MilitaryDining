@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
 	mainWrap: {
 		// alignItems: 'center',
 		// justifyContent: 'center',
-		backgroundColor: variables.backgroundWhite,
+		backgroundColor: '#000',
 		flex: 1
 	},
 	titleBlock: {
@@ -27,6 +27,14 @@ const styles = StyleSheet.create({
 		color: '#FFF',
 		textAlign: 'center',
 		backgroundColor: variables.brandSecond
+	},
+	youTubeWrap: {
+		backgroundColor: 'tomato'
+	},
+	youTubeStyle: {
+		alignSelf: 'stretch',
+		height: 300,
+		backgroundColor: '#000',
 	}
 	// webViewStyle: {
 	// 	backgroundColor: 'red',
@@ -53,22 +61,20 @@ class HealthVideos extends Component {
 	render() {
 
 		const videosContent = this.state.videos.map((item, key) => {
-			//const video_url = item.youtube_video_id
 			return(
-				<View key={key}>
+				<View key={key} style={styles.youTubeWrap}>
 					<Text style={styles.titleBlock}>{item.video_title}</Text>
 					<YouTube
 					  videoId={item.youtube_video_id}   // The YouTube video ID
 					  play={false}             // control playback of video with true/false
 					  fullscreen={true}       // control whether the video should play in fullscreen or inline
 					  loop={false}             // control whether the video should loop when ended
-					 
 					  onReady={e => this.setState({ isReady: true })}
 					  onChangeState={e => this.setState({ status: e.state })}
 					  onChangeQuality={e => this.setState({ quality: e.quality })}
 					  onError={e => this.setState({ error: e.error })}
 					 
-					  style={{ alignSelf: 'stretch', height: 300 }}
+					  style={{alignSelf: 'stretch',height: 300,backgroundColor: 'black', marginBottom: 50}}
 					/>
 				</View>
 				)
